@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 41279955}
   - component: {fileID: 41279954}
   - component: {fileID: 41279956}
+  - component: {fileID: 41279957}
   m_Layer: 0
   m_Name: InputGlyphs
   m_TagString: Untagged
@@ -155,6 +156,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TextureMaps:
   - {fileID: 11400000, guid: 7afe19eb8c7d9db43a439d601bdd1a3d, type: 2}
+  - {fileID: 11400000, guid: c9f7cc2086caf3e49b02493ae056d021, type: 2}
+  - {fileID: 11400000, guid: 83bdab8bc21dc554ab5a73f03871f1ba, type: 2}
+  - {fileID: 11400000, guid: 3350050439768114eb7e3af69ec090d1, type: 2}
 --- !u!4 &41279955
 Transform:
   m_ObjectHideFlags: 0
@@ -184,6 +188,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TextureMaps:
   - {fileID: 11400000, guid: 43cddba9cec4935419e96ba2ba00cfac, type: 2}
+--- !u!114 &41279957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41279953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eafe8db674e08124088156c44a7e580e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fallbackTextureMap: {fileID: 11400000, guid: 842e8fa628eb6694a986b04be4bba8eb, type: 2}
+  _xboxTextureMap: {fileID: 11400000, guid: 842e8fa628eb6694a986b04be4bba8eb, type: 2}
+  _playstationTextureMap: {fileID: 11400000, guid: d7c9f7c70d93309478d6f14b3888d847, type: 2}
+  _switchProControllerTextureMap: {fileID: 0}
 --- !u!1 &45745778
 GameObject:
   m_ObjectHideFlags: 0
