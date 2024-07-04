@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8434621703953164786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6967772073209164675}
+  - component: {fileID: 843683784354928856}
+  - component: {fileID: 2827406321184447389}
+  - component: {fileID: 7385500171108915817}
+  m_Layer: 0
+  m_Name: InputGlyphsSetup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6967772073209164675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434621703953164786}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &843683784354928856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434621703953164786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4979f08ddda8ab64ea19a326de29cc80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextureMaps:
+  - {fileID: 11400000, guid: 7afe19eb8c7d9db43a439d601bdd1a3d, type: 2}
+  - {fileID: 11400000, guid: c9f7cc2086caf3e49b02493ae056d021, type: 2}
+  - {fileID: 11400000, guid: 83bdab8bc21dc554ab5a73f03871f1ba, type: 2}
+  - {fileID: 11400000, guid: 3350050439768114eb7e3af69ec090d1, type: 2}
+--- !u!114 &2827406321184447389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434621703953164786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123939596157f2840afe6927c621eae5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextureMaps:
+  - {fileID: 11400000, guid: 43cddba9cec4935419e96ba2ba00cfac, type: 2}
+--- !u!114 &7385500171108915817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434621703953164786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eafe8db674e08124088156c44a7e580e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fallbackTextureMap: {fileID: 11400000, guid: 842e8fa628eb6694a986b04be4bba8eb, type: 2}
+  _xboxTextureMap: {fileID: 11400000, guid: 842e8fa628eb6694a986b04be4bba8eb, type: 2}
+  _playstationTextureMap: {fileID: 11400000, guid: d7c9f7c70d93309478d6f14b3888d847, type: 2}
+  _switchProControllerTextureMap: {fileID: 11400000, guid: 0079b4fcdaac170458e63cb2fd86ba97, type: 2}
