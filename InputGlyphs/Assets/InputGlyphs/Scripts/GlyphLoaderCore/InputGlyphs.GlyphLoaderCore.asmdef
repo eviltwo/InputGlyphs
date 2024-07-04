@@ -1,0 +1,18 @@
+{
+    "name": "InputGlyphs.GlyphLoaderCore",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:fc48f7dd8f1155d429d2f9eeb74a4fd4",
+        "GUID:8149eef813b3f0349807ebbba05a55cd"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
