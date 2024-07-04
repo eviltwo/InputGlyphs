@@ -203,7 +203,7 @@ MonoBehaviour:
   _fallbackTextureMap: {fileID: 11400000, guid: 842e8fa628eb6694a986b04be4bba8eb, type: 2}
   _xboxTextureMap: {fileID: 11400000, guid: 842e8fa628eb6694a986b04be4bba8eb, type: 2}
   _playstationTextureMap: {fileID: 11400000, guid: d7c9f7c70d93309478d6f14b3888d847, type: 2}
-  _switchProControllerTextureMap: {fileID: 0}
+  _switchProControllerTextureMap: {fileID: 11400000, guid: 0079b4fcdaac170458e63cb2fd86ba97, type: 2}
 --- !u!1 &45745778
 GameObject:
   m_ObjectHideFlags: 0
