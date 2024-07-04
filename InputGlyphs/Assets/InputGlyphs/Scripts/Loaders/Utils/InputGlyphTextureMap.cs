@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace InputGlyphs.GlyphLoaderCore
+namespace InputGlyphs.Loaders.Utils
 {
     [CreateAssetMenu(fileName = "InputGlyphTextureMap", menuName = "InputGlyphs/InputGlyphTextureMap")]
     public class InputGlyphTextureMap : ScriptableObject

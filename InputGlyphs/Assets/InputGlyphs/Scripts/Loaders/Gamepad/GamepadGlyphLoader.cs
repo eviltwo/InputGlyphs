@@ -1,6 +1,6 @@
 #if ENABLE_INPUT_SYSTEM
 using System.Collections.Generic;
-using InputGlyphs.GlyphLoaderCore;
+using InputGlyphs.Loaders.Utils;
 using InputGlyphs.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.Switch;
 using UnityEngine.InputSystem.XInput;
 
-namespace InputGlyphs.GamepadGlyphs
+namespace InputGlyphs.Loaders
 {
     public class GamepadGlyphLoader : IInputGlyphLoader
     {

@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace InputGlyphs.GlyphLoaderCore
+namespace InputGlyphs.Loaders.Utils
 {
-    public class InputGlyphLoaderInitializer<T> : MonoBehaviour
+    public class DeviceGlyphLoaderInitializer<T> : MonoBehaviour
         where T : InputDevice
     {
         [SerializeField]
@@ -24,7 +24,7 @@ namespace InputGlyphs.GlyphLoaderCore
                 return;
             }
 
-            var loader = new InputGlyphLoader<T>();
+            var loader = new DeviceGlyphLoader<T>();
             loader.TextureMaps.AddRange(TextureMaps);
             InputGlyphManager.RegisterLoader(loader);
         }

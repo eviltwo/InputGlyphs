@@ -4,9 +4,9 @@ using InputGlyphs.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace InputGlyphs.GlyphLoaderCore
+namespace InputGlyphs.Loaders.Utils
 {
-    public class InputGlyphLoader<T> : IInputGlyphLoader
+    public class DeviceGlyphLoader<T> : IInputGlyphLoader
         where T : InputDevice
     {
         public readonly List<InputGlyphTextureMap> TextureMaps = new List<InputGlyphTextureMap>();

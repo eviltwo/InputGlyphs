@@ -1,8 +1,8 @@
 #if ENABLE_INPUT_SYSTEM
-using InputGlyphs.GlyphLoaderCore;
+using InputGlyphs.Loaders.Utils;
 using UnityEngine;
 
-namespace InputGlyphs.GamepadGlyphs
+namespace InputGlyphs.Loaders
 {
     public class GamepadGlyphInitializer : MonoBehaviour
     {

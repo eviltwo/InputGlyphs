@@ -1,17 +1,16 @@
 {
-    "name": "InputGlyphs.GlyphLoaderCore",
+    "name": "InputGlyphs.Loaders.Mouse",
     "rootNamespace": "",
     "references": [
         "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:fc48f7dd8f1155d429d2f9eeb74a4fd4",
-        "GUID:8149eef813b3f0349807ebbba05a55cd"
+        "GUID:d4753dfc093d37d4ba2730954f152368"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": true,
+    "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false
