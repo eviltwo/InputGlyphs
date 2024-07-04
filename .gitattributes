@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Ignore TMPro files for linguist.
+src/SimpleFileSystem/Assets/TextMesh[[:space:]]Pro/** linguist-vendored
