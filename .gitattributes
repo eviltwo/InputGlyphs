@@ -2,4 +2,4 @@
 * text=auto
 
 # Ignore TMPro files for linguist.
-src/SimpleFileSystem/Assets/TextMesh[[:space:]]Pro/** linguist-vendored
+InputGlyphs/Assets/TextMesh[[:space:]]Pro/** linguist-vendored
