@@ -18,6 +18,7 @@ Glyph images are taken from [Xelu's FREE Controller Prompts](https://thoseawesom
 |Sprite icon in text (TMPro)|Supported|
 |uGUI Image|yet|
 |Sprite renderer|yet|
+|Multiple key|yet|
 
 # Required packages
 - InputSystem (Unity)
