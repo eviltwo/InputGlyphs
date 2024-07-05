@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using InputGlyphs.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -152,7 +153,7 @@ namespace InputGlyphs.Display
             for (var i = 0; i < InputActionReferences.Length; i++)
             {
                 var actionReference = InputActionReferences[i];
-                if (TryGetInputPaths(InputActionReferences[i], PlayerInput, _pathBuffer))
+                if (InputLayoutPathUtility.TryGetActionBindingPath(actionReference?.action, PlayerInput.currentControlScheme, _pathBuffer))
                 {
                     Texture2D texture;
                     if (i < _actionTextureBuffer.Count)
@@ -167,7 +168,7 @@ namespace InputGlyphs.Display
                     InputGlyphManager.LoadGlyph(texture, devices, _pathBuffer[0]);
                     if (texture == null)
                     {
-                        Debug.LogError($"Failed to get glyph for input path: {_pathBuffer[0]}");
+                        Debug.LogError($"Failed to get glyph for input path: {_pathBuffer[0]}", this);
                         var white = Texture2D.whiteTexture;
                         texture.Reinitialize(white.width, white.height, white.format, white.mipmapCount > 0);
                         texture.Apply();
@@ -179,24 +180,6 @@ namespace InputGlyphs.Display
             SetGlyphsToSpriteAsset(_actionTextureBuffer, _actionTextureIndexes);
 
             Profiler.EndSample();
-        }
-
-        private static bool TryGetInputPaths(InputActionReference actionReferences, PlayerInput playerInput, List<string> results)
-        {
-            results.Clear();
-            var action = actionReferences?.action;
-            if (action == null)
-            {
-                return false;
-            }
-            // TODO: Get multiple bindings
-            var bindingIndex = action.GetBindingIndex(InputBinding.MaskByGroup(playerInput.currentControlScheme));
-            if (bindingIndex < 0)
-            {
-                return false;
-            }
-            results.Add(action.bindings[bindingIndex].effectivePath);
-            return true;
         }
 
         private void SetGlyphsToSpriteAsset(IReadOnlyList<Texture2D> actionTextures, IReadOnlyList<Tuple<string, int>> actionTextureIndexes)

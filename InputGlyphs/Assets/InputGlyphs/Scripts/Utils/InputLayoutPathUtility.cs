@@ -1,4 +1,5 @@
 #if ENABLE_INPUT_SYSTEM
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine.InputSystem;
 
@@ -37,6 +38,23 @@ namespace InputGlyphs.Utils
                 _stringBuilder.Append(enumerator.Current.name);
             }
             return _stringBuilder.ToString();
+        }
+
+        public static bool TryGetActionBindingPath(InputAction action, string controlScheme, List<string> results)
+        {
+            results.Clear();
+            if (action == null)
+            {
+                return false;
+            }
+            // TODO: Get multiple bindings
+            var bindingIndex = action.GetBindingIndex(InputBinding.MaskByGroup(controlScheme));
+            if (bindingIndex < 0)
+            {
+                return false;
+            }
+            results.Add(action.bindings[bindingIndex].effectivePath);
+            return true;
         }
     }
 }
