@@ -67,8 +67,11 @@ namespace InputGlyphs.Display
         private void OnDestroy()
         {
             Destroy(_packedTexture);
+            _packedTexture = null;
             Destroy(_sharedMaterial);
+            _sharedMaterial = null;
             Destroy(_sharedSpriteAsset);
+            _sharedSpriteAsset = null;
         }
 
         private void Update()
