@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.6.1] - 2024-07-06
+### Added
+- Added glyph display for UI Image.
+
 ## [0.6.0] - 2024-07-05
 ### Changed
 - Change GetGlyph() to LoadGlyph().
