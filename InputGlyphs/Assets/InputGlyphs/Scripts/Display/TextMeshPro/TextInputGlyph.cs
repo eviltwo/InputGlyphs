@@ -30,6 +30,7 @@ namespace InputGlyphs.Display
         private List<string> _pathBuffer = new List<string>();
         private List<Tuple<string, Texture2D>> _actionTextures = new List<Tuple<string, Texture2D>>();
         private List<Texture2D> _copiedTextureBuffer = new List<Texture2D>();
+        private Material _sharedMaterial;
 
         private void Reset()
         {
@@ -42,6 +43,7 @@ namespace InputGlyphs.Display
             {
                 Text = GetComponent<TextMeshProUGUI>();
             }
+            _sharedMaterial = new Material(Material);
         }
 
         private void OnDisable()
@@ -51,6 +53,11 @@ namespace InputGlyphs.Display
                 UnregisterPlayerInputEvents(_lastPlayerInput);
                 _lastPlayerInput = null;
             }
+        }
+
+        private void OnDestroy()
+        {
+            Destroy(_sharedMaterial);
         }
 
         private void Update()
@@ -188,14 +195,13 @@ namespace InputGlyphs.Display
             _copiedTextureBuffer.Clear();
 
             // Setup material
-            var material = new Material(Material);
-            material.SetTexture("_MainTex", texturePack);
+            _sharedMaterial.SetTexture("_MainTex", texturePack);
 
             // Create sprite asset for TextMeshPro
             var spriteAsset = ScriptableObject.CreateInstance<TMP_SpriteAsset>();
             SetSpriteAssetVersion(spriteAsset, "1.1.0"); // Preventing processing for older versions from occurring
             spriteAsset.spriteSheet = texturePack;
-            spriteAsset.material = material;
+            spriteAsset.material = _sharedMaterial;
             spriteAsset.spriteInfoList = new List<TMP_Sprite>();
             for (var i = 0; i < rects.Length; i++)
             {
