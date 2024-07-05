@@ -70,7 +70,7 @@ namespace InputGlyphs.Display
                 _lastScheme = scheme;
             }
 
-            if (!shouldUpdateGlyph)
+            if (!shouldUpdateGlyph || _lastDevices.Count == 0)
             {
                 return;
             }
