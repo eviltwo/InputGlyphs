@@ -5,6 +5,7 @@ using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Profiling;
 using UnityEngine.TextCore;
 
 namespace InputGlyphs.Display
@@ -30,6 +31,9 @@ namespace InputGlyphs.Display
         private List<string> _pathBuffer = new List<string>();
         private List<Tuple<string, Texture2D>> _actionTextures = new List<Tuple<string, Texture2D>>();
         private List<Texture2D> _copiedTextureBuffer = new List<Texture2D>();
+        private Texture2D _packedTexture;
+        private Material _sharedMaterial;
+        private TMP_SpriteAsset _sharedSpriteAsset;
 
         private void Reset()
         {
@@ -42,6 +46,13 @@ namespace InputGlyphs.Display
             {
                 Text = GetComponent<TextMeshProUGUI>();
             }
+            _packedTexture = new Texture2D(2, 2);
+            _sharedMaterial = new Material(Material);
+            _sharedMaterial.SetTexture("_MainTex", _packedTexture);
+            _sharedSpriteAsset = CreateEmptySpriteAsset();
+            _sharedSpriteAsset.material = _sharedMaterial;
+            _sharedSpriteAsset.spriteSheet = _packedTexture;
+            Text.spriteAsset = _sharedSpriteAsset;
         }
 
         private void OnDisable()
@@ -51,6 +62,16 @@ namespace InputGlyphs.Display
                 UnregisterPlayerInputEvents(_lastPlayerInput);
                 _lastPlayerInput = null;
             }
+        }
+
+        private void OnDestroy()
+        {
+            Destroy(_packedTexture);
+            _packedTexture = null;
+            Destroy(_sharedMaterial);
+            _sharedMaterial = null;
+            Destroy(_sharedSpriteAsset);
+            _sharedSpriteAsset = null;
         }
 
         private void Update()
@@ -107,6 +128,8 @@ namespace InputGlyphs.Display
 
         private void UpdateGlyphs(PlayerInput playerInput)
         {
+            Profiler.BeginSample("UpdateGlyphs");
+
             if (!playerInput.isActiveAndEnabled)
             {
                 return;
@@ -135,6 +158,8 @@ namespace InputGlyphs.Display
                 }
             }
             SetGlyphsToSpriteAsset(_actionTextures);
+
+            Profiler.EndSample();
         }
 
         private static bool TryGetInputPaths(InputActionReference actionReferences, PlayerInput playerInput, List<string> results)
@@ -157,6 +182,8 @@ namespace InputGlyphs.Display
 
         private void SetGlyphsToSpriteAsset(IReadOnlyList<Tuple<string, Texture2D>> actionTextures)
         {
+            Profiler.BeginSample("SetGlyphsToSpriteAsset");
+
             // Copy to readable textures
             var targetTextures = new Texture2D[actionTextures.Count];
             _copiedTextureBuffer.Clear();
@@ -177,8 +204,7 @@ namespace InputGlyphs.Display
             }
 
             // Pack textures
-            var texturePack = new Texture2D(PackedTextureSize, PackedTextureSize);
-            var rects = texturePack.PackTextures(targetTextures, 0, 2048, false);
+            var rects = _packedTexture.PackTextures(targetTextures, 0, 2048, false);
 
             // Destroy copied readable textures
             for (var i = 0; i < _copiedTextureBuffer.Count; i++)
@@ -187,42 +213,43 @@ namespace InputGlyphs.Display
             }
             _copiedTextureBuffer.Clear();
 
-            // Setup material
-            var material = new Material(Material);
-            material.SetTexture("_MainTex", texturePack);
-
             // Create sprite asset for TextMeshPro
-            var spriteAsset = ScriptableObject.CreateInstance<TMP_SpriteAsset>();
-            SetSpriteAssetVersion(spriteAsset, "1.1.0"); // Preventing processing for older versions from occurring
-            spriteAsset.spriteSheet = texturePack;
-            spriteAsset.material = material;
-            spriteAsset.spriteInfoList = new List<TMP_Sprite>();
+            _sharedSpriteAsset.spriteGlyphTable.Clear();
+            _sharedSpriteAsset.spriteCharacterTable.Clear();
             for (var i = 0; i < rects.Length; i++)
             {
                 var rect = rects[i];
 
                 // Create glyph
                 var glyphMetrics = new GlyphMetrics(
-                    texturePack.width * rect.width,
-                    texturePack.height * rect.height,
+                    _packedTexture.width * rect.width,
+                    _packedTexture.height * rect.height,
                     0,
-                    texturePack.height * rect.height * 0.8f,
-                    texturePack.width * rect.width);
+                    _packedTexture.height * rect.height * 0.8f,
+                    _packedTexture.width * rect.width);
                 var glyphRect = new GlyphRect(
-                    Mathf.FloorToInt(texturePack.width * rect.xMin),
-                    Mathf.FloorToInt(texturePack.height * rect.yMin),
-                    Mathf.FloorToInt(texturePack.width * rect.width),
-                    Mathf.FloorToInt(texturePack.height * rect.height));
+                    Mathf.FloorToInt(_packedTexture.width * rect.xMin),
+                    Mathf.FloorToInt(_packedTexture.height * rect.yMin),
+                    Mathf.FloorToInt(_packedTexture.width * rect.width),
+                    Mathf.FloorToInt(_packedTexture.height * rect.height));
                 var spriteGlyph = new TMP_SpriteGlyph((uint)i, glyphMetrics, glyphRect, 1, i);
-                spriteAsset.spriteGlyphTable.Add(spriteGlyph);
+                _sharedSpriteAsset.spriteGlyphTable.Add(spriteGlyph);
 
                 // Create character
                 var glyphCharacter = new TMP_SpriteCharacter(0, spriteGlyph);
                 glyphCharacter.name = $"input_{actionTextures[i].Item1}";
-                spriteAsset.spriteCharacterTable.Add(glyphCharacter);
+                _sharedSpriteAsset.spriteCharacterTable.Add(glyphCharacter);
             }
-            spriteAsset.UpdateLookupTables();
-            Text.spriteAsset = spriteAsset;
+            _sharedSpriteAsset.UpdateLookupTables();
+
+            Profiler.EndSample();
+        }
+
+        private static TMP_SpriteAsset CreateEmptySpriteAsset()
+        {
+            var spriteAsset = ScriptableObject.CreateInstance<TMP_SpriteAsset>();
+            SetSpriteAssetVersion(spriteAsset, "1.1.0"); // Preventing processing for older versions from occurring
+            return spriteAsset;
         }
 
         private static void SetSpriteAssetVersion(TMP_SpriteAsset spriteAsset, string version)
