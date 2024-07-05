@@ -11,7 +11,7 @@ namespace InputGlyphs.Loaders
     {
         public ESteamInputGlyphSize GlyphSize = ESteamInputGlyphSize.k_ESteamInputGlyphSize_Small;
 
-        public Texture2D GetGlyph(IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath)
+        public bool LoadGlyph(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath)
         {
             InputDevice supportedDevice = null;
             for (var i = 0; i < activeDevices.Count; i++)
@@ -25,10 +25,10 @@ namespace InputGlyphs.Loaders
             }
             if (supportedDevice == null)
             {
-                return null;
+                return false;
             }
 
-            return SteamInputGlyphLoader.LoadGlyph(supportedDevice, inputLayoutPath, GlyphSize);
+            return SteamInputGlyphLoader.LoadGlyph(texture, supportedDevice, inputLayoutPath, GlyphSize);
         }
     }
 }
