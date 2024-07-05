@@ -5,6 +5,7 @@ using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Profiling;
 using UnityEngine.TextCore;
 
 namespace InputGlyphs.Display
@@ -117,6 +118,8 @@ namespace InputGlyphs.Display
 
         private void UpdateGlyphs(PlayerInput playerInput)
         {
+            Profiler.BeginSample("UpdateGlyphs");
+
             if (!playerInput.isActiveAndEnabled)
             {
                 return;
@@ -145,6 +148,8 @@ namespace InputGlyphs.Display
                 }
             }
             SetGlyphsToSpriteAsset(_actionTextures);
+
+            Profiler.EndSample();
         }
 
         private static bool TryGetInputPaths(InputActionReference actionReferences, PlayerInput playerInput, List<string> results)
@@ -167,6 +172,8 @@ namespace InputGlyphs.Display
 
         private void SetGlyphsToSpriteAsset(IReadOnlyList<Tuple<string, Texture2D>> actionTextures)
         {
+            Profiler.BeginSample("SetGlyphsToSpriteAsset");
+
             // Copy to readable textures
             var targetTextures = new Texture2D[actionTextures.Count];
             _copiedTextureBuffer.Clear();
@@ -231,6 +238,8 @@ namespace InputGlyphs.Display
             }
             spriteAsset.UpdateLookupTables();
             Text.spriteAsset = spriteAsset;
+
+            Profiler.EndSample();
         }
 
         private static void SetSpriteAssetVersion(TMP_SpriteAsset spriteAsset, string version)
