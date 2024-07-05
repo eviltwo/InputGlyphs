@@ -1,7 +1,6 @@
 #if ENABLE_INPUT_SYSTEM && SUPPORT_TMPRO
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
@@ -27,8 +26,7 @@ namespace InputGlyphs.Display
         [SerializeField]
         public InputActionReference[] InputActionReferences = null;
 
-        private List<string> _lastDevices = new List<string>();
-        private string _lastScheme;
+        private PlayerInput _lastPlayerInput;
         private List<string> _pathBuffer = new List<string>();
         private List<Tuple<string, Texture2D>> _actionTextures = new List<Tuple<string, Texture2D>>();
         private List<Texture2D> _copiedTextureBuffer = new List<Texture2D>();
@@ -46,32 +44,78 @@ namespace InputGlyphs.Display
             }
         }
 
+        private void OnDisable()
+        {
+            if (_lastPlayerInput != null)
+            {
+                UnregisterPlayerInputEvents(_lastPlayerInput);
+                _lastPlayerInput = null;
+            }
+        }
+
         private void Update()
         {
-            if (PlayerInput == null)
+            if (PlayerInput != _lastPlayerInput)
             {
-                Debug.LogError("PlayerInput is not set.");
+                if (_lastPlayerInput != null)
+                {
+                    UnregisterPlayerInputEvents(_lastPlayerInput);
+                }
+                if (PlayerInput == null)
+                {
+                    Debug.LogError("PlayerInput is not set.", this);
+                }
+                else
+                {
+                    RegisterPlayerInputEvents(PlayerInput);
+                    UpdateGlyphs(PlayerInput);
+                }
+                _lastPlayerInput = PlayerInput;
+            }
+        }
+
+        private void RegisterPlayerInputEvents(PlayerInput playerInput)
+        {
+            switch (playerInput.notificationBehavior)
+            {
+                case PlayerNotifications.InvokeUnityEvents:
+                    playerInput.controlsChangedEvent.AddListener(OnControlsChanged);
+                    break;
+                case PlayerNotifications.InvokeCSharpEvents:
+                    playerInput.onControlsChanged += OnControlsChanged;
+                    break;
+            }
+        }
+
+        private void UnregisterPlayerInputEvents(PlayerInput playerInput)
+        {
+            switch (playerInput.notificationBehavior)
+            {
+                case PlayerNotifications.InvokeUnityEvents:
+                    playerInput.controlsChangedEvent.RemoveListener(OnControlsChanged);
+                    break;
+                case PlayerNotifications.InvokeCSharpEvents:
+                    playerInput.onControlsChanged -= OnControlsChanged;
+                    break;
+            }
+        }
+
+        private void OnControlsChanged(PlayerInput playerInput)
+        {
+            UpdateGlyphs(playerInput);
+        }
+
+        private void UpdateGlyphs(PlayerInput playerInput)
+        {
+            if (!playerInput.isActiveAndEnabled)
+            {
                 return;
             }
 
-            var shouldUpdateGlyph = false;
-            var devices = PlayerInput.devices;
-            if (!IsSameDevices(devices, _lastDevices))
+            var devices = playerInput.devices;
+            if (devices.Count == 0)
             {
-                shouldUpdateGlyph = true;
-                _lastDevices.Clear();
-                _lastDevices.AddRange(devices.Select(device => device.name));
-            }
-
-            var scheme = PlayerInput.currentControlScheme;
-            if (scheme != _lastScheme)
-            {
-                shouldUpdateGlyph = true;
-                _lastScheme = scheme;
-            }
-
-            if (!shouldUpdateGlyph || _lastDevices.Count == 0)
-            {
+                Debug.LogWarning("No devices are connected.", this);
                 return;
             }
 
@@ -91,24 +135,6 @@ namespace InputGlyphs.Display
                 }
             }
             SetGlyphsToSpriteAsset(_actionTextures);
-        }
-
-        private static bool IsSameDevices(IReadOnlyList<InputDevice> devices, IReadOnlyList<string> deviceNames)
-        {
-            if (devices.Count != deviceNames.Count)
-            {
-                return false;
-            }
-
-            for (var i = 0; i < devices.Count; i++)
-            {
-                if (!deviceNames.Contains(devices[i].name))
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
 
         private static bool TryGetInputPaths(InputActionReference actionReferences, PlayerInput playerInput, List<string> results)
@@ -131,6 +157,7 @@ namespace InputGlyphs.Display
 
         private void SetGlyphsToSpriteAsset(IReadOnlyList<Tuple<string, Texture2D>> actionTextures)
         {
+            // Copy to readable textures
             var targetTextures = new Texture2D[actionTextures.Count];
             _copiedTextureBuffer.Clear();
             for (var i = 0; i < actionTextures.Count; i++)
@@ -149,20 +176,24 @@ namespace InputGlyphs.Display
                 }
             }
 
+            // Pack textures
             var texturePack = new Texture2D(PackedTextureSize, PackedTextureSize);
             var rects = texturePack.PackTextures(targetTextures, 0, 2048, false);
 
+            // Destroy copied readable textures
             for (var i = 0; i < _copiedTextureBuffer.Count; i++)
             {
                 Destroy(_copiedTextureBuffer[i]);
             }
             _copiedTextureBuffer.Clear();
 
+            // Setup material
             var material = new Material(Material);
             material.SetTexture("_MainTex", texturePack);
 
+            // Create sprite asset for TextMeshPro
             var spriteAsset = ScriptableObject.CreateInstance<TMP_SpriteAsset>();
-            SetSpriteAssetVersion(spriteAsset, "1.1.0");
+            SetSpriteAssetVersion(spriteAsset, "1.1.0"); // Preventing processing for older versions from occurring
             spriteAsset.spriteSheet = texturePack;
             spriteAsset.material = material;
             spriteAsset.spriteInfoList = new List<TMP_Sprite>();
