@@ -1,5 +1,26 @@
 {
   "dependencies": {
+    "com.eviltwo.unity-steam-input-adapter": {
+      "version": "https://github.com/eviltwo/UnitySteamInputAdapter.git?path=UnitySteamInputAdapter/Assets/UnitySteamInputAdapter",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "6d5522dc32a741fb338f385bb8a8779d0b837526"
+    },
+    "com.eviltwo.unity-steam-input-glyph-loader": {
+      "version": "https://github.com/eviltwo/UnitySteamInputGlyphLoader.git?path=UnitySteamInputGlyphLoader/Assets/UnitySteamInputGlyphLoader",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "65d507d21560efa8cecaa91e39b2e3bce22b99bd"
+    },
+    "com.rlabrecque.steamworks.net": {
+      "version": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "78cdcd24236765c71223e29ba2f4c2e8ca2c68d9"
+    },
     "com.unity.collab-proxy": {
       "version": "2.4.3",
       "depth": 0,
