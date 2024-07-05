@@ -28,11 +28,7 @@ namespace InputGlyphs.Loaders
                 return false;
             }
 
-            var result = SteamInputGlyphLoader.LoadGlyph(supportedDevice, inputLayoutPath, GlyphSize);
-            texture.Reinitialize(result.width, result.height, result.format, result.mipmapCount > 0);
-            texture.Apply();
-            Graphics.CopyTexture(result, texture);
-            return true;
+            return SteamInputGlyphLoader.LoadGlyph(texture, supportedDevice, inputLayoutPath, GlyphSize);
         }
     }
 }

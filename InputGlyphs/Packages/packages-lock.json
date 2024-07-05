@@ -12,7 +12,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "65d507d21560efa8cecaa91e39b2e3bce22b99bd"
+      "hash": "93a2f359075827dba7a563604f0e42fcc56fad41"
     },
     "com.rlabrecque.steamworks.net": {
       "version": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net",
