@@ -30,6 +30,7 @@ namespace InputGlyphs.Display
         private List<string> _pathBuffer = new List<string>();
         private List<Tuple<string, Texture2D>> _actionTextures = new List<Tuple<string, Texture2D>>();
         private List<Texture2D> _copiedTextureBuffer = new List<Texture2D>();
+        private Texture2D _packedTexture;
         private Material _sharedMaterial;
 
         private void Reset()
@@ -43,6 +44,7 @@ namespace InputGlyphs.Display
             {
                 Text = GetComponent<TextMeshProUGUI>();
             }
+            _packedTexture = new Texture2D(2, 2);
             _sharedMaterial = new Material(Material);
         }
 
@@ -57,6 +59,7 @@ namespace InputGlyphs.Display
 
         private void OnDestroy()
         {
+            Destroy(_packedTexture);
             Destroy(_sharedMaterial);
         }
 
@@ -184,8 +187,7 @@ namespace InputGlyphs.Display
             }
 
             // Pack textures
-            var texturePack = new Texture2D(PackedTextureSize, PackedTextureSize);
-            var rects = texturePack.PackTextures(targetTextures, 0, 2048, false);
+            var rects = _packedTexture.PackTextures(targetTextures, 0, 2048, false);
 
             // Destroy copied readable textures
             for (var i = 0; i < _copiedTextureBuffer.Count; i++)
@@ -195,12 +197,12 @@ namespace InputGlyphs.Display
             _copiedTextureBuffer.Clear();
 
             // Setup material
-            _sharedMaterial.SetTexture("_MainTex", texturePack);
+            _sharedMaterial.SetTexture("_MainTex", _packedTexture);
 
             // Create sprite asset for TextMeshPro
             var spriteAsset = ScriptableObject.CreateInstance<TMP_SpriteAsset>();
             SetSpriteAssetVersion(spriteAsset, "1.1.0"); // Preventing processing for older versions from occurring
-            spriteAsset.spriteSheet = texturePack;
+            spriteAsset.spriteSheet = _packedTexture;
             spriteAsset.material = _sharedMaterial;
             spriteAsset.spriteInfoList = new List<TMP_Sprite>();
             for (var i = 0; i < rects.Length; i++)
@@ -209,16 +211,16 @@ namespace InputGlyphs.Display
 
                 // Create glyph
                 var glyphMetrics = new GlyphMetrics(
-                    texturePack.width * rect.width,
-                    texturePack.height * rect.height,
+                    _packedTexture.width * rect.width,
+                    _packedTexture.height * rect.height,
                     0,
-                    texturePack.height * rect.height * 0.8f,
-                    texturePack.width * rect.width);
+                    _packedTexture.height * rect.height * 0.8f,
+                    _packedTexture.width * rect.width);
                 var glyphRect = new GlyphRect(
-                    Mathf.FloorToInt(texturePack.width * rect.xMin),
-                    Mathf.FloorToInt(texturePack.height * rect.yMin),
-                    Mathf.FloorToInt(texturePack.width * rect.width),
-                    Mathf.FloorToInt(texturePack.height * rect.height));
+                    Mathf.FloorToInt(_packedTexture.width * rect.xMin),
+                    Mathf.FloorToInt(_packedTexture.height * rect.yMin),
+                    Mathf.FloorToInt(_packedTexture.width * rect.width),
+                    Mathf.FloorToInt(_packedTexture.height * rect.height));
                 var spriteGlyph = new TMP_SpriteGlyph((uint)i, glyphMetrics, glyphRect, 1, i);
                 spriteAsset.spriteGlyphTable.Add(spriteGlyph);
 
