@@ -25,17 +25,23 @@ namespace InputGlyphs
             }
         }
 
-        public static Texture2D GetGlyph(IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath)
+        /// <summary>
+        /// Load glyphs for the given device and layout path and writes it to texture.
+        /// </summary>
+        /// <param name="texture">Texture onto which glyphs are written.</param>
+        /// <param name="activeDevices">Active devices</param>
+        /// <param name="inputLayoutPath">example: &lt;gamepad&gt;/dpad/left</param>
+        /// <returns>Return true if the load was success.</returns>
+        public static bool LoadGlyph(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath)
         {
             for (var i = 0; i < _loaders.Count; i++)
             {
-                var texture = _loaders[i].GetGlyph(activeDevices, inputLayoutPath);
-                if (texture != null)
+                if (_loaders[i].LoadGlyph(texture, activeDevices, inputLayoutPath))
                 {
-                    return texture;
+                    return true;
                 }
             }
-            return null;
+            return false;
         }
     }
 }

@@ -29,7 +29,8 @@ namespace InputGlyphs.Display
 
         private PlayerInput _lastPlayerInput;
         private List<string> _pathBuffer = new List<string>();
-        private List<Tuple<string, Texture2D>> _actionTextures = new List<Tuple<string, Texture2D>>();
+        private List<Texture2D> _actionTextureBuffer = new List<Texture2D>();
+        private List<Tuple<string, int>> _actionTextureIndexes = new List<Tuple<string, int>>();
         private List<Texture2D> _copiedTextureBuffer = new List<Texture2D>();
         private Texture2D _packedTexture;
         private Material _sharedMaterial;
@@ -66,6 +67,11 @@ namespace InputGlyphs.Display
 
         private void OnDestroy()
         {
+            for (var i = 0; i < _actionTextureBuffer.Count; i++)
+            {
+                Destroy(_actionTextureBuffer[i]);
+            }
+            _actionTextureBuffer.Clear();
             Destroy(_packedTexture);
             _packedTexture = null;
             Destroy(_sharedMaterial);
@@ -142,22 +148,35 @@ namespace InputGlyphs.Display
                 return;
             }
 
-            _actionTextures.Clear();
+            _actionTextureIndexes.Clear();
             for (var i = 0; i < InputActionReferences.Length; i++)
             {
                 var actionReference = InputActionReferences[i];
                 if (TryGetInputPaths(InputActionReferences[i], PlayerInput, _pathBuffer))
                 {
-                    var texture = InputGlyphManager.GetGlyph(devices, _pathBuffer[0]);
+                    Texture2D texture;
+                    if (i < _actionTextureBuffer.Count)
+                    {
+                        texture = _actionTextureBuffer[i];
+                    }
+                    else
+                    {
+                        texture = new Texture2D(2, 2);
+                        _actionTextureBuffer.Add(texture);
+                    }
+                    InputGlyphManager.LoadGlyph(texture, devices, _pathBuffer[0]);
                     if (texture == null)
                     {
                         Debug.LogError($"Failed to get glyph for input path: {_pathBuffer[0]}");
-                        texture = Texture2D.whiteTexture;
+                        var white = Texture2D.whiteTexture;
+                        texture.Reinitialize(white.width, white.height, white.format, white.mipmapCount > 0);
+                        texture.Apply();
+                        Graphics.CopyTexture(white, texture);
                     }
-                    _actionTextures.Add(Tuple.Create(actionReference.action.name, texture));
+                    _actionTextureIndexes.Add(Tuple.Create(actionReference.action.name, i));
                 }
             }
-            SetGlyphsToSpriteAsset(_actionTextures);
+            SetGlyphsToSpriteAsset(_actionTextureBuffer, _actionTextureIndexes);
 
             Profiler.EndSample();
         }
@@ -180,7 +199,7 @@ namespace InputGlyphs.Display
             return true;
         }
 
-        private void SetGlyphsToSpriteAsset(IReadOnlyList<Tuple<string, Texture2D>> actionTextures)
+        private void SetGlyphsToSpriteAsset(IReadOnlyList<Texture2D> actionTextures, IReadOnlyList<Tuple<string, int>> actionTextureIndexes)
         {
             Profiler.BeginSample("SetGlyphsToSpriteAsset");
 
@@ -189,7 +208,7 @@ namespace InputGlyphs.Display
             _copiedTextureBuffer.Clear();
             for (var i = 0; i < actionTextures.Count; i++)
             {
-                var sourceTexture = actionTextures[i].Item2;
+                var sourceTexture = actionTextures[i];
                 if (sourceTexture.isReadable)
                 {
                     targetTextures[i] = sourceTexture;
@@ -216,9 +235,10 @@ namespace InputGlyphs.Display
             // Create sprite asset for TextMeshPro
             _sharedSpriteAsset.spriteGlyphTable.Clear();
             _sharedSpriteAsset.spriteCharacterTable.Clear();
-            for (var i = 0; i < rects.Length; i++)
+            for (var i = 0; i < actionTextureIndexes.Count; i++)
             {
-                var rect = rects[i];
+                var actionTextureIndex = actionTextureIndexes[i];
+                var rect = rects[actionTextureIndex.Item2];
 
                 // Create glyph
                 var glyphMetrics = new GlyphMetrics(
@@ -237,7 +257,7 @@ namespace InputGlyphs.Display
 
                 // Create character
                 var glyphCharacter = new TMP_SpriteCharacter(0, spriteGlyph);
-                glyphCharacter.name = $"input_{actionTextures[i].Item1}";
+                glyphCharacter.name = $"input_{actionTextureIndex.Item1}";
                 _sharedSpriteAsset.spriteCharacterTable.Add(glyphCharacter);
             }
             _sharedSpriteAsset.UpdateLookupTables();
