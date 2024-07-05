@@ -7,7 +7,7 @@ namespace InputGlyphs
 {
     public interface IInputGlyphLoader
     {
-        Texture2D GetGlyph(IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath);
+        bool LoadGlyph(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath);
     }
 }
 #endif

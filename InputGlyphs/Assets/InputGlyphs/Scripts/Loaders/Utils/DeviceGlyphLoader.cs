@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using InputGlyphs.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Profiling;
 
 namespace InputGlyphs.Loaders.Utils
 {
@@ -11,7 +12,7 @@ namespace InputGlyphs.Loaders.Utils
     {
         public readonly List<InputGlyphTextureMap> TextureMaps = new List<InputGlyphTextureMap>();
 
-        public Texture2D GetGlyph(IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath)
+        public bool LoadGlyph(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath)
         {
             var isActiveDevice = false;
             for (var i = 0; i < activeDevices.Count; i++)
@@ -24,19 +25,26 @@ namespace InputGlyphs.Loaders.Utils
             }
             if (!isActiveDevice)
             {
-                return null;
+                return false;
             }
 
             var localPath = InputLayoutPathUtility.GetLocalPath(inputLayoutPath);
             for (var i = 0; i < TextureMaps.Count; i++)
             {
-                if (TextureMaps[i].TryGetTexture(localPath, out var texture))
+                if (TextureMaps[i].TryGetTexture(localPath, out var result))
                 {
-                    return texture;
+                    Profiler.BeginSample("DeviceGlyphLoader.ResizeTexture");
+                    texture.Reinitialize(result.width, result.height, result.format, result.mipmapCount > 0);
+                    texture.Apply();
+                    Profiler.EndSample();
+                    Profiler.BeginSample("DeviceGlyphLoader.CopyTexture");
+                    Graphics.CopyTexture(result, texture);
+                    Profiler.EndSample();
+                    return true;
                 }
             }
 
-            return null;
+            return false;
         }
     }
 }

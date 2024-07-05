@@ -29,7 +29,7 @@ namespace InputGlyphs.Loaders
             _switchProControllerTextureMap = switchProControllerTextureMap;
         }
 
-        public Texture2D GetGlyph(IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath)
+        public bool LoadGlyph(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath)
         {
             InputGlyphTextureMap activeTextureMap = null;
             for (var i = 0; i < activeDevices.Count; i++)
@@ -47,16 +47,19 @@ namespace InputGlyphs.Loaders
             }
             if (activeTextureMap == null)
             {
-                return null;
+                return false;
             }
 
             var localPath = InputLayoutPathUtility.GetLocalPath(inputLayoutPath);
-            if (activeTextureMap.TryGetTexture(localPath, out var texture))
+            if (activeTextureMap.TryGetTexture(localPath, out var result))
             {
-                return texture;
+                texture.Reinitialize(result.width, result.height, result.format, result.mipmapCount > 0);
+                texture.Apply();
+                Graphics.CopyTexture(result, texture);
+                return true;
             }
 
-            return null;
+            return false;
         }
 
         private InputGlyphTextureMap GetTextureMap(InputDevice device)
