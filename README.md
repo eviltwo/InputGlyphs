@@ -20,7 +20,7 @@ Glyph images are taken from [Xelu's FREE Controller Prompts](https://thoseawesom
 |Sprite renderer|not yet|
 |Multiple key|not yet|
 |||
-|Samples|not yet|
+|Samples|making|
 |Useage document|not yet|
 
 # Required packages
