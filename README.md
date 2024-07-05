@@ -16,9 +16,12 @@ Glyph images are taken from [Xelu's FREE Controller Prompts](https://thoseawesom
 |Steam input glyph API|Supported|
 |||
 |Sprite icon in text (TMPro)|Supported|
-|uGUI Image|yet|
-|Sprite renderer|yet|
-|Multiple key|yet|
+|uGUI Image|not yet|
+|Sprite renderer|not yet|
+|Multiple key|not yet|
+|||
+|Samples|not yet|
+|Useage document|not yet|
 
 # Required packages
 - InputSystem (Unity)
