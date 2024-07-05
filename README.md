@@ -13,7 +13,7 @@ Glyph images are taken from [Xelu's FREE Controller Prompts](https://thoseawesom
 |Xbox controller|Supported|
 |PS controller|Supported|
 |Switch pro controller|Supported|
-|Steam input glyph API|yet|
+|Steam input glyph API|Supported|
 |||
 |Sprite icon in text (TMPro)|Supported|
 |uGUI Image|yet|
