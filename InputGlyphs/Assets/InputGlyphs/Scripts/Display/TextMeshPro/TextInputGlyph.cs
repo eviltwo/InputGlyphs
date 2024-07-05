@@ -1,11 +1,11 @@
 #if ENABLE_INPUT_SYSTEM && SUPPORT_TMPRO
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Profiling;
 using UnityEngine.TextCore;
 
 namespace InputGlyphs.Display
@@ -27,11 +27,13 @@ namespace InputGlyphs.Display
         [SerializeField]
         public InputActionReference[] InputActionReferences = null;
 
-        private List<string> _lastDevices = new List<string>();
-        private string _lastScheme;
+        private PlayerInput _lastPlayerInput;
         private List<string> _pathBuffer = new List<string>();
         private List<Tuple<string, Texture2D>> _actionTextures = new List<Tuple<string, Texture2D>>();
         private List<Texture2D> _copiedTextureBuffer = new List<Texture2D>();
+        private Texture2D _packedTexture;
+        private Material _sharedMaterial;
+        private TMP_SpriteAsset _sharedSpriteAsset;
 
         private void Reset()
         {
@@ -44,34 +46,99 @@ namespace InputGlyphs.Display
             {
                 Text = GetComponent<TextMeshProUGUI>();
             }
+            _packedTexture = new Texture2D(2, 2);
+            _sharedMaterial = new Material(Material);
+            _sharedMaterial.SetTexture("_MainTex", _packedTexture);
+            _sharedSpriteAsset = CreateEmptySpriteAsset();
+            _sharedSpriteAsset.material = _sharedMaterial;
+            _sharedSpriteAsset.spriteSheet = _packedTexture;
+            Text.spriteAsset = _sharedSpriteAsset;
+        }
+
+        private void OnDisable()
+        {
+            if (_lastPlayerInput != null)
+            {
+                UnregisterPlayerInputEvents(_lastPlayerInput);
+                _lastPlayerInput = null;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            Destroy(_packedTexture);
+            _packedTexture = null;
+            Destroy(_sharedMaterial);
+            _sharedMaterial = null;
+            Destroy(_sharedSpriteAsset);
+            _sharedSpriteAsset = null;
         }
 
         private void Update()
         {
-            if (PlayerInput == null)
+            if (PlayerInput != _lastPlayerInput)
             {
-                Debug.LogError("PlayerInput is not set.");
+                if (_lastPlayerInput != null)
+                {
+                    UnregisterPlayerInputEvents(_lastPlayerInput);
+                }
+                if (PlayerInput == null)
+                {
+                    Debug.LogError("PlayerInput is not set.", this);
+                }
+                else
+                {
+                    RegisterPlayerInputEvents(PlayerInput);
+                    UpdateGlyphs(PlayerInput);
+                }
+                _lastPlayerInput = PlayerInput;
+            }
+        }
+
+        private void RegisterPlayerInputEvents(PlayerInput playerInput)
+        {
+            switch (playerInput.notificationBehavior)
+            {
+                case PlayerNotifications.InvokeUnityEvents:
+                    playerInput.controlsChangedEvent.AddListener(OnControlsChanged);
+                    break;
+                case PlayerNotifications.InvokeCSharpEvents:
+                    playerInput.onControlsChanged += OnControlsChanged;
+                    break;
+            }
+        }
+
+        private void UnregisterPlayerInputEvents(PlayerInput playerInput)
+        {
+            switch (playerInput.notificationBehavior)
+            {
+                case PlayerNotifications.InvokeUnityEvents:
+                    playerInput.controlsChangedEvent.RemoveListener(OnControlsChanged);
+                    break;
+                case PlayerNotifications.InvokeCSharpEvents:
+                    playerInput.onControlsChanged -= OnControlsChanged;
+                    break;
+            }
+        }
+
+        private void OnControlsChanged(PlayerInput playerInput)
+        {
+            UpdateGlyphs(playerInput);
+        }
+
+        private void UpdateGlyphs(PlayerInput playerInput)
+        {
+            Profiler.BeginSample("UpdateGlyphs");
+
+            if (!playerInput.isActiveAndEnabled)
+            {
                 return;
             }
 
-            var shouldUpdateGlyph = false;
-            var devices = PlayerInput.devices;
-            if (!IsSameDevices(devices, _lastDevices))
+            var devices = playerInput.devices;
+            if (devices.Count == 0)
             {
-                shouldUpdateGlyph = true;
-                _lastDevices.Clear();
-                _lastDevices.AddRange(devices.Select(device => device.name));
-            }
-
-            var scheme = PlayerInput.currentControlScheme;
-            if (scheme != _lastScheme)
-            {
-                shouldUpdateGlyph = true;
-                _lastScheme = scheme;
-            }
-
-            if (!shouldUpdateGlyph)
-            {
+                Debug.LogWarning("No devices are connected.", this);
                 return;
             }
 
@@ -91,24 +158,8 @@ namespace InputGlyphs.Display
                 }
             }
             SetGlyphsToSpriteAsset(_actionTextures);
-        }
 
-        private static bool IsSameDevices(IReadOnlyList<InputDevice> devices, IReadOnlyList<string> deviceNames)
-        {
-            if (devices.Count != deviceNames.Count)
-            {
-                return false;
-            }
-
-            for (var i = 0; i < devices.Count; i++)
-            {
-                if (!deviceNames.Contains(devices[i].name))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            Profiler.EndSample();
         }
 
         private static bool TryGetInputPaths(InputActionReference actionReferences, PlayerInput playerInput, List<string> results)
@@ -131,6 +182,9 @@ namespace InputGlyphs.Display
 
         private void SetGlyphsToSpriteAsset(IReadOnlyList<Tuple<string, Texture2D>> actionTextures)
         {
+            Profiler.BeginSample("SetGlyphsToSpriteAsset");
+
+            // Copy to readable textures
             var targetTextures = new Texture2D[actionTextures.Count];
             _copiedTextureBuffer.Clear();
             for (var i = 0; i < actionTextures.Count; i++)
@@ -149,49 +203,53 @@ namespace InputGlyphs.Display
                 }
             }
 
-            var texturePack = new Texture2D(PackedTextureSize, PackedTextureSize);
-            var rects = texturePack.PackTextures(targetTextures, 0, 2048, false);
+            // Pack textures
+            var rects = _packedTexture.PackTextures(targetTextures, 0, 2048, false);
 
+            // Destroy copied readable textures
             for (var i = 0; i < _copiedTextureBuffer.Count; i++)
             {
                 Destroy(_copiedTextureBuffer[i]);
             }
             _copiedTextureBuffer.Clear();
 
-            var material = new Material(Material);
-            material.SetTexture("_MainTex", texturePack);
-
-            var spriteAsset = ScriptableObject.CreateInstance<TMP_SpriteAsset>();
-            SetSpriteAssetVersion(spriteAsset, "1.1.0");
-            spriteAsset.spriteSheet = texturePack;
-            spriteAsset.material = material;
-            spriteAsset.spriteInfoList = new List<TMP_Sprite>();
+            // Create sprite asset for TextMeshPro
+            _sharedSpriteAsset.spriteGlyphTable.Clear();
+            _sharedSpriteAsset.spriteCharacterTable.Clear();
             for (var i = 0; i < rects.Length; i++)
             {
                 var rect = rects[i];
 
                 // Create glyph
                 var glyphMetrics = new GlyphMetrics(
-                    texturePack.width * rect.width,
-                    texturePack.height * rect.height,
+                    _packedTexture.width * rect.width,
+                    _packedTexture.height * rect.height,
                     0,
-                    texturePack.height * rect.height * 0.8f,
-                    texturePack.width * rect.width);
+                    _packedTexture.height * rect.height * 0.8f,
+                    _packedTexture.width * rect.width);
                 var glyphRect = new GlyphRect(
-                    Mathf.FloorToInt(texturePack.width * rect.xMin),
-                    Mathf.FloorToInt(texturePack.height * rect.yMin),
-                    Mathf.FloorToInt(texturePack.width * rect.width),
-                    Mathf.FloorToInt(texturePack.height * rect.height));
+                    Mathf.FloorToInt(_packedTexture.width * rect.xMin),
+                    Mathf.FloorToInt(_packedTexture.height * rect.yMin),
+                    Mathf.FloorToInt(_packedTexture.width * rect.width),
+                    Mathf.FloorToInt(_packedTexture.height * rect.height));
                 var spriteGlyph = new TMP_SpriteGlyph((uint)i, glyphMetrics, glyphRect, 1, i);
-                spriteAsset.spriteGlyphTable.Add(spriteGlyph);
+                _sharedSpriteAsset.spriteGlyphTable.Add(spriteGlyph);
 
                 // Create character
                 var glyphCharacter = new TMP_SpriteCharacter(0, spriteGlyph);
                 glyphCharacter.name = $"input_{actionTextures[i].Item1}";
-                spriteAsset.spriteCharacterTable.Add(glyphCharacter);
+                _sharedSpriteAsset.spriteCharacterTable.Add(glyphCharacter);
             }
-            spriteAsset.UpdateLookupTables();
-            Text.spriteAsset = spriteAsset;
+            _sharedSpriteAsset.UpdateLookupTables();
+
+            Profiler.EndSample();
+        }
+
+        private static TMP_SpriteAsset CreateEmptySpriteAsset()
+        {
+            var spriteAsset = ScriptableObject.CreateInstance<TMP_SpriteAsset>();
+            SetSpriteAssetVersion(spriteAsset, "1.1.0"); // Preventing processing for older versions from occurring
+            return spriteAsset;
         }
 
         private static void SetSpriteAssetVersion(TMP_SpriteAsset spriteAsset, string version)
