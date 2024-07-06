@@ -18,6 +18,9 @@ namespace InputGlyphs.Display
         [SerializeField]
         public InputActionReference InputActionReference = null;
 
+        [SerializeField]
+        public GlyphsLayout GlyphsLayout = GlyphsLayout.Horizontal;
+
         private PlayerInput _lastPlayerInput;
         private List<string> _pathBuffer = new List<string>();
         private Texture2D _texture;
@@ -124,17 +127,11 @@ namespace InputGlyphs.Display
 
             if (InputLayoutPathUtility.TryGetActionBindingPath(InputActionReference?.action, PlayerInput.currentControlScheme, _pathBuffer))
             {
-                InputGlyphManager.LoadGlyph(_texture, devices, _pathBuffer[0]);
-                if (_texture == null)
+                if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(_texture, devices, _pathBuffer, GlyphsLayout))
                 {
-                    Debug.LogError($"Failed to get glyph for input path: {_pathBuffer[0]}", this);
-                    var white = Texture2D.whiteTexture;
-                    _texture.Reinitialize(white.width, white.height, white.format, white.mipmapCount > 0);
-                    _texture.Apply();
-                    Graphics.CopyTexture(white, _texture);
+                    Destroy(SpriteRenderer.sprite);
+                    SpriteRenderer.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
                 }
-                Destroy(SpriteRenderer.sprite);
-                SpriteRenderer.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Max(_texture.width, _texture.height));
             }
         }
     }
