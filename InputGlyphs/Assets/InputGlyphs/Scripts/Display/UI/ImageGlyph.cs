@@ -19,6 +19,9 @@ namespace InputGlyphs.Display
         [SerializeField]
         public InputActionReference InputActionReference = null;
 
+        [SerializeField]
+        public GlyphsLayout GlyphsLayout = GlyphsLayout.Single;
+
         private Vector2 _defaultSizeDelta;
         private PlayerInput _lastPlayerInput;
         private List<string> _pathBuffer = new List<string>();
@@ -128,42 +131,14 @@ namespace InputGlyphs.Display
 
             if (InputLayoutPathUtility.TryGetActionBindingPath(InputActionReference?.action, PlayerInput.currentControlScheme, _pathBuffer))
             {
-                if (_pathBuffer.Count == 1)
+                if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(_texture, devices, _pathBuffer, GlyphsLayout))
                 {
-                    if (InputGlyphManager.LoadGlyph(_texture, devices, _pathBuffer[0]))
-                    {
-                        Destroy(Image.sprite);
-                        Image.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
-                        Image.rectTransform.sizeDelta = _defaultSizeDelta;
-                    }
-                }
-                else
-                {
-                    _textureBuffer.Clear();
-                    for (int i = 0; i < _pathBuffer.Count; i++)
-                    {
-                        var texture = new Texture2D(2, 2);
-                        if (InputGlyphManager.LoadGlyph(texture, devices, _pathBuffer[i]))
-                        {
-                            _textureBuffer.Add(texture);
-                        }
-                        else
-                        {
-                            Destroy(texture);
-                        }
-                    }
-                    if (GlyphTextureUtility.MergeTexturesHorizontal(_texture, _textureBuffer))
-                    {
-                        Destroy(Image.sprite);
-                        Image.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
-                        var ratio = (float)_texture.width / _texture.height;
-                        Image.rectTransform.sizeDelta = new Vector2(_defaultSizeDelta.y * ratio, _defaultSizeDelta.y);
-                    }
-                    for (int i = 0; i < _textureBuffer.Count; i++)
-                    {
-                        Destroy(_textureBuffer[i]);
-                    }
-                    _textureBuffer.Clear();
+                    Destroy(Image.sprite);
+                    Image.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
+
+                    // Adjust UI size to match the aspect ratio of the texture for horizontal layout.
+                    var ratio = (float)_texture.width / _texture.height;
+                    Image.rectTransform.sizeDelta = new Vector2(_defaultSizeDelta.y * ratio, _defaultSizeDelta.y);
                 }
             }
         }

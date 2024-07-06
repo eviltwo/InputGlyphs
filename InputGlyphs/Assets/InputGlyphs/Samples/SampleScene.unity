@@ -1430,6 +1430,7 @@ MonoBehaviour:
   Image: {fileID: 1347461810}
   PlayerInput: {fileID: 1847320111}
   InputActionReference: {fileID: -6609880655223600665, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
+  GlyphsLayout: 2
 --- !u!1 &1830157632
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,6 +1523,7 @@ MonoBehaviour:
   Image: {fileID: 1830157634}
   PlayerInput: {fileID: 1847320111}
   InputActionReference: {fileID: 1942945179757384036, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
+  GlyphsLayout: 2
 --- !u!1 &1847320110
 GameObject:
   m_ObjectHideFlags: 0
