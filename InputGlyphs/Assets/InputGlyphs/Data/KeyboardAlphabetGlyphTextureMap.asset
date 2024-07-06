@@ -20,7 +20,7 @@ MonoBehaviour:
   - InputLayoutLocalPath: c
     GlyphTexture: {fileID: 2800000, guid: bb0fc0c95d24a3c4293ffb2ac3f04a1d, type: 3}
   - InputLayoutLocalPath: d
-    GlyphTexture: {fileID: 2800000, guid: bb0fc0c95d24a3c4293ffb2ac3f04a1d, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: dee448cd579b75c45896825f0e8643a6, type: 3}
   - InputLayoutLocalPath: e
     GlyphTexture: {fileID: 2800000, guid: 5c60d8fa6c67ee1478ce84a9d8f4daea, type: 3}
   - InputLayoutLocalPath: f
