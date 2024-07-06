@@ -135,7 +135,7 @@ namespace InputGlyphs.Display
                     Graphics.CopyTexture(white, _texture);
                 }
                 Destroy(Image.sprite);
-                Image.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f));
+                Image.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Max(_texture.width, _texture.height));
             }
         }
     }
