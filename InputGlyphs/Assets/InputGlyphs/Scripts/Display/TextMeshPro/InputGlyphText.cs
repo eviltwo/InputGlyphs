@@ -12,7 +12,7 @@ using UnityEngine.TextCore;
 namespace InputGlyphs.Display
 {
     [RequireComponent(typeof(TextMeshProUGUI))]
-    public class TextInputGlyph : MonoBehaviour
+    public class InputGlyphText : MonoBehaviour
     {
         public static int PackedTextureSize = 2048;
 

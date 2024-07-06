@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace InputGlyphs.Display
 {
     [RequireComponent(typeof(Image))]
-    public class ImageGlyph : MonoBehaviour
+    public class InputGlyphImage : MonoBehaviour
     {
         [SerializeField, HideInInspector]
         public Image Image = null;

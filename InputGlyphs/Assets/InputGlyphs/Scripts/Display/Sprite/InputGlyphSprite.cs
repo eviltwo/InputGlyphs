@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 namespace InputGlyphs.Display
 {
     [RequireComponent(typeof(SpriteRenderer))]
-    public class SpriteGlyph : MonoBehaviour
+    public class InputGlyphSprite : MonoBehaviour
     {
         [SerializeField, HideInInspector]
         public SpriteRenderer SpriteRenderer = null;
