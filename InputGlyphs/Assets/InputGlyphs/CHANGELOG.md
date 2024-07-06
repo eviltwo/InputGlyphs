@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.7.1] - 2024-07-06
+### Changed
+- Remove prefix input_ from text tag. input_Move -> Move
+
 ## [0.7.0] - 2024-07-06
 ### Added
 - Added duo player sample scene.
