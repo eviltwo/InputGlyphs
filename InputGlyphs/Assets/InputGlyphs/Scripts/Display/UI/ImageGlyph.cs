@@ -19,6 +19,7 @@ namespace InputGlyphs.Display
         [SerializeField]
         public InputActionReference InputActionReference = null;
 
+        private Vector2 _defaultSizeDelta;
         private PlayerInput _lastPlayerInput;
         private List<string> _pathBuffer = new List<string>();
         private Texture2D _texture;
@@ -35,6 +36,7 @@ namespace InputGlyphs.Display
             {
                 Image = GetComponent<Image>();
             }
+            _defaultSizeDelta = Image.rectTransform.sizeDelta;
             _texture = new Texture2D(2, 2);
         }
 
@@ -132,6 +134,7 @@ namespace InputGlyphs.Display
                     {
                         Destroy(Image.sprite);
                         Image.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Max(_texture.width, _texture.height));
+                        Image.rectTransform.sizeDelta = _defaultSizeDelta;
                     }
                 }
                 else
@@ -153,6 +156,8 @@ namespace InputGlyphs.Display
                     {
                         Destroy(Image.sprite);
                         Image.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
+                        var ratio = (float)_texture.width / _texture.height;
+                        Image.rectTransform.sizeDelta = new Vector2(_defaultSizeDelta.y * ratio, _defaultSizeDelta.y);
                     }
                     for (int i = 0; i < _textureBuffer.Count; i++)
                     {
