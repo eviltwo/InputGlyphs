@@ -237,7 +237,7 @@ namespace InputGlyphs.Display
 
                 // Create character
                 var glyphCharacter = new TMP_SpriteCharacter(0, spriteGlyph);
-                glyphCharacter.name = $"input_{actionTextureIndex.Item1}";
+                glyphCharacter.name = actionTextureIndex.Item1;
                 _sharedSpriteAsset.spriteCharacterTable.Add(glyphCharacter);
             }
             _sharedSpriteAsset.UpdateLookupTables();
