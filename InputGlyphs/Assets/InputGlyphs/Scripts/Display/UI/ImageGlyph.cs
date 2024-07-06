@@ -26,7 +26,6 @@ namespace InputGlyphs.Display
         private PlayerInput _lastPlayerInput;
         private List<string> _pathBuffer = new List<string>();
         private Texture2D _texture;
-        private List<Texture2D> _textureBuffer = new List<Texture2D>();
 
         private void Reset()
         {
