@@ -5,6 +5,8 @@ Easy to use and extensible. Glyph images are taken from [Xelu's FREE Controller 
 
 ![multi_glyph](https://github.com/eviltwo/InputGlyphs/assets/7721151/fb561e50-2a33-4475-a193-8f9f4dc3a2e1)
 
+![input_check](https://github.com/eviltwo/InputGlyphs/assets/7721151/926600c5-1713-400f-81d1-8cac5a91e147)
+
 |Feature|Status|
 |---|:---:|
 |Keyboard&Mouse|✅|
@@ -18,8 +20,8 @@ Easy to use and extensible. Glyph images are taken from [Xelu's FREE Controller 
 |Sprite renderer|✅|
 |Multiple key|✅|
 |||
-|Samples|making|
-|Useage document|not yet|
+|Samples|✅|
+|Useage document|writing|
 
 # Required packages
 - Core system
