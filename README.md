@@ -22,10 +22,14 @@ Easy to use and extensible. Glyph images are taken from [Xelu's FREE Controller 
 |Useage document|not yet|
 
 # Required packages
-- InputSystem (Unity)
-
-# Recommended packages
-- TextMeshPro (Unity)
+- Core system
+  - InputSystem
+- Sprite in UI Text (optional)
+  - TextMeshPro
+- Use gamepad glyphs provided by Steamworks (optional)
+  - [Steamworks.NET](https://github.com/rlabrecque/Steamworks.NET)
+  - [SteamInputAdapter](https://github.com/eviltwo/UnitySteamInputAdapter)
+  - [SteamInputGlyphLoader](https://github.com/eviltwo/UnitySteamInputGlyphLoader)
 
 # Install with AssetStore
 Comming soon!
