@@ -3,6 +3,7 @@
 ## [0.7.0] - 2024-07-06
 ### Changed
 - Renamed display classes.
+- Changed directory of solo player sample scene.
 
 ## [0.6.2] - 2024-07-06
 ### Added
