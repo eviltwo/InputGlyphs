@@ -1,0 +1,23 @@
+{
+    "name": "InputGlyphs.Display.TextMeshPro.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:1f6dfe89326c1df4db8a18418293db90"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.textmeshpro",
+            "expression": "",
+            "define": "SUPPORT_TMPRO"
+        }
+    ],
+    "noEngineReferences": false
+}
