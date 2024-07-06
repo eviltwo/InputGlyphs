@@ -24,7 +24,7 @@ namespace InputGlyphs.Utils
                 return false;
             }
 
-            texture.Reinitialize(width, height);
+            texture.Reinitialize(width, height, TextureFormat.ARGB32, true);
 
             var posX = 0;
             for (int i = 0; i < sourceTextures.Count; i++)
