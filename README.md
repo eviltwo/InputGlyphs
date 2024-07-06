@@ -3,7 +3,7 @@ Displays glyphs (icons) of keyboard & mouse or controller buttons recognized by 
 
 Easy to use and extensible. Glyph images are taken from [Xelu's FREE Controller Prompts](https://thoseawesomeguys.com/prompts/) (CC0). This package can also load Glyphs for Gamepads provided by Steamworks.
 
-![glyph](https://github.com/eviltwo/InputGlyphs/assets/7721151/152ab49e-7a76-4f97-9bd4-964a7d6936f7)
+![multi_glyph](https://github.com/eviltwo/InputGlyphs/assets/7721151/fb561e50-2a33-4475-a193-8f9f4dc3a2e1)
 
 |Feature|Status|
 |---|:---:|
