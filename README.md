@@ -16,7 +16,7 @@ Easy to use and extensible. Glyph images are taken from [Xelu's FREE Controller 
 |||
 |Sprite icon in text (TMPro)|Supported|
 |UI Image|Supported|
-|Sprite renderer|not yet|
+|Sprite renderer|Supported|
 |Multiple key|not yet|
 |||
 |Samples|making|

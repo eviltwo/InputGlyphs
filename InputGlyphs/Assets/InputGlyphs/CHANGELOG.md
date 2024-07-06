@@ -3,6 +3,7 @@
 ## [0.6.1] - 2024-07-06
 ### Added
 - Added glyph display for UI Image.
+- Added glyph display for Sprite Renderer.
 
 ## [0.6.0] - 2024-07-05
 ### Changed
