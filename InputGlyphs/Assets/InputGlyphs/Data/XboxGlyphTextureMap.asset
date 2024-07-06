@@ -32,7 +32,7 @@ MonoBehaviour:
   - InputLayoutLocalPath: leftStick
     GlyphTexture: {fileID: 2800000, guid: dfb3566669610da4280de7de5c84ae76, type: 3}
   - InputLayoutLocalPath: leftStickPress
-    GlyphTexture: {fileID: 2800000, guid: bae657f8217707e468d68e06e517d777, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: a51416bea9e90e4448e9d8096f9e65be, type: 3}
   - InputLayoutLocalPath: rightStick
     GlyphTexture: {fileID: 2800000, guid: d65bb6cfb2d619a43b0ae5ad4b3c7054, type: 3}
   - InputLayoutLocalPath: rightStickPress
