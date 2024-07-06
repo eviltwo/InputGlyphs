@@ -133,7 +133,7 @@ namespace InputGlyphs.Display
                     if (InputGlyphManager.LoadGlyph(_texture, devices, _pathBuffer[0]))
                     {
                         Destroy(Image.sprite);
-                        Image.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Max(_texture.width, _texture.height));
+                        Image.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
                         Image.rectTransform.sizeDelta = _defaultSizeDelta;
                     }
                 }

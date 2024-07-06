@@ -21,6 +21,7 @@ namespace InputGlyphs.Display
         private PlayerInput _lastPlayerInput;
         private List<string> _pathBuffer = new List<string>();
         private Texture2D _texture;
+        private List<Texture2D> _textureBuffer = new List<Texture2D>();
 
         private void Reset()
         {
@@ -135,6 +136,44 @@ namespace InputGlyphs.Display
                 }
                 Destroy(SpriteRenderer.sprite);
                 SpriteRenderer.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Max(_texture.width, _texture.height));
+            }
+
+            if (InputLayoutPathUtility.TryGetActionBindingPath(InputActionReference?.action, PlayerInput.currentControlScheme, _pathBuffer))
+            {
+                if (_pathBuffer.Count == 1)
+                {
+                    if (InputGlyphManager.LoadGlyph(_texture, devices, _pathBuffer[0]))
+                    {
+                        Destroy(SpriteRenderer.sprite);
+                        SpriteRenderer.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
+                    }
+                }
+                else
+                {
+                    _textureBuffer.Clear();
+                    for (int i = 0; i < _pathBuffer.Count; i++)
+                    {
+                        var texture = new Texture2D(2, 2);
+                        if (InputGlyphManager.LoadGlyph(texture, devices, _pathBuffer[i]))
+                        {
+                            _textureBuffer.Add(texture);
+                        }
+                        else
+                        {
+                            Destroy(texture);
+                        }
+                    }
+                    if (GlyphTextureUtility.MergeTexturesHorizontal(_texture, _textureBuffer))
+                    {
+                        Destroy(SpriteRenderer.sprite);
+                        SpriteRenderer.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
+                    }
+                    for (int i = 0; i < _textureBuffer.Count; i++)
+                    {
+                        Destroy(_textureBuffer[i]);
+                    }
+                    _textureBuffer.Clear();
+                }
             }
         }
     }
