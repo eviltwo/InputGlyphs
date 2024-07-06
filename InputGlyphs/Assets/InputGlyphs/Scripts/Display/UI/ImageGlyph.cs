@@ -20,7 +20,7 @@ namespace InputGlyphs.Display
         public InputActionReference InputActionReference = null;
 
         [SerializeField]
-        public GlyphsLayout GlyphsLayout = GlyphsLayout.Single;
+        public GlyphsLayout GlyphsLayout = GlyphsLayout.Horizontal;
 
         private Vector2 _defaultSizeDelta;
         private PlayerInput _lastPlayerInput;

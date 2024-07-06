@@ -18,10 +18,12 @@ namespace InputGlyphs.Display
         [SerializeField]
         public InputActionReference InputActionReference = null;
 
+        [SerializeField]
+        public GlyphsLayout GlyphsLayout = GlyphsLayout.Horizontal;
+
         private PlayerInput _lastPlayerInput;
         private List<string> _pathBuffer = new List<string>();
         private Texture2D _texture;
-        private List<Texture2D> _textureBuffer = new List<Texture2D>();
 
         private void Reset()
         {
@@ -125,54 +127,10 @@ namespace InputGlyphs.Display
 
             if (InputLayoutPathUtility.TryGetActionBindingPath(InputActionReference?.action, PlayerInput.currentControlScheme, _pathBuffer))
             {
-                InputGlyphManager.LoadGlyph(_texture, devices, _pathBuffer[0]);
-                if (_texture == null)
+                if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(_texture, devices, _pathBuffer, GlyphsLayout))
                 {
-                    Debug.LogError($"Failed to get glyph for input path: {_pathBuffer[0]}", this);
-                    var white = Texture2D.whiteTexture;
-                    _texture.Reinitialize(white.width, white.height, white.format, white.mipmapCount > 0);
-                    _texture.Apply();
-                    Graphics.CopyTexture(white, _texture);
-                }
-                Destroy(SpriteRenderer.sprite);
-                SpriteRenderer.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Max(_texture.width, _texture.height));
-            }
-
-            if (InputLayoutPathUtility.TryGetActionBindingPath(InputActionReference?.action, PlayerInput.currentControlScheme, _pathBuffer))
-            {
-                if (_pathBuffer.Count == 1)
-                {
-                    if (InputGlyphManager.LoadGlyph(_texture, devices, _pathBuffer[0]))
-                    {
-                        Destroy(SpriteRenderer.sprite);
-                        SpriteRenderer.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
-                    }
-                }
-                else
-                {
-                    _textureBuffer.Clear();
-                    for (int i = 0; i < _pathBuffer.Count; i++)
-                    {
-                        var texture = new Texture2D(2, 2);
-                        if (InputGlyphManager.LoadGlyph(texture, devices, _pathBuffer[i]))
-                        {
-                            _textureBuffer.Add(texture);
-                        }
-                        else
-                        {
-                            Destroy(texture);
-                        }
-                    }
-                    if (GlyphTextureUtility.MergeTexturesHorizontal(_texture, _textureBuffer))
-                    {
-                        Destroy(SpriteRenderer.sprite);
-                        SpriteRenderer.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
-                    }
-                    for (int i = 0; i < _textureBuffer.Count; i++)
-                    {
-                        Destroy(_textureBuffer[i]);
-                    }
-                    _textureBuffer.Clear();
+                    Destroy(SpriteRenderer.sprite);
+                    SpriteRenderer.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
                 }
             }
         }
