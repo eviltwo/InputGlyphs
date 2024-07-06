@@ -5,20 +5,23 @@ Easy to use and extensible. Glyph images are taken from [Xelu's FREE Controller 
 
 ![duo](https://github.com/eviltwo/InputGlyphs/assets/7721151/93cadf60-385d-44ea-86b5-50b2e4ba28f6)
 
-|Feature|Status|
+|Supported deveices|
+|---|
+|Keyboard & Mouse|
+|Xbox controller|
+|Playstation controller|
+|Switch pro controller|
+
+|Glyph display modules|
+|---|
+|Text Mesh Pro|
+|UI Image|
+|Sprite Renderer|
+
+
+|Other contents|Status|
 |---|:---:|
-|Keyboard&Mouse|✅|
-|Xbox controller|✅|
-|PS controller|✅|
-|Switch pro controller|✅|
-|Steam input glyph API|✅|
-|||
-|Sprite icon in text (TMPro)|✅|
-|UI Image|✅|
-|Sprite renderer|✅|
-|Multiple key|✅|
-|||
-|Samples|✅|
+|Sample scenes|✅|
 |Useage document|writing|
 
 # Required packages
