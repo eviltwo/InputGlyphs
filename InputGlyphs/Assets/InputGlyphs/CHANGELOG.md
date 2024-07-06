@@ -1,6 +1,8 @@
 # Changelog
 
 ## [0.7.1] - 2024-07-06
+### Added
+- Added text tag hint.
 ### Changed
 - Remove prefix input_ from text tag. input_Move -> Move
 
