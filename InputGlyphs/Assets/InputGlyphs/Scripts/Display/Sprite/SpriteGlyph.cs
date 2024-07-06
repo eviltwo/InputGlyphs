@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using InputGlyphs.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 namespace InputGlyphs.Display
 {
-    [RequireComponent(typeof(Image))]
-    public class ImageGlyph : MonoBehaviour
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class SpriteGlyph : MonoBehaviour
     {
         [SerializeField, HideInInspector]
-        public Image Image = null;
+        public SpriteRenderer SpriteRenderer = null;
 
         [SerializeField]
         public PlayerInput PlayerInput = null;
@@ -25,14 +24,14 @@ namespace InputGlyphs.Display
 
         private void Reset()
         {
-            Image = GetComponent<Image>();
+            SpriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         private void Awake()
         {
-            if (Image == null)
+            if (SpriteRenderer == null)
             {
-                Image = GetComponent<Image>();
+                SpriteRenderer = GetComponent<SpriteRenderer>();
             }
             _texture = new Texture2D(2, 2);
         }
@@ -50,10 +49,10 @@ namespace InputGlyphs.Display
         {
             Destroy(_texture);
             _texture = null;
-            if (Image != null)
+            if (SpriteRenderer != null)
             {
-                Destroy(Image.sprite);
-                Image.sprite = null;
+                Destroy(SpriteRenderer.sprite);
+                SpriteRenderer.sprite = null;
             }
         }
 
@@ -134,8 +133,8 @@ namespace InputGlyphs.Display
                     _texture.Apply();
                     Graphics.CopyTexture(white, _texture);
                 }
-                Destroy(Image.sprite);
-                Image.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Max(_texture.width, _texture.height));
+                Destroy(SpriteRenderer.sprite);
+                SpriteRenderer.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Max(_texture.width, _texture.height));
             }
         }
     }
