@@ -455,8 +455,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -523,6 +523,7 @@ MonoBehaviour:
   InputActionReferences:
   - {fileID: 1942945179757384036, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
   - {fileID: -6609880655223600665, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
+  GlyphsLayout: 2
 --- !u!1 &275803797
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,6 +692,7 @@ MonoBehaviour:
   SpriteRenderer: {fileID: 303118346}
   PlayerInput: {fileID: 1847320111}
   InputActionReference: {fileID: 1942945179757384036, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
+  GlyphsLayout: 2
 --- !u!212 &303118346
 SpriteRenderer:
   m_ObjectHideFlags: 0
