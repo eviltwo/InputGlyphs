@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.2] - 2024-07-06
+### Added
+- Added glyph texture generator.
+- Added GlyphLayout
+- Changed glyph display classes to use texture generator. 
+
 ## [0.6.1] - 2024-07-06
 ### Added
 - Added glyph display for UI Image.

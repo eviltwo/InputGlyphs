@@ -8,6 +8,7 @@ namespace InputGlyphs.Utils
     public static class InputLayoutPathUtility
     {
         private static StringBuilder _stringBuilder = new StringBuilder();
+        private static List<int> _bindingIndexBuffer = new List<int>();
 
         /// <summary>
         /// Returns a local path for the given input layout path.
@@ -47,14 +48,18 @@ namespace InputGlyphs.Utils
             {
                 return false;
             }
-            // TODO: Get multiple bindings
-            var bindingIndex = action.GetBindingIndex(InputBinding.MaskByGroup(controlScheme));
-            if (bindingIndex < 0)
+            _bindingIndexBuffer.Clear();
+            action.GetBindingIndexes(InputBinding.MaskByGroup(controlScheme), _bindingIndexBuffer);
+            for (int i = 0; i < _bindingIndexBuffer.Count; i++)
             {
-                return false;
+                var bindingIndex = _bindingIndexBuffer[i];
+                if (bindingIndex < 0)
+                {
+                    continue;
+                }
+                results.Add(action.bindings[bindingIndex].effectivePath);
             }
-            results.Add(action.bindings[bindingIndex].effectivePath);
-            return true;
+            return results.Count > 0;
         }
     }
 }
