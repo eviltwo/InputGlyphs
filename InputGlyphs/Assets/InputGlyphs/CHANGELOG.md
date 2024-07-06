@@ -1,9 +1,14 @@
 # Changelog
 
+## [0.7.0] - 2024-07-06
+### Changed
+- Renamed display classes.
+
 ## [0.6.2] - 2024-07-06
 ### Added
 - Added glyph texture generator.
 - Added GlyphLayout
+### Changed
 - Changed glyph display classes to use texture generator. 
 
 ## [0.6.1] - 2024-07-06
