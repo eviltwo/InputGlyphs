@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using InputGlyphs.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Profiling;
 
 namespace InputGlyphs.Loaders.Utils
 {
@@ -33,13 +32,9 @@ namespace InputGlyphs.Loaders.Utils
             {
                 if (TextureMaps[i].TryGetTexture(localPath, out var result))
                 {
-                    Profiler.BeginSample("DeviceGlyphLoader.ResizeTexture");
                     texture.Reinitialize(result.width, result.height, result.format, result.mipmapCount > 0);
                     texture.Apply();
-                    Profiler.EndSample();
-                    Profiler.BeginSample("DeviceGlyphLoader.CopyTexture");
                     Graphics.CopyTexture(result, texture);
-                    Profiler.EndSample();
                     return true;
                 }
             }

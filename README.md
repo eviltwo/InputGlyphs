@@ -3,7 +3,8 @@ Displays glyphs (icons) of keyboard & mouse or controller buttons recognized by 
 
 Easy to use and extensible. Glyph images are taken from [Xelu's FREE Controller Prompts](https://thoseawesomeguys.com/prompts/) (CC0). This package can also load Glyphs for Gamepads provided by Steamworks.
 
-![image](https://github.com/eviltwo/InputGlyphs/assets/7721151/5df7b8ee-578f-4c58-9fdb-5770a82980d9)
+![image](https://github.com/eviltwo/InputGlyphs/assets/7721151/30d87848-11fd-462c-845c-00fdfa8a12e7)
+
 
 |Feature|Status|
 |---|---|
@@ -14,8 +15,8 @@ Easy to use and extensible. Glyph images are taken from [Xelu's FREE Controller 
 |Steam input glyph API|Supported|
 |||
 |Sprite icon in text (TMPro)|Supported|
-|uGUI Image|not yet|
-|Sprite renderer|not yet|
+|UI Image|Supported|
+|Sprite renderer|Supported|
 |Multiple key|not yet|
 |||
 |Samples|making|
