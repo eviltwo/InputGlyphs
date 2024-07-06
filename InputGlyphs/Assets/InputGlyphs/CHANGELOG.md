@@ -3,6 +3,7 @@
 ## [0.7.0] - 2024-07-06
 ### Added
 - Added duo player sample scene.
+- Added input check sample scene.
 ### Changed
 - Renamed display classes.
 - Changed directory of solo player sample scene.
