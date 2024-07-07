@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace InputGlyphs.Loaders.Steam.Editor
         private bool _foldoutSteamworks;
         private bool _foldoutAdapter;
         private bool _foldoutLoader;
+        private Dictionary<string, string> _versionCache = new Dictionary<string, string>();
 
         public override void OnInspectorGUI()
         {
@@ -47,6 +49,7 @@ namespace InputGlyphs.Loaders.Steam.Editor
 
             DrawPackageInfo(
                 "Steamworks.NET",
+                GetPackageVersion("com.rlabrecque.steamworks.net"),
                 isSteamworksInstalled,
                 "https://github.com/rlabrecque/Steamworks.NET",
                 "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net",
@@ -54,6 +57,7 @@ namespace InputGlyphs.Loaders.Steam.Editor
 
             DrawPackageInfo(
                 "SteamInputAdapter",
+                GetPackageVersion("com.eviltwo.unity-steam-input-adapter"),
                 isAdapterInstalled,
                 "https://github.com/eviltwo/UnitySteamInputAdapter",
                 "https://github.com/eviltwo/UnitySteamInputAdapter.git?path=UnitySteamInputAdapter/Assets/UnitySteamInputAdapter",
@@ -61,6 +65,7 @@ namespace InputGlyphs.Loaders.Steam.Editor
 
             DrawPackageInfo(
                 "SteamInputGlyphLoader",
+                GetPackageVersion("com.eviltwo.unity-steam-input-glyph-loader"),
                 isLoaderInstalled,
                 "https://github.com/eviltwo/UnitySteamInputGlyphLoader",
                 "https://github.com/eviltwo/UnitySteamInputGlyphLoader.git?path=UnitySteamInputGlyphLoader/Assets/UnitySteamInputGlyphLoader",
@@ -68,7 +73,8 @@ namespace InputGlyphs.Loaders.Steam.Editor
         }
 
         private static void DrawPackageInfo(
-            string packageName,
+            string packageTitle,
+            string installedPackageVersion,
             bool installed,
             string packagePageUrl,
             string packageUrl,
@@ -76,7 +82,7 @@ namespace InputGlyphs.Loaders.Steam.Editor
         {
             var foldoutStyle = new GUIStyle(EditorStyles.foldoutHeader);
             foldoutStyle.richText = true;
-            var foldoutTitle = installed ? $"{packageName} <color=green>(Installed)</color>" : "Steamworks <color=red>(Not installed)</color>";
+            var foldoutTitle = installed ? $"{packageTitle} <color=green>(Installed)</color>" : "Steamworks <color=red>(Not installed)</color>";
             foldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, foldoutTitle, foldoutStyle);
             if (foldout)
             {
@@ -84,12 +90,46 @@ namespace InputGlyphs.Loaders.Steam.Editor
                 {
                     Application.OpenURL(packagePageUrl);
                 }
+                EditorGUILayout.LabelField($"Installed version : {installedPackageVersion}");
                 if (GUILayout.Button("Import package using Unity Package Manager"))
                 {
                     Client.Add(packageUrl);
                 }
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
+        }
+
+        private string GetPackageVersion(string packageName)
+        {
+            if (_versionCache.TryGetValue(packageName, out var cachedVersion))
+            {
+                return cachedVersion;
+            }
+            var packageInfo = FindPackageInfo(packageName);
+            var version = packageInfo?.version ?? string.Empty;
+            _versionCache[packageName] = version;
+            return version;
+        }
+
+        private static UnityEditor.PackageManager.PackageInfo FindPackageInfo(string packageName)
+        {
+            var guids = AssetDatabase.FindAssets("package t:TextAsset");
+            for (var i = 0; i < guids.Length; i++)
+            {
+                var path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                var textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+                if (textAsset == null)
+                {
+                    continue;
+                }
+                var packageInfo = UnityEditor.PackageManager.PackageInfo.FindForAssetPath(path);
+                if (packageInfo != null && packageInfo.name == packageName)
+                {
+                    return packageInfo;
+                }
+            }
+
+            return null;
         }
     }
 }
