@@ -32,9 +32,9 @@ namespace InputGlyphs.Loaders.Utils
             {
                 if (TextureMaps[i].TryGetTexture(localPath, out var result))
                 {
-                    texture.Reinitialize(result.width, result.height, result.format, result.mipmapCount > 0);
+                    texture.Reinitialize(result.width, result.height, TextureFormat.ARGB32, false);
+                    texture.SetPixels(result.GetPixels()); // Glyph texture must be readable
                     texture.Apply();
-                    Graphics.CopyTexture(result, texture);
                     return true;
                 }
             }

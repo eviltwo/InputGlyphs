@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.7.2] - 2024-07-07
+### Fixed
+- Fix glyphs not display in built game
+
 ## [0.7.1] - 2024-07-06
 ### Added
 - Added text tag hint.
