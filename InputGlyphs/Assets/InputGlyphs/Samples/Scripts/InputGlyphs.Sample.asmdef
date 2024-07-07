@@ -1,0 +1,30 @@
+{
+    "name": "InputGlyphs.Sample",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:68bd7fdb68ef2684e982e8a9825b18a5",
+        "GUID:fc48f7dd8f1155d429d2f9eeb74a4fd4",
+        "GUID:41e8b111addd18e47a62477e330b80c7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.inputsystem",
+            "expression": "",
+            "define": "INPUT_SYSTEM"
+        },
+        {
+            "name": "com.rlabrecque.steamworks.net",
+            "expression": "",
+            "define": "SUPPORT_STEAMWORKS"
+        }
+    ],
+    "noEngineReferences": false
+}

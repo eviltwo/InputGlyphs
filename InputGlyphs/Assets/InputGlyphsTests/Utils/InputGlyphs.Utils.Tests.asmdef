@@ -4,7 +4,7 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "InputGlyphs.Utils"
+        "InputGlyphs"
     ],
     "includePlatforms": [
         "Editor"

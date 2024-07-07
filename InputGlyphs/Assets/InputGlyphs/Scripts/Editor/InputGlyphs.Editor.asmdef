@@ -1,0 +1,47 @@
+{
+    "name": "InputGlyphs.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:41e8b111addd18e47a62477e330b80c7",
+        "GUID:32a76035dbfa1e5489ee883a5e9e4570"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.inputsystem",
+            "expression": "",
+            "define": "INPUT_SYSTEM"
+        },
+        {
+            "name": "com.rlabrecque.steamworks.net",
+            "expression": "",
+            "define": "SUPPORT_STEAMWORKS"
+        },
+        {
+            "name": "com.eviltwo.unity-steam-input-adapter",
+            "expression": "",
+            "define": "SUPPORT_ADAPTER"
+        },
+        {
+            "name": "com.eviltwo.unity-steam-input-glyph-loader",
+            "expression": "",
+            "define": "SUPPORT_LOADER"
+        },
+        {
+            "name": "com.unity.textmeshpro",
+            "expression": "",
+            "define": "SUPPORT_TMPRO"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/InputGlyphs/Samples/SoloPlayerSample/SoloPlayerSample.unity
+    path: Assets/InputGlyphs/Samples/SoloPlayerSample.unity
     guid: 592ff5f548281bf4098929b2f12ac957
   - enabled: 1
-    path: Assets/InputGlyphs/Samples/DuoPlayerSample/DuoPlayerSample.unity
+    path: Assets/InputGlyphs/Samples/DuoPlayerSample.unity
     guid: eae37cced830b50469bb1ecea398d830
   - enabled: 1
-    path: Assets/InputGlyphs/Samples/SteamworksSample/SteamworksSample.unity
+    path: Assets/InputGlyphs/Samples/SteamworksSample.unity
     guid: bb3990966a9b94e4eae91302a5ea64a2
   m_configObjects: {}
