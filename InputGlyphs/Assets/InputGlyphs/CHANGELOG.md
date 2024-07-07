@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.7.3] - 2024-07-07
+### Changed
+- Added version to URLs importing packages such as steamworks.
+
 ## [0.7.2] - 2024-07-07
 ### Fixed
 - Fix glyphs not display in built game
