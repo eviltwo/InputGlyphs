@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/InputGlyphs/Samples/SoloPlayerSample/SoloPlayerSample.unity
+    guid: 592ff5f548281bf4098929b2f12ac957
   m_configObjects: {}
