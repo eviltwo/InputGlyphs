@@ -17,6 +17,11 @@
     "defineConstraints": [],
     "versionDefines": [
         {
+            "name": "com.unity.inputsystem",
+            "expression": "",
+            "define": "INPUT_SYSTEM"
+        },
+        {
             "name": "com.unity.textmeshpro",
             "expression": "",
             "define": "SUPPORT_TMPRO"

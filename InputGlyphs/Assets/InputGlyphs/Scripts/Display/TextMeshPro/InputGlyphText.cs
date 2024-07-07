@@ -1,4 +1,4 @@
-#if ENABLE_INPUT_SYSTEM && SUPPORT_TMPRO
+#if INPUT_SYSTEM && ENABLE_INPUT_SYSTEM && SUPPORT_TMPRO
 using System;
 using System.Collections.Generic;
 using System.Reflection;

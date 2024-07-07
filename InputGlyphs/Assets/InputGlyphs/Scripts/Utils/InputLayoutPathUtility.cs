@@ -1,4 +1,4 @@
-#if ENABLE_INPUT_SYSTEM
+#if INPUT_SYSTEM && ENABLE_INPUT_SYSTEM
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine.InputSystem;
