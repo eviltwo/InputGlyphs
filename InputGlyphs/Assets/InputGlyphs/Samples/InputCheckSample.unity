@@ -448,7 +448,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0e15330025853949aa116196e2f3f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 1847320111}
   _spriteRenderer: {fileID: 1399903892}
 --- !u!4 &1399903891
 Transform:

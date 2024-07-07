@@ -12,9 +12,6 @@ namespace InputGlyphs.Samples
     public class InputCheckSample : MonoBehaviour
     {
         [SerializeField]
-        private PlayerInput _playerInput = null;
-
-        [SerializeField]
         private SpriteRenderer _spriteRenderer = null;
 
         private IDisposable _callOnce;
