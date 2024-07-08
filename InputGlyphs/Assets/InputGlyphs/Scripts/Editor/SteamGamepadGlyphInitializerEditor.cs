@@ -105,7 +105,7 @@ namespace InputGlyphs.Loaders.Steam.Editor
         {
             var foldoutStyle = new GUIStyle(EditorStyles.foldoutHeader);
             foldoutStyle.richText = true;
-            var foldoutTitle = installed ? $"{packageTitle} <color=green>(Installed)</color>" : "Steamworks <color=red>(Not installed)</color>";
+            var foldoutTitle = installed ? $"{packageTitle} <color=green>(Installed)</color>" : $"{packageTitle} <color=red>(Not installed)</color>";
             foldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, foldoutTitle, foldoutStyle);
             if (foldout)
             {
