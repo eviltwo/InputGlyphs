@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace InputGlyphs.Loaders.Utils
 {
+    /// <summary>
+    /// A map that associates control paths of input devices with glyph textures.
+    /// </summary>
     [CreateAssetMenu(fileName = "InputGlyphTextureMap", menuName = "InputGlyphs/InputGlyphTextureMap")]
     public class InputGlyphTextureMap : ScriptableObject
     {
