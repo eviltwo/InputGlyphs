@@ -3,7 +3,11 @@ guid: eafe8db674e08124088156c44a7e580e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _fallbackTextureMap: {fileID: 11400000, guid: 842e8fa628eb6694a986b04be4bba8eb, type: 2}
+  - _xboxTextureMap: {fileID: 11400000, guid: 842e8fa628eb6694a986b04be4bba8eb, type: 2}
+  - _playstationTextureMap: {fileID: 11400000, guid: d7c9f7c70d93309478d6f14b3888d847, type: 2}
+  - _switchProControllerTextureMap: {fileID: 11400000, guid: 0079b4fcdaac170458e63cb2fd86ba97, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

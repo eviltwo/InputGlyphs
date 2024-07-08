@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.7.4] - 2024-07-09
+### Fixed
+- Supports Text Mesh Pro Text(3D).
+
 ## [0.7.3] - 2024-07-07
 ### Changed
 - Added version to URLs importing packages such as steamworks.

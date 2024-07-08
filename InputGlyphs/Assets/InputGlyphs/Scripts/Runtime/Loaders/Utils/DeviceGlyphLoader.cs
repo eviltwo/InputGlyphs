@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 
 namespace InputGlyphs.Loaders.Utils
 {
+    /// <summary>
+    /// General implementation of the <see cref="IInputGlyphLoader"/>.
+    /// It is recommended to use the <see cref="DeviceGlyphLoaderInitializer{T}"/> to generate the loader instead of inheriting and implementing this class.
+    /// </summary>
     public class DeviceGlyphLoader<T> : IInputGlyphLoader
         where T : InputDevice
     {

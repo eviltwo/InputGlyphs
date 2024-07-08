@@ -41,6 +41,12 @@ namespace InputGlyphs.Utils
             return _stringBuilder.ToString();
         }
 
+        /// <summary>
+        /// Searches for bindings within actions that match the control scheme and returns the effective paths.
+        /// </summary>
+        /// <param name="action">Target action</param>
+        /// <param name="controlScheme">Control scheme for masks</param>
+        /// <param name="results">Effective paths of detected bindings</param>
         public static bool TryGetActionBindingPath(InputAction action, string controlScheme, List<string> results)
         {
             results.Clear();

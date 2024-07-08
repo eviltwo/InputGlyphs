@@ -7,6 +7,10 @@ namespace InputGlyphs.Utils
 {
     public static class InputActionRebindingExtensions
     {
+        /// <summary>
+        /// Gets the indexes of all bindings in the action's bindings that match the specified binding mask.
+        /// This function just changes the number of results of <see cref="InputActionRebindingExtensions.GetBindingIndex()"/> .
+        /// </summary>
         public static void GetBindingIndexes(this InputAction action, InputBinding bindingMask, List<int> results)
         {
             results.Clear();
