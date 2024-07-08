@@ -11,13 +11,12 @@ using UnityEngine.TextCore;
 
 namespace InputGlyphs.Display
 {
-    [RequireComponent(typeof(TextMeshProUGUI))]
     public class InputGlyphText : MonoBehaviour
     {
         public static int PackedTextureSize = 2048;
 
         [SerializeField, HideInInspector]
-        public TextMeshProUGUI Text = null;
+        public TMP_Text Text = null;
 
         [SerializeField, HideInInspector]
         public Material Material = null;
@@ -42,14 +41,14 @@ namespace InputGlyphs.Display
 
         private void Reset()
         {
-            Text = GetComponent<TextMeshProUGUI>();
+            Text = GetComponent<TMP_Text>();
         }
 
         private void Awake()
         {
             if (Text == null)
             {
-                Text = GetComponent<TextMeshProUGUI>();
+                Text = GetComponent<TMP_Text>();
             }
             _packedTexture = new Texture2D(2, 2);
             _sharedMaterial = new Material(Material);
@@ -241,8 +240,7 @@ namespace InputGlyphs.Display
                 _sharedSpriteAsset.spriteCharacterTable.Add(glyphCharacter);
             }
             _sharedSpriteAsset.UpdateLookupTables();
-            Text.UpdateFontAsset();
-            Text.UpdateMeshPadding();
+            Text.SetAllDirty();
 
             Profiler.EndSample();
         }
