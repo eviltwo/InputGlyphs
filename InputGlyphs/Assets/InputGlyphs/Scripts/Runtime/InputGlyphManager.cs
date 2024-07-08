@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 
 namespace InputGlyphs
 {
+    /// <summary>
+    /// Manages GlyphLoaders and load Glyph images from registered GlyphLoaders.
+    /// Register GlyphLoaders when you start the game.
+    /// </summary>
     public static class InputGlyphManager
     {
         private static List<IInputGlyphLoader> _loaders = new List<IInputGlyphLoader>();

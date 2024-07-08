@@ -13,6 +13,9 @@ namespace InputGlyphs.Display
     {
         private static List<Texture2D> _textureBuffer = new List<Texture2D>();
 
+        /// <summary>
+        /// Generates glyph texture for the specified inputLayoutPaths and writes it to the texture. The glyph textures are arranged according to the layout.
+        /// </summary>
         public static bool GenerateGlyphTexture(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, IReadOnlyList<string> inputLayoutPaths, GlyphsLayout layout)
         {
             if (texture == null)
