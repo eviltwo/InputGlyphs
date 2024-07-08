@@ -18,8 +18,15 @@ namespace InputGlyphs.Loaders
         [SerializeField]
         private InputGlyphTextureMap _switchProControllerTextureMap = null;
 
+        private static bool _initialized;
+
         private void Awake()
         {
+            if (_initialized)
+            {
+                return;
+            }
+
             var gamepadGlyphLoader = new GamepadGlyphLoader(
                 _fallbackTextureMap,
                 _xboxTextureMap,
