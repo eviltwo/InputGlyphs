@@ -36,6 +36,10 @@ namespace InputGlyphs.Display
             {
                 SpriteRenderer = GetComponent<SpriteRenderer>();
             }
+            if (PlayerInput == null)
+            {
+                Debug.LogError("PlayerInput is not set.", this);
+            }
             _texture = new Texture2D(2, 2);
         }
 
@@ -108,7 +112,10 @@ namespace InputGlyphs.Display
 
         private void OnControlsChanged(PlayerInput playerInput)
         {
-            UpdateGlyphs(playerInput);
+            if (playerInput == PlayerInput)
+            {
+                UpdateGlyphs(playerInput);
+            }
         }
 
         private void UpdateGlyphs(PlayerInput playerInput)
