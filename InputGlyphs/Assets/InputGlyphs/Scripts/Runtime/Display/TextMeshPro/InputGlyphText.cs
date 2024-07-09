@@ -132,7 +132,10 @@ namespace InputGlyphs.Display
 
         private void OnControlsChanged(PlayerInput playerInput)
         {
-            UpdateGlyphs(playerInput);
+            if (playerInput == PlayerInput)
+            {
+                UpdateGlyphs(playerInput);
+            }
         }
 
         private void UpdateGlyphs(PlayerInput playerInput)
