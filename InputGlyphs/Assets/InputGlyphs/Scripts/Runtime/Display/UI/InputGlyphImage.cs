@@ -38,6 +38,10 @@ namespace InputGlyphs.Display
             {
                 Image = GetComponent<Image>();
             }
+            if (PlayerInput == null)
+            {
+                Debug.LogError("PlayerInput is not set.", this);
+            }
             _defaultSizeDelta = Image.rectTransform.sizeDelta;
             _texture = new Texture2D(2, 2);
         }
