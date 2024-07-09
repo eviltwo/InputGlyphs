@@ -40,6 +40,13 @@ namespace InputGlyphs.Display.Editor
                     }
                 }
             }
+
+            if (glyphText.PlayerInput != null
+                && glyphText.PlayerInput.notificationBehavior != UnityEngine.InputSystem.PlayerNotifications.InvokeUnityEvents
+                && glyphText.PlayerInput.notificationBehavior != UnityEngine.InputSystem.PlayerNotifications.InvokeCSharpEvents)
+            {
+                EditorGUILayout.HelpBox("PlayerInput.notificationBehavior must be set to InvokeUnityEvents or InvokeCSharpEvents.", MessageType.Error);
+            }
         }
     }
 }
