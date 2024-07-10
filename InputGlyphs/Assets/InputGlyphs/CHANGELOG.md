@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.0] - 2024-07-10
+- Stable Release Version
+
 ## [0.7.4] - 2024-07-09
 ### Fixed
 - Supports Text Mesh Pro Text(3D).
