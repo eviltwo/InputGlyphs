@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.1] - 2024-07-13
+### Updated
+- Updated SteamInputAdapter package version to 1.0.0
+
 ## [1.0.0] - 2024-07-10
 - Stable Release Version
 
