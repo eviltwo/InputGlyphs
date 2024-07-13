@@ -105,7 +105,23 @@ namespace InputGlyphs.Loaders.Steam.Editor
         {
             var foldoutStyle = new GUIStyle(EditorStyles.foldoutHeader);
             foldoutStyle.richText = true;
-            var foldoutTitle = installed ? $"{packageTitle} <color=green>(Installed)</color>" : $"{packageTitle} <color=red>(Not installed)</color>";
+            var isSameVersion = installedPackageVersion == requiredPackageVersion;
+            string foldoutTitle;
+            if (installed)
+            {
+                if (isSameVersion)
+                {
+                    foldoutTitle = $"{packageTitle} <color=green>(Installed)</color>";
+                }
+                else
+                {
+                    foldoutTitle = $"{packageTitle} <color=green>(Installed, <color=red>but version is different</color>)</color>";
+                }
+            }
+            else
+            {
+                foldoutTitle = $"{packageTitle} <color=red>(Not installed)</color>";
+            }
             foldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, foldoutTitle, foldoutStyle);
             if (foldout)
             {
