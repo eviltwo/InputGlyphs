@@ -10,10 +10,12 @@ namespace InputGlyphs.Samples
         private void Awake()
         {
             SteamAPI.Init();
+            SteamInput.Init(false);
         }
 
         private void OnDestroy()
         {
+            SteamInput.Shutdown();
             SteamAPI.Shutdown();
         }
     }
