@@ -5,8 +5,7 @@
         "GUID:75469ad4d38634e559750d17036d5f7c",
         "GUID:68bd7fdb68ef2684e982e8a9825b18a5",
         "GUID:fc48f7dd8f1155d429d2f9eeb74a4fd4",
-        "GUID:8a9147e240ebffa4b9517ceeb62ed4a6",
-        "GUID:9c45730b1cb24524ca3c3e758ea0fd43"
+        "GUID:8a9147e240ebffa4b9517ceeb62ed4a6"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -25,11 +24,6 @@
             "name": "com.eviltwo.unity-steam-input-adapter",
             "expression": "",
             "define": "SUPPORT_ADAPTER"
-        },
-        {
-            "name": "com.eviltwo.unity-steam-input-glyph-loader",
-            "expression": "",
-            "define": "SUPPORT_LOADER"
         }
     ],
     "noEngineReferences": false

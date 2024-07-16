@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0] - 2024-07-16
+### Changed
+- [GlyphLoader](https://github.com/eviltwo/UnitySteamInputGlyphLoader) package has been integrated into this package.
+  - Users no longer need to import the GlyphLoader package.
+### Fixed
+- Fixed the issue where an error was output when adding a component from the script.
+
 ## [1.0.2] - 2024-07-16
 ### Updated
 - Updated SteamInputAdapter package version to 1.0.1

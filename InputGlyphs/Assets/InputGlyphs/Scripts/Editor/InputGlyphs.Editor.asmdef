@@ -33,11 +33,6 @@
             "define": "SUPPORT_ADAPTER"
         },
         {
-            "name": "com.eviltwo.unity-steam-input-glyph-loader",
-            "expression": "",
-            "define": "SUPPORT_LOADER"
-        },
-        {
             "name": "com.unity.textmeshpro",
             "expression": "",
             "define": "SUPPORT_TMPRO"
