@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "com.eviltwo.unity-steam-input-adapter": {
-      "version": "https://github.com/eviltwo/UnitySteamInputAdapter.git?path=UnitySteamInputAdapter/Assets/UnitySteamInputAdapter#1.0.0",
+      "version": "https://github.com/eviltwo/UnitySteamInputAdapter.git?path=UnitySteamInputAdapter/Assets/UnitySteamInputAdapter#1.0.1",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "8856d218033123a932a4c23ed0e6e527f5320933"
+      "hash": "9d9b8060e51ed78042fc681b22ed35039a54c332"
     },
     "com.eviltwo.unity-steam-input-glyph-loader": {
       "version": "https://github.com/eviltwo/UnitySteamInputGlyphLoader.git?path=UnitySteamInputGlyphLoader/Assets/UnitySteamInputGlyphLoader#0.10.0",
