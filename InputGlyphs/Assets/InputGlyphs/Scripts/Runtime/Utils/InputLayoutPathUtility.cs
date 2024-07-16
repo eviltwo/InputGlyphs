@@ -11,34 +11,30 @@ namespace InputGlyphs.Utils
         private static List<int> _bindingIndexBuffer = new List<int>();
 
         /// <summary>
-        /// Returns a local path for the given input layout path.
+        /// Remove the root (probably the device name) from the path.
         /// </summary>
         /// <remarks>
-        /// &lt;gamepad&gt;/dpad/left -> dpad/left
+        /// Example: &lt;gamepad&gt;/dpad/left -> dpad/left
         /// </remarks>
-        public static string GetLocalPath(string inputLayoutPath)
+        public static string RemoveRoot(string inputControlPath)
         {
-            if (string.IsNullOrEmpty(inputLayoutPath))
+            if (string.IsNullOrEmpty(inputControlPath))
             {
-                return null;
+                return string.Empty;
             }
-            var pathComponents = InputControlPath.Parse(inputLayoutPath);
-            var enumerator = pathComponents.GetEnumerator();
-            if (!enumerator.MoveNext())
+            var startIndex = inputControlPath[0] == InputControlPath.Separator ? 1 : 0;
+            var separationIndex = inputControlPath.IndexOf(InputControlPath.Separator, startIndex);
+            if (separationIndex == -1)
             {
-                return null;
+                return inputControlPath;
             }
 
-            _stringBuilder.Clear();
-            while (enumerator.MoveNext())
+            if (separationIndex == inputControlPath.Length)
             {
-                if (_stringBuilder.Length > 0)
-                {
-                    _stringBuilder.Append(InputControlPath.Separator);
-                }
-                _stringBuilder.Append(enumerator.Current.name);
+                return string.Empty;
             }
-            return _stringBuilder.ToString();
+
+            return inputControlPath.Substring(separationIndex + 1);
         }
 
         /// <summary>

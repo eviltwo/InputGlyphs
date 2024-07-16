@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2] - 2024-07-16
+### Updated
+- Updated SteamInputAdapter package version to 1.0.1
+  - Supported control components. Example: "XInputController/{Submit}"
+### Changed
+- Renamed `GetLocalPath()` to `RemoveRoot()`. Internal processing was also changed.
+
 ## [1.0.1] - 2024-07-13
 ### Updated
 - Updated SteamInputAdapter package version to 1.0.0
