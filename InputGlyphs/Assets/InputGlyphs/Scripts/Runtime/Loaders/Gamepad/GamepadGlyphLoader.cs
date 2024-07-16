@@ -50,7 +50,7 @@ namespace InputGlyphs.Loaders
                 return false;
             }
 
-            var localPath = InputLayoutPathUtility.GetLocalPath(inputLayoutPath);
+            var localPath = InputLayoutPathUtility.RemoveRoot(inputLayoutPath);
             if (activeTextureMap.TryGetTexture(localPath, out var result))
             {
                 texture.Reinitialize(result.width, result.height, TextureFormat.ARGB32, false);
