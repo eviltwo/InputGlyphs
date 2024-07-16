@@ -31,7 +31,7 @@ namespace InputGlyphs.Loaders.Utils
                 return false;
             }
 
-            var localPath = InputLayoutPathUtility.GetLocalPath(inputLayoutPath);
+            var localPath = InputLayoutPathUtility.RemoveRoot(inputLayoutPath);
             for (var i = 0; i < TextureMaps.Count; i++)
             {
                 if (TextureMaps[i].TryGetTexture(localPath, out var result))

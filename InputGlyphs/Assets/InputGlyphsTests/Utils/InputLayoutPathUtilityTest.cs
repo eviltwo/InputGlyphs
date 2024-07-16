@@ -5,14 +5,18 @@ namespace InputGlyphs.Tests
 {
     public class InputLayoutPathUtilityTest
     {
+        [TestCase("/XInputController/buttonSouth", "buttonSouth")]
+        [TestCase("/XInputController/dpad/right", "dpad/right")]
+        [TestCase("/XInputController/<Button>", "<Button>")]
+        [TestCase("/XInputController/{Submit}", "{Submit}")]
+        [TestCase("/XInputController/#(a)", "#(a)")]
+        [TestCase("/<Gamepad>/buttonSouth", "buttonSouth")]
+        [TestCase("/<Gamepad>/buttonSouth", "buttonSouth")]
         [TestCase("XInputController/buttonSouth", "buttonSouth")]
-        [TestCase("XInputController/dpad/left", "dpad/left")]
-        [TestCase("<gamepad>/dpad/up", "dpad/up")]
-        [TestCase("<gamepad>", "")]
-        [TestCase("<gamepad>/", "")]
-        public void GetLocalPath(string input, string expected)
+        [TestCase("*/buttonSouth", "buttonSouth")]
+        public void RemoveRoot(string input, string expected)
         {
-            var result = InputLayoutPathUtility.GetLocalPath(input);
+            var result = InputLayoutPathUtility.RemoveRoot(input);
             Assert.AreEqual(expected, result);
         }
     }
