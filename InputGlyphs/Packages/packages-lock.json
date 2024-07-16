@@ -7,13 +7,6 @@
       "dependencies": {},
       "hash": "9d9b8060e51ed78042fc681b22ed35039a54c332"
     },
-    "com.eviltwo.unity-steam-input-glyph-loader": {
-      "version": "https://github.com/eviltwo/UnitySteamInputGlyphLoader.git?path=UnitySteamInputGlyphLoader/Assets/UnitySteamInputGlyphLoader#0.10.0",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "93a2f359075827dba7a563604f0e42fcc56fad41"
-    },
     "com.rlabrecque.steamworks.net": {
       "version": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net#20.2.0",
       "depth": 0,

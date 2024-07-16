@@ -50,10 +50,6 @@ namespace InputGlyphs.Display
             {
                 Text = GetComponent<TMP_Text>();
             }
-            if (PlayerInput == null)
-            {
-                Debug.LogError("PlayerInput is not set.", this);
-            }
             _packedTexture = new Texture2D(2, 2);
             _sharedMaterial = new Material(Material);
             _sharedMaterial.SetTexture("_MainTex", _packedTexture);
@@ -61,6 +57,14 @@ namespace InputGlyphs.Display
             _sharedSpriteAsset.material = _sharedMaterial;
             _sharedSpriteAsset.spriteSheet = _packedTexture;
             Text.spriteAsset = _sharedSpriteAsset;
+        }
+
+        private void Start()
+        {
+            if (PlayerInput == null)
+            {
+                Debug.LogError("PlayerInput is not set.", this);
+            }
         }
 
         private void OnDisable()
