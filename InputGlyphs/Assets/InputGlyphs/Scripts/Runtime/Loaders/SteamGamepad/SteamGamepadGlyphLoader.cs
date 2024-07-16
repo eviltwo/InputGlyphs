@@ -1,9 +1,10 @@
-#if STEAMWORKS_NET && SUPPORT_ADAPTER && SUPPORT_LOADER
+#if STEAMWORKS_NET && SUPPORT_ADAPTER
 using System.Collections.Generic;
+using System.IO;
 using Steamworks;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnitySteamInputGlyphLoader;
+using UnitySteamInputAdapter;
 
 namespace InputGlyphs.Loaders
 {
@@ -28,7 +29,21 @@ namespace InputGlyphs.Loaders
                 return false;
             }
 
-            return SteamInputGlyphLoader.LoadGlyph(texture, supportedDevice, inputLayoutPath, GlyphSize);
+            // Get path of Glyph image file.
+            var steamInputAction = SteamInputAdapter.GetSteamInputAction(supportedDevice, inputLayoutPath);
+            var glyphPath = SteamInput.GetGlyphPNGForActionOrigin(steamInputAction, GlyphSize, 0);
+            if (string.IsNullOrEmpty(glyphPath))
+            {
+                return false;
+            }
+
+            return LoadImage(texture, glyphPath);
+        }
+
+        public static bool LoadImage(Texture2D texture, string path)
+        {
+            var bytes = File.ReadAllBytes(path);
+            return texture.LoadImage(bytes);
         }
     }
 }

@@ -44,17 +44,6 @@ namespace InputGlyphs.Loaders.Steam.Editor
                 isInstalled = true,
 #endif
             },
-            new RequiredPackageInfo
-            {
-                title = "Steam Input Glyph Loader",
-                name = "com.eviltwo.unity-steam-input-glyph-loader",
-                pageUrl = "https://github.com/eviltwo/UnitySteamInputGlyphLoader",
-                packageUrl = "https://github.com/eviltwo/UnitySteamInputGlyphLoader.git?path=UnitySteamInputGlyphLoader/Assets/UnitySteamInputGlyphLoader",
-                requiredVersion = "0.10.0",
-#if SUPPORT_LOADER
-                isInstalled = true
-#endif
-            }
         };
 
         private Dictionary<string, string> _versionCache = new Dictionary<string, string>();
