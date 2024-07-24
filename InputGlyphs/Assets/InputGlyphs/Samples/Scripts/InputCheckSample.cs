@@ -20,6 +20,11 @@ namespace InputGlyphs.Samples
         private List<InputControl> _controlBuffer = new List<InputControl>();
         private List<InputDevice> _deviceBuffer = new List<InputDevice>();
         private List<string> _pathBuffer = new List<string>();
+        private readonly GlyphsLayoutData _layoutData = new GlyphsLayoutData
+        {
+            Layout = GlyphsLayout.Horizontal,
+            MaxCount = 4,
+        };
 
         private void Start()
         {
@@ -51,7 +56,7 @@ namespace InputGlyphs.Samples
                 _pathBuffer.Add(control.path);
             }
 
-            if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(_texture, _deviceBuffer, _pathBuffer, GlyphsLayout.Horizontal))
+            if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(_texture, _deviceBuffer, _pathBuffer, _layoutData))
             {
                 Destroy(_spriteRenderer.sprite);
                 _spriteRenderer.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
