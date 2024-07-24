@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.1] - 2024-07-24
+### Changed
+- Changed the glyph image generation to use GlyphLayoutData struct instead of GlyphLayout.
+
 ## [1.1.0] - 2024-07-16
 ### Changed
 - [GlyphLoader](https://github.com/eviltwo/UnitySteamInputGlyphLoader) package has been integrated into this package.

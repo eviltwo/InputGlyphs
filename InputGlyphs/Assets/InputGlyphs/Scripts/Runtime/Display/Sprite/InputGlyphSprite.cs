@@ -19,7 +19,7 @@ namespace InputGlyphs.Display
         public InputActionReference InputActionReference = null;
 
         [SerializeField]
-        public GlyphsLayout GlyphsLayout = GlyphsLayout.Horizontal;
+        public GlyphsLayoutData GlyphsLayoutData = GlyphsLayoutData.Default;
 
         private PlayerInput _lastPlayerInput;
         private List<string> _pathBuffer = new List<string>();
@@ -138,7 +138,7 @@ namespace InputGlyphs.Display
 
             if (InputLayoutPathUtility.TryGetActionBindingPath(InputActionReference?.action, PlayerInput.currentControlScheme, _pathBuffer))
             {
-                if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(_texture, devices, _pathBuffer, GlyphsLayout))
+                if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(_texture, devices, _pathBuffer, GlyphsLayoutData))
                 {
                     Destroy(SpriteRenderer.sprite);
                     SpriteRenderer.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));

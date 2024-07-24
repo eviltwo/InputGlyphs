@@ -28,7 +28,7 @@ namespace InputGlyphs.Display
         public InputActionReference[] InputActionReferences = null;
 
         [SerializeField]
-        public GlyphsLayout GlyphsLayout = GlyphsLayout.Horizontal;
+        public GlyphsLayoutData GlyphsLayoutData = GlyphsLayoutData.Default;
 
         private PlayerInput _lastPlayerInput;
         private List<string> _pathBuffer = new List<string>();
@@ -178,7 +178,7 @@ namespace InputGlyphs.Display
                         texture = new Texture2D(2, 2);
                         _actionTextureBuffer.Add(texture);
                     }
-                    if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(texture, devices, _pathBuffer, GlyphsLayout))
+                    if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(texture, devices, _pathBuffer, GlyphsLayoutData))
                     {
                         _actionTextureIndexes.Add(Tuple.Create(actionReference.action.name, i));
                     }
