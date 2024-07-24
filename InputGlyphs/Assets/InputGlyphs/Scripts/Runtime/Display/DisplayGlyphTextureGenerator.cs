@@ -16,7 +16,7 @@ namespace InputGlyphs.Display
         /// <summary>
         /// Generates glyph texture for the specified inputLayoutPaths and writes it to the texture. The glyph textures are arranged according to the layout.
         /// </summary>
-        public static bool GenerateGlyphTexture(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, IReadOnlyList<string> inputLayoutPaths, GlyphsLayout layout)
+        public static bool GenerateGlyphTexture(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, IReadOnlyList<string> inputLayoutPaths, GlyphsLayoutData layoutData)
         {
             if (texture == null)
             {
@@ -29,13 +29,13 @@ namespace InputGlyphs.Display
                 return false;
             }
 
-            if (inputLayoutPaths.Count == 1 || layout == GlyphsLayout.Single)
+            if (layoutData.Layout == GlyphsLayout.Single)
             {
                 return GenerateSingleGlyphTexture(texture, activeDevices, inputLayoutPaths);
             }
             else
             {
-                return GenerateMultipleGlyphsTexture(texture, activeDevices, inputLayoutPaths);
+                return GenerateMultipleGlyphsTexture(texture, activeDevices, inputLayoutPaths, layoutData.MaxCount);
             }
         }
 
@@ -52,15 +52,26 @@ namespace InputGlyphs.Display
             return false;
         }
 
-        private static bool GenerateMultipleGlyphsTexture(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, IReadOnlyList<string> inputLayoutPaths)
+        private static bool GenerateMultipleGlyphsTexture(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, IReadOnlyList<string> inputLayoutPaths, int maxCount)
         {
+            if (inputLayoutPaths.Count == 1)
+            {
+                return GenerateSingleGlyphTexture(texture, activeDevices, inputLayoutPaths);
+            }
+
             _textureBuffer.Clear();
+            var loadedCount = 0;
             for (int i = 0; i < inputLayoutPaths.Count; i++)
             {
                 var texTemp = new Texture2D(2, 2);
                 if (InputGlyphManager.LoadGlyph(texTemp, activeDevices, inputLayoutPaths[i]))
                 {
                     _textureBuffer.Add(texTemp);
+                    loadedCount++;
+                    if (loadedCount >= maxCount)
+                    {
+                        break;
+                    }
                 }
                 else
                 {
