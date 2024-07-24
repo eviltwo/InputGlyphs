@@ -377,7 +377,9 @@ MonoBehaviour:
   InputActionReferences:
   - {fileID: 1942945179757384036, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
   - {fileID: -6609880655223600665, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
-  GlyphsLayout: 2
+  GlyphsLayoutData:
+    Layout: 2
+    MaxCount: 4
 --- !u!114 &278394324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,7 +554,9 @@ MonoBehaviour:
   SpriteRenderer: {fileID: 643438429}
   PlayerInput: {fileID: 1795501703}
   InputActionReference: {fileID: 1942945179757384036, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
-  GlyphsLayout: 2
+  GlyphsLayoutData:
+    Layout: 2
+    MaxCount: 4
 --- !u!212 &643438429
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -882,7 +886,9 @@ MonoBehaviour:
   Image: {fileID: 989226477}
   PlayerInput: {fileID: 1795501703}
   InputActionReference: {fileID: -6609880655223600665, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
-  GlyphsLayout: 2
+  GlyphsLayoutData:
+    Layout: 2
+    MaxCount: 4
 --- !u!1 &1411641333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,7 +1407,9 @@ MonoBehaviour:
   Image: {fileID: 1576210592}
   PlayerInput: {fileID: 1795501703}
   InputActionReference: {fileID: 1942945179757384036, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
-  GlyphsLayout: 2
+  GlyphsLayoutData:
+    Layout: 2
+    MaxCount: 4
 --- !u!114 &1576210592
 MonoBehaviour:
   m_ObjectHideFlags: 0
