@@ -1,0 +1,7 @@
+Input Glyphs uses third-party assets. These are distributed under a different license than Input Glyphs.
+
+License notice for the third-party assets used:
+
+Xelu's FREE Controller Prompts
+https://thoseawesomeguys.com/prompts/
+Creative Commons 0 (CC0)
