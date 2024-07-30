@@ -20,4 +20,4 @@ https://github.com/eviltwo/InputGlyphs.git?path=InputGlyphs/Assets/InputGlyphs
 # Documentation
 https://eviltwo.github.io/InputGlyphs_Docs/
 
-For information on the licenses of the assets used by this package, please refer to [Third-Party Notices.txt](InputGlyphs/Assets/InputGlyphs/Third-Party Notices.txt).
+For information on the licenses of the assets used by this package, please refer to [Third-Party Notices.txt](InputGlyphs/Assets/InputGlyphs/Third-Party%20Notices.txt).
