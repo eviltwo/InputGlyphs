@@ -7,10 +7,8 @@ The package includes pre-configured glyph images for keyboards & mice and variou
 
 ![Duo player glyphs](https://eviltwo.github.io/InputGlyphs_Docs/assets/duo_glyphs.png)
 
-# Install with AssetStore
-Comming soon!
-
-Publisher page: https://assetstore.unity.com/publishers/12117
+# Purchase from Asset Store
+https://assetstore.unity.com/packages/slug/289760
 
 # Install with UPM
 ```
