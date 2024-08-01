@@ -33,7 +33,10 @@ namespace AssetStoreTools.Validator.TestMethods
                             continue;
 
                         var texturePath = AssetUtility.ObjectToAssetPath(assignedTexture);
-                        var textureImporter = (TextureImporter)AssetUtility.GetAssetImporter(texturePath);
+                        var textureImporter = AssetUtility.GetAssetImporter(texturePath) as TextureImporter;
+                        if (textureImporter == null)
+                            continue;
+
                         if (textureImporter.textureType != TextureImporterType.NormalMap && !badTextures.Contains(assignedTexture))
                         {
                             if (badTextures.Count < TextureCacheLimit)

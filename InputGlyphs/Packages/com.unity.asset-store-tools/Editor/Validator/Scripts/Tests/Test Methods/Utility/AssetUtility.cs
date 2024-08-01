@@ -30,6 +30,7 @@ namespace AssetStoreTools.Validator.TestMethods.Utility
         Shader,
         SpeedTree,
         Texture,
+        UnityPackage,
         Video
     }
 
@@ -104,6 +105,10 @@ namespace AssetStoreTools.Validator.TestMethods.Utility
                 case AssetType.MonoScript:
                     filter = "t:script";
                     extensions = new[] { ".cs" };
+                    break;
+                case AssetType.UnityPackage:
+                    filter = string.Empty;
+                    extensions = new[] { ".unitypackage" };
                     break;
                 case AssetType.PrecompiledAssembly:
                     var assemblyPaths = GetPrecompiledAssemblies(searchPaths);

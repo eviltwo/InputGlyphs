@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this package will be documented in this file.
 
+## [11.4.3] - 2024-08-01
+
+### Validator Changes
+- Hotfix: Remove non-ascii characters from the demo scene validation
+
+## [11.4.2] - 2024-07-30
+
+### Validator Changes
+- Check for nested .unitypackage files in the demo scene validation
+- Prevent normal map test from erroring when misc importer types are detected
+- Remove Templates category from the uncompressed images requirement list
+
 ## [11.4.1] - 2024-05-10
 
 ### Exporter Changes

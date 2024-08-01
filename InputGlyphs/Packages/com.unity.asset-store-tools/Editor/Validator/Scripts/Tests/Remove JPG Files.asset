@@ -26,6 +26,5 @@ MonoBehaviour:
     - 3D
     - Animation
     - Essentials
-    - Templates
     - VFX/Shaders
   TestScript: {fileID: 11500000, guid: 5634a12b3a8544c4585bbc280ae59ce2, type: 3}
