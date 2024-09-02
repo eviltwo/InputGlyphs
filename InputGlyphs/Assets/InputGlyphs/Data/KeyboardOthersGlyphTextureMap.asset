@@ -43,10 +43,14 @@ MonoBehaviour:
     GlyphTexture: {fileID: 2800000, guid: d17095152db8e9b40ac7b50326749f12, type: 3}
   - InputLayoutLocalPath: insert
     GlyphTexture: {fileID: 2800000, guid: 95d88f168dc9c8e408af721ff02c1bb2, type: 3}
+  - InputLayoutLocalPath: leftCtrl
+    GlyphTexture: {fileID: 2800000, guid: edbe2d9362636654195158686db24607, type: 3}
   - InputLayoutLocalPath: leftMeta
     GlyphTexture: {fileID: 2800000, guid: e3b6f9def33b99042aed603f34efd4b5, type: 3}
   - InputLayoutLocalPath: leftMeta
     GlyphTexture: {fileID: 2800000, guid: e3b6f9def33b99042aed603f34efd4b5, type: 3}
+  - InputLayoutLocalPath: leftShift
+    GlyphTexture: {fileID: 2800000, guid: c972be4189e9f7e458b44c68bf95e33d, type: 3}
   - InputLayoutLocalPath: minus
     GlyphTexture: {fileID: 2800000, guid: cce34d1311ed93343b0ea8027e49732d, type: 3}
   - InputLayoutLocalPath: numLock
@@ -61,6 +65,14 @@ MonoBehaviour:
     GlyphTexture: {fileID: 2800000, guid: f347a0adfe49fe143ac1881ed5ca0180, type: 3}
   - InputLayoutLocalPath: quote
     GlyphTexture: {fileID: 2800000, guid: 8de0f0b7b973e3a4b80c815005374448, type: 3}
+  - InputLayoutLocalPath: rightCtrl
+    GlyphTexture: {fileID: 2800000, guid: edbe2d9362636654195158686db24607, type: 3}
+  - InputLayoutLocalPath: rightShift
+    GlyphTexture: {fileID: 2800000, guid: c972be4189e9f7e458b44c68bf95e33d, type: 3}
+  - InputLayoutLocalPath: semicolon
+    GlyphTexture: {fileID: 2800000, guid: aa79328ac6294b548a4da66fc047ad50, type: 3}
+  - InputLayoutLocalPath: shift
+    GlyphTexture: {fileID: 2800000, guid: c972be4189e9f7e458b44c68bf95e33d, type: 3}
   - InputLayoutLocalPath: slash
     GlyphTexture: {fileID: 2800000, guid: 359a411eb81be4746a2cb37c86898c64, type: 3}
   - InputLayoutLocalPath: space
