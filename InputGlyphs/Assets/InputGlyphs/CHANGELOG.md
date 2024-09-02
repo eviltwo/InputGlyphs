@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.2] - 2024-09-02
+### Added
+- Added shift key to texture map.
+
 ## [1.1.1] - 2024-07-24
 ### Changed
 - Changed the glyph image generation to use GlyphLayoutData struct instead of GlyphLayout.
