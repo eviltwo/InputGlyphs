@@ -1043,9 +1043,9 @@ MonoBehaviour:
     Layout: 2
     Index: 0
     MaxCount: 4
-  _enableLayoutElement: 1
-  _layoutElementPriority: 1
-  _layoutElementSize: 40
+  EnableLayoutElement: 1
+  LayoutElementPriority: 1
+  LayoutElementSize: 40
 --- !u!114 &456206386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1964,9 +1964,9 @@ MonoBehaviour:
     Layout: 2
     Index: 0
     MaxCount: 4
-  _enableLayoutElement: 1
-  _layoutElementPriority: 1
-  _layoutElementSize: 40
+  EnableLayoutElement: 1
+  LayoutElementPriority: 1
+  LayoutElementSize: 40
 --- !u!114 &1086219417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2231,9 +2231,9 @@ MonoBehaviour:
     Layout: 2
     Index: 0
     MaxCount: 4
-  _enableLayoutElement: 1
-  _layoutElementPriority: 1
-  _layoutElementSize: 40
+  EnableLayoutElement: 1
+  LayoutElementPriority: 1
+  LayoutElementSize: 40
 --- !u!1 &1830157632
 GameObject:
   m_ObjectHideFlags: 0
@@ -2330,9 +2330,9 @@ MonoBehaviour:
     Layout: 2
     Index: 0
     MaxCount: 4
-  _enableLayoutElement: 1
-  _layoutElementPriority: 1
-  _layoutElementSize: 40
+  EnableLayoutElement: 1
+  LayoutElementPriority: 1
+  LayoutElementSize: 40
 --- !u!1 &1837572672
 GameObject:
   m_ObjectHideFlags: 0

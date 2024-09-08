@@ -892,9 +892,9 @@ MonoBehaviour:
     Layout: 2
     Index: 0
     MaxCount: 4
-  _enableLayoutElement: 1
-  _layoutElementPriority: 1
-  _layoutElementSize: 40
+  EnableLayoutElement: 1
+  LayoutElementPriority: 1
+  LayoutElementSize: 40
 --- !u!1 &1411641333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1459,9 +1459,9 @@ MonoBehaviour:
     Layout: 2
     Index: 0
     MaxCount: 4
-  _enableLayoutElement: 1
-  _layoutElementPriority: 1
-  _layoutElementSize: 40
+  EnableLayoutElement: 1
+  LayoutElementPriority: 1
+  LayoutElementSize: 40
 --- !u!114 &1576210592
 MonoBehaviour:
   m_ObjectHideFlags: 0

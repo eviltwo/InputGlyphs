@@ -162,15 +162,15 @@ namespace InputGlyphs.Display
         //
 
         [SerializeField]
-        private bool _enableLayoutElement = true;
+        public bool EnableLayoutElement = true;
 
         [SerializeField]
-        private int _layoutElementPriority = 1;
+        public int LayoutElementPriority = 1;
 
         [SerializeField]
-        private float _layoutElementSize = 100f;
+        public float LayoutElementSize = 100f;
 
-        public virtual int layoutPriority => _enableLayoutElement ? _layoutElementPriority : -1;
+        public virtual int layoutPriority => EnableLayoutElement ? LayoutElementPriority : -1;
 
         public virtual void CalculateLayoutInputHorizontal() { }
 
@@ -186,15 +186,15 @@ namespace InputGlyphs.Display
             {
                 if (Image == null || Image.sprite == null)
                 {
-                    return _layoutElementSize;
+                    return LayoutElementSize;
                 }
 
                 var ratio = (float)Image.sprite.rect.width / Image.sprite.rect.height;
-                return _layoutElementSize * ratio;
+                return LayoutElementSize * ratio;
             }
         }
 
-        public virtual float preferredHeight => _layoutElementSize;
+        public virtual float preferredHeight => LayoutElementSize;
 
         public virtual float flexibleWidth => -1;
 
