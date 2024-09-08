@@ -45,7 +45,7 @@ namespace InputGlyphs.Display.Editor
             var playerInputError = false;
             foreach (var t in targets)
             {
-                var glyphImage = (InputGlyphImage)t;
+                var glyphImage = (InputGlyphText)t;
                 if (glyphImage.PlayerInput != null && !InputGlyphEditorUtility.ValidatePlayerInputNotificationBehavior(glyphImage.PlayerInput))
                 {
                     playerInputError = true;
