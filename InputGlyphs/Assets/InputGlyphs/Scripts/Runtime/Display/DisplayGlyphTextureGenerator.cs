@@ -31,7 +31,7 @@ namespace InputGlyphs.Display
 
             if (layoutData.Layout == GlyphsLayout.Single)
             {
-                return GenerateSingleGlyphTexture(texture, activeDevices, inputLayoutPaths);
+                return GenerateSingleGlyphTexture(texture, activeDevices, inputLayoutPaths, layoutData.Index);
             }
             else
             {
@@ -39,14 +39,16 @@ namespace InputGlyphs.Display
             }
         }
 
-        private static bool GenerateSingleGlyphTexture(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, IReadOnlyList<string> inputLayoutPaths)
+        private static bool GenerateSingleGlyphTexture(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, IReadOnlyList<string> inputLayoutPaths, int index)
         {
-            for (int i = 0; i < inputLayoutPaths.Count; i++)
+            if (index < 0 || index >= inputLayoutPaths.Count)
             {
-                if (InputGlyphManager.LoadGlyph(texture, activeDevices, inputLayoutPaths[i]))
-                {
-                    return true;
-                }
+                return false;
+            }
+
+            if (InputGlyphManager.LoadGlyph(texture, activeDevices, inputLayoutPaths[index]))
+            {
+                return true;
             }
 
             return false;
@@ -56,7 +58,7 @@ namespace InputGlyphs.Display
         {
             if (inputLayoutPaths.Count == 1)
             {
-                return GenerateSingleGlyphTexture(texture, activeDevices, inputLayoutPaths);
+                return GenerateSingleGlyphTexture(texture, activeDevices, inputLayoutPaths, 0);
             }
 
             _textureBuffer.Clear();
