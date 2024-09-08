@@ -1,13 +1,16 @@
 #if INPUT_SYSTEM && ENABLE_INPUT_SYSTEM
+using InputGlyphs.Editor;
 using UnityEditor;
 
 namespace InputGlyphs.Display.Editor
 {
-    [CustomEditor(typeof(InputGlyphImage))]
+    [CustomEditor(typeof(InputGlyphImage)), CanEditMultipleObjects]
     public class InputGlyphImageEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
+            serializedObject.Update();
+
             var imageProperty = serializedObject.FindProperty(nameof(InputGlyphImage.Image));
             EditorGUILayout.PropertyField(imageProperty);
 
@@ -33,13 +36,19 @@ namespace InputGlyphs.Display.Editor
 
             serializedObject.ApplyModifiedProperties();
 
-            var glyphImage = (InputGlyphImage)target;
-
-            if (glyphImage.PlayerInput != null
-                && glyphImage.PlayerInput.notificationBehavior != UnityEngine.InputSystem.PlayerNotifications.InvokeUnityEvents
-                && glyphImage.PlayerInput.notificationBehavior != UnityEngine.InputSystem.PlayerNotifications.InvokeCSharpEvents)
+            var playerInputError = false;
+            foreach (var t in targets)
             {
-                EditorGUILayout.HelpBox("PlayerInput.notificationBehavior must be set to InvokeUnityEvents or InvokeCSharpEvents.", MessageType.Error);
+                var glyphImage = (InputGlyphImage)t;
+                if (glyphImage.PlayerInput != null && !InputGlyphEditorUtility.ValidatePlayerInputNotificationBehavior(glyphImage.PlayerInput))
+                {
+                    playerInputError = true;
+                    break;
+                }
+            }
+            if (playerInputError)
+            {
+                EditorGUILayout.HelpBox(InputGlyphEditorUtility.GetPlayerInputNotificationBehaviorErrorMessage(), MessageType.Error);
             }
         }
     }

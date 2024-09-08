@@ -5,6 +5,8 @@
 - Added the Index value for Single Layout.
 ### Changed
 - Changed the Image to be transformed using LayoutElement.
+### Modified
+- Modified to allow multiple components to be edited.
 
 ## [1.1.2] - 2024-09-02
 ### Added
