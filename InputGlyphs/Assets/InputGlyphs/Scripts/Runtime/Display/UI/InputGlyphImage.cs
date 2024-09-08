@@ -1,5 +1,6 @@
 #if INPUT_SYSTEM && ENABLE_INPUT_SYSTEM
 using System.Collections.Generic;
+using System.Linq;
 using InputGlyphs.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,10 +9,9 @@ using UnityEngine.UI;
 
 namespace InputGlyphs.Display
 {
-    [RequireComponent(typeof(Image))]
     public class InputGlyphImage : UIBehaviour, ILayoutElement
     {
-        [SerializeField, HideInInspector]
+        [SerializeField]
         public Image Image = null;
 
         [SerializeField]
@@ -33,6 +33,7 @@ namespace InputGlyphs.Display
         {
             base.Reset();
             Image = GetComponent<Image>();
+            PlayerInput = FindObjectOfType<PlayerInput>();
         }
 #endif
 
@@ -50,9 +51,13 @@ namespace InputGlyphs.Display
         protected override void Start()
         {
             base.Start();
+            if (PlayerInput == null && InputGlyphDisplaySettings.AutoCollectPlayerInput)
+            {
+                PlayerInput = PlayerInput.all.FirstOrDefault();
+            }
             if (PlayerInput == null)
             {
-                Debug.LogError("PlayerInput is not set.", this);
+                Debug.LogWarning("PlayerInput is not set.", this);
             }
         }
 
@@ -80,6 +85,11 @@ namespace InputGlyphs.Display
 
         protected virtual void Update()
         {
+            if (PlayerInput == null && InputGlyphDisplaySettings.AutoCollectPlayerInput)
+            {
+                PlayerInput = PlayerInput.all.FirstOrDefault();
+            }
+
             if (PlayerInput != _lastPlayerInput)
             {
                 if (_lastPlayerInput != null)

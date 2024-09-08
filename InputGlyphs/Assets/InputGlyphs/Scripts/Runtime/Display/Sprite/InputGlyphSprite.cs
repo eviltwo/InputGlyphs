@@ -1,15 +1,15 @@
 #if INPUT_SYSTEM && ENABLE_INPUT_SYSTEM
 using System.Collections.Generic;
+using System.Linq;
 using InputGlyphs.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace InputGlyphs.Display
 {
-    [RequireComponent(typeof(SpriteRenderer))]
     public class InputGlyphSprite : MonoBehaviour
     {
-        [SerializeField, HideInInspector]
+        [SerializeField]
         public SpriteRenderer SpriteRenderer = null;
 
         [SerializeField]
@@ -28,6 +28,7 @@ namespace InputGlyphs.Display
         private void Reset()
         {
             SpriteRenderer = GetComponent<SpriteRenderer>();
+            PlayerInput = FindObjectOfType<PlayerInput>();
         }
 
         private void Awake()
@@ -41,9 +42,13 @@ namespace InputGlyphs.Display
 
         private void Start()
         {
+            if (PlayerInput == null && InputGlyphDisplaySettings.AutoCollectPlayerInput)
+            {
+                PlayerInput = PlayerInput.all.FirstOrDefault();
+            }
             if (PlayerInput == null)
             {
-                Debug.LogError("PlayerInput is not set.", this);
+                Debug.LogWarning("PlayerInput is not set.", this);
             }
         }
 
@@ -69,6 +74,11 @@ namespace InputGlyphs.Display
 
         private void Update()
         {
+            if (PlayerInput == null && InputGlyphDisplaySettings.AutoCollectPlayerInput)
+            {
+                PlayerInput = PlayerInput.all.FirstOrDefault();
+            }
+
             if (PlayerInput != _lastPlayerInput)
             {
                 if (_lastPlayerInput != null)

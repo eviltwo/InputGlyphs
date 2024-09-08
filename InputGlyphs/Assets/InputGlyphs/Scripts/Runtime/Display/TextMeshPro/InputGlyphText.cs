@@ -1,6 +1,7 @@
 #if INPUT_SYSTEM && ENABLE_INPUT_SYSTEM && SUPPORT_TMPRO
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using InputGlyphs.Utils;
 using TMPro;
@@ -15,7 +16,7 @@ namespace InputGlyphs.Display
     {
         public static int PackedTextureSize = 2048;
 
-        [SerializeField, HideInInspector]
+        [SerializeField]
         public TMP_Text Text = null;
 
         [SerializeField, HideInInspector]
@@ -42,6 +43,7 @@ namespace InputGlyphs.Display
         private void Reset()
         {
             Text = GetComponent<TMP_Text>();
+            PlayerInput = FindObjectOfType<PlayerInput>();
         }
 
         private void Awake()
@@ -61,9 +63,13 @@ namespace InputGlyphs.Display
 
         private void Start()
         {
+            if (PlayerInput == null && InputGlyphDisplaySettings.AutoCollectPlayerInput)
+            {
+                PlayerInput = PlayerInput.all.FirstOrDefault();
+            }
             if (PlayerInput == null)
             {
-                Debug.LogError("PlayerInput is not set.", this);
+                Debug.LogWarning("PlayerInput is not set.", this);
             }
         }
 
@@ -93,6 +99,11 @@ namespace InputGlyphs.Display
 
         private void Update()
         {
+            if (PlayerInput == null && InputGlyphDisplaySettings.AutoCollectPlayerInput)
+            {
+                PlayerInput = PlayerInput.all.FirstOrDefault();
+            }
+
             if (PlayerInput != _lastPlayerInput)
             {
                 if (_lastPlayerInput != null)
