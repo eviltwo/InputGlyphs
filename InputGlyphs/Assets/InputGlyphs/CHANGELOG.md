@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.2.0] - 2024-09-08
+
 ## [1.1.2] - 2024-09-02
 ### Added
 - Added shift key to texture map.
