@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.1] - DEVELOPMENT
+### Modified
+- Modified to automatically collect PlayerInput when it is not set.
+
 ## [1.2.0] - 2024-09-08
 ### Added
 - Added the Index value for Single Layout.
