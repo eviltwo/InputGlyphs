@@ -1,11 +1,12 @@
 #if INPUT_SYSTEM && ENABLE_INPUT_SYSTEM && SUPPORT_TMPRO
 using System.Text;
+using InputGlyphs.Editor;
 using UnityEditor;
 using UnityEngine;
 
 namespace InputGlyphs.Display.Editor
 {
-    [CustomEditor(typeof(InputGlyphText))]
+    [CustomEditor(typeof(InputGlyphText)), CanEditMultipleObjects]
     public class InputGlyphTextEditor : UnityEditor.Editor
     {
         private StringBuilder _stringBuilder = new StringBuilder();
@@ -41,11 +42,19 @@ namespace InputGlyphs.Display.Editor
                 }
             }
 
-            if (glyphText.PlayerInput != null
-                && glyphText.PlayerInput.notificationBehavior != UnityEngine.InputSystem.PlayerNotifications.InvokeUnityEvents
-                && glyphText.PlayerInput.notificationBehavior != UnityEngine.InputSystem.PlayerNotifications.InvokeCSharpEvents)
+            var playerInputError = false;
+            foreach (var t in targets)
             {
-                EditorGUILayout.HelpBox("PlayerInput.notificationBehavior must be set to InvokeUnityEvents or InvokeCSharpEvents.", MessageType.Error);
+                var glyphImage = (InputGlyphImage)t;
+                if (glyphImage.PlayerInput != null && !InputGlyphEditorUtility.ValidatePlayerInputNotificationBehavior(glyphImage.PlayerInput))
+                {
+                    playerInputError = true;
+                    break;
+                }
+            }
+            if (playerInputError)
+            {
+                EditorGUILayout.HelpBox(InputGlyphEditorUtility.GetPlayerInputNotificationBehaviorErrorMessage(), MessageType.Error);
             }
         }
     }
