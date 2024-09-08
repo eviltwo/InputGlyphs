@@ -18,7 +18,12 @@ namespace InputGlyphs.Display.Editor
                 rect.y += EditorGUIUtility.singleLineHeight;
 
                 var layout = (GlyphsLayout)layoutProperty.intValue;
-                if (layout == GlyphsLayout.Horizontal)
+                if (layout == GlyphsLayout.Single)
+                {
+                    var indexProperty = property.FindPropertyRelative(nameof(GlyphsLayoutData.Index));
+                    EditorGUI.PropertyField(rect, indexProperty, new GUIContent($"Glyphs {indexProperty.displayName}"));
+                }
+                else if (layout == GlyphsLayout.Horizontal)
                 {
                     var maxCountProperty = property.FindPropertyRelative(nameof(GlyphsLayoutData.MaxCount));
                     EditorGUI.PropertyField(rect, maxCountProperty, new GUIContent($"Glyphs {maxCountProperty.displayName}"));
@@ -30,7 +35,7 @@ namespace InputGlyphs.Display.Editor
         {
             var layoutProperty = property.FindPropertyRelative(nameof(GlyphsLayoutData.Layout));
             var layout = (GlyphsLayout)layoutProperty.intValue;
-            var lineCount = layout == GlyphsLayout.Horizontal ? 2 : 1;
+            var lineCount = 2;
             return EditorGUIUtility.singleLineHeight * lineCount;
         }
     }
