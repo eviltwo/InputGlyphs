@@ -1,6 +1,8 @@
 # Changelog
 
 ## [1.2.0] - 2024-09-08
+### Added
+- Added the Index value for Single Layout.
 
 ## [1.1.2] - 2024-09-02
 ### Added

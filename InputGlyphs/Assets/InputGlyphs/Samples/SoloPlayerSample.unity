@@ -525,6 +525,7 @@ MonoBehaviour:
   - {fileID: -6609880655223600665, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
   GlyphsLayoutData:
     Layout: 2
+    Index: 0
     MaxCount: 4
 --- !u!1 &275803797
 GameObject:
@@ -696,6 +697,7 @@ MonoBehaviour:
   InputActionReference: {fileID: 1942945179757384036, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
   GlyphsLayoutData:
     Layout: 2
+    Index: 0
     MaxCount: 4
 --- !u!212 &303118346
 SpriteRenderer:
@@ -1178,6 +1180,7 @@ MonoBehaviour:
   - {fileID: -6609880655223600665, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
   GlyphsLayoutData:
     Layout: 2
+    Index: 0
     MaxCount: 4
 --- !u!1 &933883783
 GameObject:
@@ -1632,6 +1635,7 @@ MonoBehaviour:
   InputActionReference: {fileID: -6609880655223600665, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
   GlyphsLayoutData:
     Layout: 2
+    Index: 0
     MaxCount: 4
 --- !u!1 &1830157632
 GameObject:
@@ -1727,6 +1731,7 @@ MonoBehaviour:
   InputActionReference: {fileID: 1942945179757384036, guid: 1b9bb0cc544975040b6fa735b8e5fcf7, type: 3}
   GlyphsLayoutData:
     Layout: 2
+    Index: 0
     MaxCount: 4
 --- !u!1 &1847320110
 GameObject:
