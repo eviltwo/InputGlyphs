@@ -3,6 +3,8 @@
 ## [1.2.0] - 2024-09-08
 ### Added
 - Added the Index value for Single Layout.
+### Changed
+- Changed the Image to be transformed using LayoutElement.
 
 ## [1.1.2] - 2024-09-02
 ### Added

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using InputGlyphs.Utils;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace InputGlyphs.Display
 {
     [RequireComponent(typeof(Image))]
-    public class InputGlyphImage : MonoBehaviour
+    public class InputGlyphImage : UIBehaviour, ILayoutElement
     {
         [SerializeField, HideInInspector]
         public Image Image = null;
@@ -27,13 +28,17 @@ namespace InputGlyphs.Display
         private List<string> _pathBuffer = new List<string>();
         private Texture2D _texture;
 
-        private void Reset()
+#if UNITY_EDITOR
+        protected override void Reset()
         {
+            base.Reset();
             Image = GetComponent<Image>();
         }
+#endif
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             if (Image == null)
             {
                 Image = GetComponent<Image>();
@@ -42,16 +47,18 @@ namespace InputGlyphs.Display
             _texture = new Texture2D(2, 2);
         }
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             if (PlayerInput == null)
             {
                 Debug.LogError("PlayerInput is not set.", this);
             }
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             if (_lastPlayerInput != null)
             {
                 UnregisterPlayerInputEvents(_lastPlayerInput);
@@ -59,8 +66,9 @@ namespace InputGlyphs.Display
             }
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             Destroy(_texture);
             _texture = null;
             if (Image != null)
@@ -70,7 +78,7 @@ namespace InputGlyphs.Display
             }
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (PlayerInput != _lastPlayerInput)
             {
@@ -145,13 +153,66 @@ namespace InputGlyphs.Display
                 {
                     Destroy(Image.sprite);
                     Image.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
-
-                    // Adjust UI size to match the aspect ratio of the texture for horizontal layout.
-                    var ratio = (float)_texture.width / _texture.height;
-                    Image.rectTransform.sizeDelta = new Vector2(_defaultSizeDelta.y * ratio, _defaultSizeDelta.y);
                 }
             }
         }
+
+        //
+        // ILayoutElement
+        //
+
+        [SerializeField]
+        private bool _enableLayoutElement = true;
+
+        [SerializeField]
+        private int _layoutElementPriority = 1;
+
+        [SerializeField]
+        private float _layoutElementSize = 100f;
+
+        public virtual int layoutPriority => _enableLayoutElement ? _layoutElementPriority : -1;
+
+        public virtual void CalculateLayoutInputHorizontal() { }
+
+        public virtual void CalculateLayoutInputVertical() { }
+
+        public virtual float minWidth => -1;
+
+        public virtual float minHeight => -1;
+
+        public virtual float preferredWidth
+        {
+            get
+            {
+                if (Image == null || Image.sprite == null)
+                {
+                    return _layoutElementSize;
+                }
+
+                var ratio = (float)Image.sprite.rect.width / Image.sprite.rect.height;
+                return _layoutElementSize * ratio;
+            }
+        }
+
+        public virtual float preferredHeight => _layoutElementSize;
+
+        public virtual float flexibleWidth => -1;
+
+        public virtual float flexibleHeight => -1;
+
+        protected void SetDirty()
+        {
+            if (!IsActive())
+                return;
+            LayoutRebuilder.MarkLayoutForRebuild(transform as RectTransform);
+        }
+
+#if UNITY_EDITOR
+        protected override void OnValidate()
+        {
+            SetDirty();
+        }
+#endif
     }
 }
 #endif
