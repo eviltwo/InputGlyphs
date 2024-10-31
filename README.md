@@ -14,6 +14,7 @@ https://assetstore.unity.com/packages/slug/289760
 ```
 https://github.com/eviltwo/InputGlyphs.git?path=InputGlyphs/Assets/InputGlyphs
 ```
+To retrieve a specific version, append `#1.0.0` at the end.
 
 # Documentation
 https://eviltwo.github.io/InputGlyphs_Docs/
