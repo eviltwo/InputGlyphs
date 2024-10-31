@@ -23,6 +23,11 @@
             "name": "com.unity.textmeshpro",
             "expression": "",
             "define": "SUPPORT_TMPRO"
+        },
+        {
+            "name": "com.unity.ugui",
+            "expression": "2.0.0",
+            "define": "SUPPORT_TMPRO"
         }
     ],
     "noEngineReferences": false

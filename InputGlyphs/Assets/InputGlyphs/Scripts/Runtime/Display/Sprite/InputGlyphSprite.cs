@@ -28,7 +28,7 @@ namespace InputGlyphs.Display
         private void Reset()
         {
             SpriteRenderer = GetComponent<SpriteRenderer>();
-            PlayerInput = FindObjectOfType<PlayerInput>();
+            PlayerInput = FindAnyObjectByType<PlayerInput>();
         }
 
         private void Awake()

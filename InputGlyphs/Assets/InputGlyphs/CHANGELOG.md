@@ -1,8 +1,9 @@
 # Changelog
 
-## [1.2.1] - DEVELOPMENT
+## [1.2.1] - 2024-10-31
 ### Modified
 - Modified to automatically collect PlayerInput when it is not set.
+- Modified the InputGlyphsText component to work with Unity 6.
 
 ## [1.2.0] - 2024-09-08
 ### Added

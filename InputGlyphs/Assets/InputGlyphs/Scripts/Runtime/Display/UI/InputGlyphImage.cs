@@ -33,7 +33,7 @@ namespace InputGlyphs.Display
         {
             base.Reset();
             Image = GetComponent<Image>();
-            PlayerInput = FindObjectOfType<PlayerInput>();
+            PlayerInput = FindAnyObjectByType<PlayerInput>();
         }
 #endif
 
