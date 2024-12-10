@@ -19,5 +19,18 @@ namespace InputGlyphs.Tests
             var result = InputLayoutPathUtility.RemoveRoot(input);
             Assert.AreEqual(expected, result);
         }
+
+        [TestCase("/leftStick/x", "/leftStick")]
+        [TestCase("/leftStick", "")]
+        [TestCase("/leftStick/x/y", "/leftStick/x")]
+        [TestCase("leftStick/x", "leftStick")]
+        [TestCase("leftStick", "")]
+        [TestCase("leftStick/x/y", "leftStick/x")]
+        [TestCase("", "")]
+        public void GetParent(string input, string expected)
+        {
+            var result = InputLayoutPathUtility.GetParent(input);
+            Assert.AreEqual(expected, result);
+        }
     }
 }
