@@ -1,4 +1,4 @@
-#if STEAMWORKS_NET && SUPPORT_ADAPTER
+#if STEAMWORKS_NET && SUPPORT_ADAPTER && !DISABLESTEAMWORKS
 using System.Collections.Generic;
 using System.IO;
 using Steamworks;

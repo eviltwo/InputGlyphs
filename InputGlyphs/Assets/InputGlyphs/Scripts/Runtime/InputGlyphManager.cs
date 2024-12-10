@@ -1,5 +1,6 @@
 #if INPUT_SYSTEM && ENABLE_INPUT_SYSTEM
 using System.Collections.Generic;
+using InputGlyphs.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -45,7 +46,16 @@ namespace InputGlyphs
                     return true;
                 }
             }
-            return false;
+
+            var parentPath = InputLayoutPathUtility.GetParent(inputLayoutPath);
+            if (string.IsNullOrEmpty(parentPath))
+            {
+                return false;
+            }
+            else
+            {
+                return LoadGlyph(texture, activeDevices, parentPath);
+            }
         }
     }
 }

@@ -38,6 +38,26 @@ namespace InputGlyphs.Utils
         }
 
         /// <summary>
+        /// Get the parent path of the input layout path.
+        /// </summary>
+        /// <remarks>
+        /// Example: /leftStick/x -> /leftStick
+        /// </remarks>
+        public static string GetParent(string inputLayoutPath)
+        {
+            if (string.IsNullOrEmpty(inputLayoutPath))
+            {
+                return string.Empty;
+            }
+            var lastSeparatorIndex = inputLayoutPath.LastIndexOf(InputControlPath.Separator);
+            if (lastSeparatorIndex == -1)
+            {
+                return string.Empty;
+            }
+            return inputLayoutPath.Substring(0, lastSeparatorIndex);
+        }
+
+        /// <summary>
         /// Searches for bindings within actions that match the control scheme and returns the effective paths.
         /// </summary>
         /// <param name="action">Target action</param>
