@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.2.2] - Development
+## [1.2.2] - 2024-12-10
 ### Modified
 - Supported `DISABLESTEAMWORKS` Assembly Definition.
 - Changed to use the parent path if the image cannot be found.

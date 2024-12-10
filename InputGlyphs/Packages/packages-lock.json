@@ -49,7 +49,7 @@
       }
     },
     "com.unity.ide.rider": {
-      "version": "3.0.31",
+      "version": "3.0.34",
       "depth": 1,
       "source": "registry",
       "dependencies": {
