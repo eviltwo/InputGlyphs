@@ -14,6 +14,12 @@
       "dependencies": {},
       "hash": "a3fe8091f7237eef3f38becc3faa29b2dc6f9ce9"
     },
+    "com.unity.asset-store-tools": {
+      "version": "file:com.unity.asset-store-tools",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.collab-proxy": {
       "version": "2.5.2",
       "depth": 0,
@@ -49,7 +55,7 @@
       }
     },
     "com.unity.ide.rider": {
-      "version": "3.0.34",
+      "version": "3.0.31",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -149,7 +155,7 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.9.4",
+      "version": "1.9.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
