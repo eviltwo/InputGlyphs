@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "com.eviltwo.unity-steam-input-adapter": {
-      "version": "https://github.com/eviltwo/UnitySteamInputAdapter.git?path=UnitySteamInputAdapter/Assets/UnitySteamInputAdapter#1.0.1",
+      "version": "https://github.com/eviltwo/UnitySteamInputAdapter.git?path=UnitySteamInputAdapter/Assets/UnitySteamInputAdapter#1.0.2",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "9d9b8060e51ed78042fc681b22ed35039a54c332"
+      "hash": "48568926c674897d6b453eb77ea848314bb1f37b"
     },
     "com.rlabrecque.steamworks.net": {
       "version": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net#20.2.0",

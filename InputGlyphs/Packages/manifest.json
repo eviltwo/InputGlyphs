@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.eviltwo.unity-steam-input-adapter": "https://github.com/eviltwo/UnitySteamInputAdapter.git?path=UnitySteamInputAdapter/Assets/UnitySteamInputAdapter#1.0.1",
+    "com.eviltwo.unity-steam-input-adapter": "https://github.com/eviltwo/UnitySteamInputAdapter.git?path=UnitySteamInputAdapter/Assets/UnitySteamInputAdapter#1.0.2",
     "com.rlabrecque.steamworks.net": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net#20.2.0",
     "com.unity.collab-proxy": "2.5.2",
     "com.unity.feature.development": "1.0.1",

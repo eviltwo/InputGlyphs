@@ -1,5 +1,6 @@
 #if INPUT_SYSTEM && ENABLE_INPUT_SYSTEM
 using System.Collections.Generic;
+using System.Linq;
 using InputGlyphs.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,21 +18,23 @@ namespace InputGlyphs.Loaders.Utils
 
         public bool LoadGlyph(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath)
         {
-            var isActiveDevice = false;
-            for (var i = 0; i < activeDevices.Count; i++)
-            {
-                if (activeDevices[i] is T)
-                {
-                    isActiveDevice = true;
-                    break;
-                }
-            }
-            if (!isActiveDevice)
+            var supportedDevice = activeDevices.OfType<T>().FirstOrDefault();
+            if (supportedDevice == null)
             {
                 return false;
             }
 
             var localPath = InputLayoutPathUtility.RemoveRoot(inputLayoutPath);
+            if (InputLayoutPathUtility.HasPathComponent(inputLayoutPath))
+            {
+                var control = supportedDevice.TryGetChildControl(inputLayoutPath);
+                if (control != null)
+                {
+                    inputLayoutPath = control.path;
+                    localPath = InputLayoutPathUtility.RemoveRoot(inputLayoutPath);
+                }
+            }
+
             for (var i = 0; i < TextureMaps.Count; i++)
             {
                 if (TextureMaps[i].TryGetTexture(localPath, out var result))
