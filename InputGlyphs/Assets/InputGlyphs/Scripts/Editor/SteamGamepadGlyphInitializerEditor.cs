@@ -39,7 +39,7 @@ namespace InputGlyphs.Loaders.Steam.Editor
                 name = "com.eviltwo.unity-steam-input-adapter",
                 pageUrl = "https://github.com/eviltwo/UnitySteamInputAdapter",
                 packageUrl = "https://github.com/eviltwo/UnitySteamInputAdapter.git?path=UnitySteamInputAdapter/Assets/UnitySteamInputAdapter",
-                requiredVersion = "1.0.1",
+                requiredVersion = "1.0.2",
 #if SUPPORT_ADAPTER
                 isInstalled = true,
 #endif

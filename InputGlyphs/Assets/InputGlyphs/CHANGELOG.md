@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.3] - 2024-12-27
+### Fixed
+- Fixed errors during Linux build. (Switch Pro Controller, DualSense Controller)
+- Supported actions in the "Usage" category. (including input layout paths with wildcards)
+
 ## [1.2.2] - 2024-12-10
 ### Modified
 - Supported `DISABLESTEAMWORKS` Assembly Definition.

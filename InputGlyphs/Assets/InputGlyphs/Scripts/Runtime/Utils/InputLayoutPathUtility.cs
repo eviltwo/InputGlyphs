@@ -83,6 +83,13 @@ namespace InputGlyphs.Utils
             }
             return results.Count > 0;
         }
+
+        public static bool HasPathComponent(string path)
+        {
+            return path.IndexOf('<') >= 0
+                || path.IndexOf('{') >= 0
+                || path.IndexOf('(') >= 0;
+        }
     }
 }
 #endif
