@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dd3bbba60e92d4843a393874a9de9a63
+guid: 33e99d6b6e1e7ef4abd6cd2c0137741a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -13,6 +13,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 115
   packageName: Asset Store Publishing Tools
-  packageVersion: 11.4.4
+  packageVersion: 12.0.1
   assetPath: Packages/com.unity.asset-store-tools/Editor/Validator/Scripts/Data/ValidationSettings.cs
-  uploadId: 712972
+  uploadId: 724584

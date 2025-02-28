@@ -7,15 +7,17 @@ namespace AssetStoreTools
     {
         protected abstract string WindowTitle { get; }
 
-        protected virtual void Init()
+        private void DefaultInit()
         {
             titleContent = new GUIContent(WindowTitle);
+            Init();
         }
+
+        protected abstract void Init();
 
         private void OnEnable()
         {
-            Init();
+            DefaultInit();
         }
-        
     }
 }

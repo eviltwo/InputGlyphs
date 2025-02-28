@@ -1,58 +1,55 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEngine.UIElements;
+using WindowStyles = AssetStoreTools.Constants.WindowStyles;
 
 namespace AssetStoreTools.Utility
 {
     internal static class StyleSelector
     {
-        private static StyleSheet GetStylesheet(string stylesheetPath)
+        private static StyleSheet GetStylesheet(string rootPath, string filePath)
         {
-            return AssetDatabase.LoadAssetAtPath<StyleSheet>(stylesheetPath);
+            var path = $"{rootPath}/{filePath}.uss";
+            var sheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(path);
+            if (sheet == null)
+                throw new Exception($"Stylesheet '{path}' was not found");
+            return sheet;
+        }
+
+        private static StyleSheet GetStylesheetTheme(string rootPath, string filePath)
+        {
+            var suffix = !EditorGUIUtility.isProSkin ? "Light" : "Dark";
+            return GetStylesheet(rootPath, filePath + suffix);
         }
 
         public static class UploaderWindow
         {
-            private const string StylesPath = "Packages/com.unity.asset-store-tools/Editor/Uploader/Styles";
+            public static StyleSheet UploaderWindowStyle => GetStylesheet(WindowStyles.UploaderStylesPath, "Style");
+            public static StyleSheet UploaderWindowTheme => GetStylesheetTheme(WindowStyles.UploaderStylesPath, "Theme");
 
-            public static StyleSheet BaseWindowStyle => GetStylesheet($"{StylesPath}/Base/BaseWindow_Main.uss");
-            public static StyleSheet BaseWindowTheme => !EditorGUIUtility.isProSkin ?
-                GetStylesheet($"{StylesPath}/Base/BaseWindow_Light.uss") :
-                GetStylesheet($"{StylesPath}/Base/BaseWindow_Dark.uss");
+            public static StyleSheet LoginViewStyle => GetStylesheet(WindowStyles.UploaderStylesPath, "LoginView/Style");
+            public static StyleSheet LoginViewTheme => GetStylesheetTheme(WindowStyles.UploaderStylesPath, "LoginView/Theme");
 
-            public static StyleSheet LoginWindowStyle => GetStylesheet($"{StylesPath}/Login/Login_Main.uss");
-            public static StyleSheet LoginWindowTheme => !EditorGUIUtility.isProSkin ?
-                GetStylesheet($"{StylesPath}/Login/Login_Light.uss") :
-                GetStylesheet($"{StylesPath}/Login/Login_Dark.uss");
-
-            public static StyleSheet UploadWindowStyle => GetStylesheet($"{StylesPath}/Upload/UploadWindow_Main.uss");
-            public static StyleSheet UploadWindowTheme => !EditorGUIUtility.isProSkin ?
-                GetStylesheet($"{StylesPath}/Upload/UploadWindow_Light.uss") :
-                GetStylesheet($"{StylesPath}/Upload/UploadWindow_Dark.uss");
-
-            public static StyleSheet AllPackagesStyle => GetStylesheet($"{StylesPath}/Upload/AllPackages/AllPackages_Main.uss");
-            public static StyleSheet AllPackagesTheme => !EditorGUIUtility.isProSkin ?
-                GetStylesheet($"{StylesPath}/Upload/AllPackages/AllPackages_Light.uss") :
-                GetStylesheet($"{StylesPath}/Upload/AllPackages/AllPackages_Dark.uss");
+            public static StyleSheet PackageListViewStyle => GetStylesheet(WindowStyles.UploaderStylesPath, "PackageListView/Style");
+            public static StyleSheet PackageListViewTheme => GetStylesheetTheme(WindowStyles.UploaderStylesPath, "PackageListView/Theme");
         }
 
-        public static class ValidatorWindow 
+        public static class ValidatorWindow
         {
-            private const string StylesPath = "Packages/com.unity.asset-store-tools/Editor/Validator/Styles";
+            public static StyleSheet ValidatorWindowStyle => GetStylesheet(WindowStyles.ValidatorStylesPath, "Style");
+            public static StyleSheet ValidatorWindowTheme => GetStylesheetTheme(WindowStyles.ValidatorStylesPath, "Theme");
+        }
 
-            public static StyleSheet ValidatorWindowStyle => GetStylesheet($"{StylesPath}/Validator_Main.uss");
-            public static StyleSheet ValidatorWindowTheme => !EditorGUIUtility.isProSkin ?
-                GetStylesheet($"{StylesPath}/Validator_Light.uss") :
-                GetStylesheet($"{StylesPath}/Validator_Dark.uss");
+        public static class PreviewGeneratorWindow
+        {
+            public static StyleSheet PreviewGeneratorWindowStyle => GetStylesheet(WindowStyles.PreviewGeneratorStylesPath, "Style");
+            public static StyleSheet PreviewGeneratorWindowTheme => GetStylesheetTheme(WindowStyles.PreviewGeneratorStylesPath, "Theme");
         }
 
         public static class UpdaterWindow
         {
-            private const string StylesPath = "Packages/com.unity.asset-store-tools/Editor/Utility/Styles/Updater";
-
-            public static StyleSheet UpdaterWindowStyle => GetStylesheet($"{StylesPath}/Updater_Main.uss");
-            public static StyleSheet UpdaterWindowTheme => !EditorGUIUtility.isProSkin ?
-                GetStylesheet($"{StylesPath}/Updater_Light.uss") :
-                GetStylesheet($"{StylesPath}/Updater_Dark.uss");
+            public static StyleSheet UpdaterWindowStyle => GetStylesheet(WindowStyles.UpdaterStylesPath, "Style");
+            public static StyleSheet UpdaterWindowTheme => GetStylesheetTheme(WindowStyles.UpdaterStylesPath, "Theme");
         }
     }
 }

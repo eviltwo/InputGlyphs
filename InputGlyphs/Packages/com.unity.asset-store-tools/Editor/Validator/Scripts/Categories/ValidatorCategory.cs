@@ -12,7 +12,7 @@ namespace AssetStoreTools.Validator.Categories
         public bool AppliesToSubCategories = true;
         public string[] Filter = { "Tools", "Art" };
 
-        public TestResult.ResultStatus EvaluateByFilter(string category)
+        public TestResultStatus EvaluateByFilter(string category)
         {
             if (AppliesToSubCategories)
                 category = category.Split('/')[0];
@@ -22,16 +22,16 @@ namespace AssetStoreTools.Validator.Categories
             if (IsInclusiveFilter)
             {
                 if (isCategoryInFilter)
-                    return IsFailFilter ? TestResult.ResultStatus.Fail : TestResult.ResultStatus.Warning;
+                    return IsFailFilter ? TestResultStatus.Fail : TestResultStatus.Warning;
                 else
-                    return IsFailFilter ? TestResult.ResultStatus.Warning : TestResult.ResultStatus.Fail;
+                    return IsFailFilter ? TestResultStatus.Warning : TestResultStatus.Fail;
             }
             else
             {
                 if (isCategoryInFilter)
-                    return IsFailFilter ? TestResult.ResultStatus.Warning : TestResult.ResultStatus.Fail;
+                    return IsFailFilter ? TestResultStatus.Warning : TestResultStatus.Fail;
                 else
-                    return IsFailFilter ? TestResult.ResultStatus.Fail : TestResult.ResultStatus.Warning;
+                    return IsFailFilter ? TestResultStatus.Fail : TestResultStatus.Warning;
             }
         }
     }
