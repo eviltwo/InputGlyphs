@@ -43,7 +43,11 @@ namespace InputGlyphs.Display
         private void Reset()
         {
             Text = GetComponent<TMP_Text>();
+#if UNITY_2022_3_OR_NEWER
             PlayerInput = FindAnyObjectByType<PlayerInput>();
+#else
+            PlayerInput = FindObjectOfType<PlayerInput>();
+#endif
         }
 
         private void Awake()
