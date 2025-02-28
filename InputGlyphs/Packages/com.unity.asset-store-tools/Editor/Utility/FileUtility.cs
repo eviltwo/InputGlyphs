@@ -13,6 +13,40 @@ namespace AssetStoreTools.Utility
             public string CurrentName;
         }
 
+        public static string AbsolutePathToRelativePath(string path, bool allowSymlinks)
+        {
+            if (!File.Exists(path) && !Directory.Exists(path))
+                return path;
+
+            string convertedPath = path.Replace("\\", "/");
+
+            var allPackages = PackageUtility.GetAllPackages();
+            foreach (var package in allPackages)
+            {
+                if (Path.GetFullPath(package.resolvedPath) != Path.GetFullPath(convertedPath)
+                    && !Path.GetFullPath(convertedPath).StartsWith(Path.GetFullPath(package.resolvedPath) + Path.DirectorySeparatorChar))
+                    continue;
+
+                convertedPath = Path.GetFullPath(convertedPath)
+                    .Replace(Path.GetFullPath(package.resolvedPath), package.assetPath)
+                    .Replace("\\", "/");
+
+                return convertedPath;
+            }
+
+            if (convertedPath.StartsWith(Constants.RootProjectPath))
+            {
+                convertedPath = convertedPath.Substring(Constants.RootProjectPath.Length);
+            }
+            else
+            {
+                if (allowSymlinks && SymlinkUtil.FindSymlinkFolderRelative(convertedPath, out var symlinkPath))
+                    convertedPath = symlinkPath;
+            }
+
+            return convertedPath;
+        }
+
         public static void CopyDirectory(string sourceDir, string destinationDir, bool recursive)
         {
             // Get information about the source directory
@@ -46,29 +80,49 @@ namespace AssetStoreTools.Utility
             }
         }
 
-        public static bool IsMissingMetaFiles(params string[] sourcePaths)
+        public static bool ShouldHaveMeta(string assetPath)
+        {
+            if (string.IsNullOrEmpty(assetPath))
+                return false;
+
+            // Meta files never have other metas
+            if (assetPath.EndsWith(".meta", System.StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            // File System entries ending with '~' are hidden in the context of ADB
+            if (assetPath.EndsWith("~"))
+                return false;
+
+            // File System entries whose names start with '.' are hidden in the context of ADB
+            var assetName = assetPath.Replace("\\", "/").Split('/').Last();
+            if (assetName.StartsWith("."))
+                return false;
+
+            return true;
+        }
+
+        public static bool IsMissingMetaFiles(IEnumerable<string> sourcePaths)
         {
             foreach (var sourcePath in sourcePaths)
             {
+                if (!Directory.Exists(sourcePath))
+                    continue;
+
                 var allDirectories = Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories);
                 foreach (var dir in allDirectories)
                 {
                     var dirInfo = new DirectoryInfo(dir);
-                    if (dirInfo.Name.EndsWith("~"))
+                    if (!dirInfo.Name.EndsWith("~"))
+                        continue;
+
+                    var nestedContent = dirInfo.GetFileSystemInfos("*", SearchOption.AllDirectories);
+                    foreach (var nested in nestedContent)
                     {
-                        var nestedContent = dirInfo.GetFileSystemInfos("*", SearchOption.AllDirectories);
+                        if (!ShouldHaveMeta(nested.FullName))
+                            continue;
 
-                        foreach (var nested in nestedContent)
-                        {
-                            // .meta files, hidden files and OSX .DS_STORE files do not require their own metas
-                            if (nested.FullName.EndsWith(".meta")
-                                || nested.FullName.EndsWith("~")
-                                || nested.Name.Equals(".DS_Store"))
-                                continue;
-
-                            if (!File.Exists(nested.FullName + ".meta"))
-                                return true;
-                        }
+                        if (!File.Exists(nested.FullName + ".meta"))
+                            return true;
                     }
                 }
             }
@@ -76,17 +130,31 @@ namespace AssetStoreTools.Utility
             return false;
         }
 
-        public static void GenerateMetaFiles(params string[] sourcePaths)
+        public static void GenerateMetaFiles(IEnumerable<string> sourcePaths)
         {
             var renameInfos = new List<RenameInfo>();
 
             foreach (var sourcePath in sourcePaths)
             {
+                if (!Directory.Exists(sourcePath))
+                    continue;
+
                 var hiddenDirectoriesInPath = Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories).Where(x => x.EndsWith("~"));
                 foreach (var hiddenDir in hiddenDirectoriesInPath)
-                    renameInfos.Add(new RenameInfo() { CurrentName = hiddenDir, OriginalName = hiddenDir });
+                {
+                    var hiddenDirRelative = AbsolutePathToRelativePath(hiddenDir, ASToolsPreferences.Instance.EnableSymlinkSupport);
+                    if (!hiddenDirRelative.StartsWith("Assets/") && !hiddenDirRelative.StartsWith("Packages/"))
+                    {
+                        ASDebug.LogWarning($"Path {sourcePath} is not part of the Asset Database and will be skipped");
+                        continue;
+                    }
+
+                    renameInfos.Add(new RenameInfo() { CurrentName = hiddenDirRelative, OriginalName = hiddenDirRelative });
+                }
             }
 
+            if (renameInfos.Count == 0)
+                return;
 
             try
             {
@@ -108,6 +176,7 @@ namespace AssetStoreTools.Utility
                 {
                     AssetDatabase.StopAssetEditing();
                     AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+                    AssetDatabase.ReleaseCachedFileHandles();
                 }
 
                 // Restore the original path names in reverse order
@@ -119,7 +188,6 @@ namespace AssetStoreTools.Utility
                     foreach (var renameInfo in renameInfos)
                     {
                         Directory.Move(renameInfo.CurrentName, renameInfo.OriginalName);
-
                         if (File.Exists($"{renameInfo.CurrentName}.meta"))
                             File.Delete($"{renameInfo.CurrentName}.meta");
                     }

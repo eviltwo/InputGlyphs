@@ -7,26 +7,27 @@ namespace AssetStoreTools.Utility
     {
         private enum LogType
         {
-            Log,
+            Info,
             Warning,
             Error
         }
 
-        private static bool s_debugModeEnabled = EditorPrefs.GetBool("ASTDebugMode");
+        private static string FormatInfo(object message) => $"<b>[AST Info]</b> {message}";
+        private static string FormatWarning(object message) => $"<color=yellow><b>[AST Warning]</b></color> {message}";
+        private static string FormatError(object message) => $"<color=red><b>[AST Error]</b></color> {message}";
+
+
+        private static bool s_debugModeEnabled = EditorPrefs.GetBool(Constants.Debug.DebugModeKey);
 
         public static bool DebugModeEnabled
         {
             get => s_debugModeEnabled;
-            set
-            {
-                s_debugModeEnabled = value;
-                EditorPrefs.SetBool("ASTDebugMode", value);
-            }
+            set { s_debugModeEnabled = value; EditorPrefs.SetBool(Constants.Debug.DebugModeKey, value); }
         }
 
         public static void Log(object message)
         {
-            LogMessage(message, LogType.Log);
+            LogMessage(message, LogType.Info);
         }
 
         public static void LogWarning(object message)
@@ -41,19 +42,19 @@ namespace AssetStoreTools.Utility
 
         private static void LogMessage(object message, LogType type)
         {
-            if (!DebugModeEnabled) 
+            if (!DebugModeEnabled)
                 return;
 
             switch (type)
             {
-                case LogType.Log:
-                    Debug.Log(message);
+                case LogType.Info:
+                    Debug.Log(FormatInfo(message));
                     break;
                 case LogType.Warning:
-                    Debug.LogWarning(message);
+                    Debug.LogWarning(FormatWarning(message));
                     break;
                 case LogType.Error:
-                    Debug.LogError(message);
+                    Debug.LogError(FormatError(message));
                     break;
                 default:
                     Debug.Log(message);

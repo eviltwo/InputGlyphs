@@ -1,4 +1,5 @@
 using AssetStoreTools.Validator.Categories;
+using AssetStoreTools.Validator.Data;
 using AssetStoreTools.Validator.Utility;
 using UnityEditor;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace AssetStoreTools.Validator.TestDefinitions
         public string Title;
         public string Description;
         public ValidatorCategory CategoryInfo;
+        public ValidationType ValidationType;
         public MonoScript TestScript;
 
         private void OnEnable()

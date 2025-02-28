@@ -11,6 +11,7 @@ namespace AssetStoreTools.Validator.TestDefinitions
         public string Description;
         public MonoScript TestScript;
 
+        public ValidationType ValidationType;
         public ValidatorCategory CategoryInfo;
 
         public TestResult Result;
@@ -22,11 +23,12 @@ namespace AssetStoreTools.Validator.TestDefinitions
             Description = source.Description;
             TestScript = source.TestScript;
             CategoryInfo = source.CategoryInfo;
+            ValidationType = source.ValidationType;
             Result = new TestResult();
         }
 
-        public abstract void Run(ValidationTestConfig config);
-        
+        public abstract void Run(ITestConfig config);
+
         public string Slugify(string value)
         {
             string newValue = value.Replace(' ', '-').ToLower();

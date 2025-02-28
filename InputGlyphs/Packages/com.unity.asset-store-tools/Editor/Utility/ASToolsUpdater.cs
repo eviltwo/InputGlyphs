@@ -1,4 +1,4 @@
-using AssetStoreTools.Uploader;
+using AssetStoreTools.Api;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,9 +11,9 @@ namespace AssetStoreTools.Utility
     [InitializeOnLoad]
     internal class ASToolsUpdater : AssetStoreToolsWindow
     {
-        private const string AssetStoreToolsUrl = "https://assetstore.unity.com/packages/tools/utilities/asset-store-publishing-tools-115";
-
         protected override string WindowTitle => "Asset Store Tools Update Check";
+
+        private static IAssetStoreApi _api;
 
         private VisualElement _loadingContainer;
         private VisualElement _versionInfoContainer;
@@ -37,6 +37,7 @@ namespace AssetStoreTools.Utility
 
         static ASToolsUpdater()
         {
+            _api = new AssetStoreApi(new AssetStoreClient());
             // Retrieving cached SessionState/PlayerPrefs values is not allowed from an instance field initializer
             EditorApplication.update += CheckForUpdatesAfterEditorUpdate;
         }
@@ -68,7 +69,7 @@ namespace AssetStoreTools.Utility
         private static async Task CheckForUpdates(Action<bool, Version, Version> OnUpdatesChecked)
         {
             _updateCheckPerformed = true;
-            var latestVersionResult = await AssetStoreAPI.GetLatestAssetStoreToolsVersion();
+            var latestVersionResult = await _api.GetLatestAssetStoreToolsVersion();
             if (!latestVersionResult.Success)
             {
                 OnUpdatesChecked?.Invoke(false, null, null);
@@ -80,7 +81,7 @@ namespace AssetStoreTools.Utility
 
             try
             {
-                var latestVersionStr = latestVersionResult.Response["version"].AsString();
+                var latestVersionStr = latestVersionResult.Version;
                 var currentVersionStr = PackageUtility.GetAllPackages().FirstOrDefault(x => x.name == "com.unity.asset-store-tools").version;
 
                 currentVersion = new Version(currentVersionStr);
@@ -96,8 +97,6 @@ namespace AssetStoreTools.Utility
 
         protected override void Init()
         {
-            base.Init();
-
             rootVisualElement.styleSheets.Add(StyleSelector.UpdaterWindow.UpdaterWindowStyle);
             rootVisualElement.styleSheets.Add(StyleSelector.UpdaterWindow.UpdaterWindowTheme);
 
@@ -123,7 +122,7 @@ namespace AssetStoreTools.Utility
         private void SetupLoadingSpinner()
         {
             _loadingContainer = new VisualElement();
-            _loadingContainer.AddToClassList("loading-container");
+            _loadingContainer.AddToClassList("updater-loading-container");
             _loadingImage = new Image();
             EditorApplication.update += LoadingSpinLoop;
 
@@ -134,8 +133,8 @@ namespace AssetStoreTools.Utility
         private void SetupVersionInfo(Version currentVersion, Version latestVersion)
         {
             _versionInfoContainer = new VisualElement();
-            _versionInfoContainer.AddToClassList("version-info-container");
-            
+            _versionInfoContainer.AddToClassList("updater-info-container");
+
             AddDescriptionLabels(currentVersion, latestVersion);
             AddUpdateButtons(currentVersion, latestVersion);
             AddCheckForUpdatesToggle();
@@ -150,19 +149,19 @@ namespace AssetStoreTools.Utility
                 "Asset Store Publishing Tools are up to date!";
 
             var labelContainer = new VisualElement();
-            labelContainer.AddToClassList("version-info-container-labels");
+            labelContainer.AddToClassList("updater-info-container-labels");
             var descriptionLabel = new Label(descriptionText);
-            descriptionLabel.AddToClassList("version-info-container-labels-description");
+            descriptionLabel.AddToClassList("updater-info-container-labels-description");
 
             var currentVersionRow = new VisualElement();
-            currentVersionRow.AddToClassList("version-info-container-labels-row");
+            currentVersionRow.AddToClassList("updater-info-container-labels-row");
             var latestVersionRow = new VisualElement();
-            latestVersionRow.AddToClassList("version-info-container-labels-row");
+            latestVersionRow.AddToClassList("updater-info-container-labels-row");
 
             var currentVersionLabel = new Label("Current version:");
-            currentVersionLabel.AddToClassList("version-info-container-labels-row-identifier");
+            currentVersionLabel.AddToClassList("updater-info-container-labels-row-identifier");
             var latestVersionLabel = new Label("Latest version:");
-            latestVersionLabel.AddToClassList("version-info-container-labels-row-identifier");
+            latestVersionLabel.AddToClassList("updater-info-container-labels-row-identifier");
 
             var currentVersionLabelValue = new Label(currentVersion.ToString());
             var latestVersionLabelValue = new Label(latestVersion.ToString());
@@ -185,8 +184,8 @@ namespace AssetStoreTools.Utility
                 return;
 
             var buttonContainer = new VisualElement();
-            buttonContainer.AddToClassList("version-info-container-buttons");
-            var latestVersionButton = new Button(() => Application.OpenURL(AssetStoreToolsUrl)) { text = "Get the latest version" };
+            buttonContainer.AddToClassList("updater-info-container-buttons");
+            var latestVersionButton = new Button(() => Application.OpenURL(Constants.Updater.AssetStoreToolsUrl)) { text = "Get the latest version" };
             var skipVersionButton = new Button(Close) { text = "Skip for now" };
 
             buttonContainer.Add(latestVersionButton);
@@ -198,7 +197,7 @@ namespace AssetStoreTools.Utility
         private void AddCheckForUpdatesToggle()
         {
             var toggleContainer = new VisualElement();
-            toggleContainer.AddToClassList("version-info-container-toggle");
+            toggleContainer.AddToClassList("updater-info-container-toggle");
             var checkForUpdatesToggle = new Toggle() { text = "Check for Updates", value = ASToolsPreferences.Instance.CheckForUpdates };
             checkForUpdatesToggle.RegisterValueChangedCallback(OnCheckForUpdatesToggleChanged);
 
@@ -215,7 +214,7 @@ namespace AssetStoreTools.Utility
         private void SetupFailInfo()
         {
             var failContainer = new VisualElement();
-            failContainer.AddToClassList("fail-container");
+            failContainer.AddToClassList("updater-fail-container");
 
             var failImage = new Image();
             var failDescription = new Label("Asset Store Publishing Tools could not retrieve information about the latest version.");

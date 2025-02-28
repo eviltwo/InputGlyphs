@@ -4,6 +4,6 @@ namespace AssetStoreTools.Validator.TestDefinitions
 {
     internal interface ITestScript
     {
-        TestResult Run(ValidationTestConfig config);
+        TestResult Run();
     }
 }
