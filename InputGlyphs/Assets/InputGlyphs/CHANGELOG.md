@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.4] - 2025-02-08
+### Fixed
+- Fixed the error related to FindAnyObjectByType in older Unity versions.
+
 ## [1.2.3] - 2024-12-27
 ### Fixed
 - Fixed errors during Linux build. (Switch Pro Controller, DualSense Controller)

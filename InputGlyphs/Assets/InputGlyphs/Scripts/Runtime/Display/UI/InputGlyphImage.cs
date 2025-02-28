@@ -33,9 +33,13 @@ namespace InputGlyphs.Display
         {
             base.Reset();
             Image = GetComponent<Image>();
+#if UNITY_2022_3_OR_NEWER
             PlayerInput = FindAnyObjectByType<PlayerInput>();
-        }
+#else
+            PlayerInput = FindObjectOfType<PlayerInput>();
 #endif
+        }
+#endif // UNITY_EDITOR
 
         protected override void Awake()
         {
