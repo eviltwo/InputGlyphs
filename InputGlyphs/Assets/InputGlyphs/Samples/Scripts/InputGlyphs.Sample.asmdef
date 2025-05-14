@@ -1,6 +1,6 @@
 {
     "name": "InputGlyphs.Sample",
-    "rootNamespace": "",
+    "rootNamespace": "InputGlyphs.Samples",
     "references": [
         "GUID:75469ad4d38634e559750d17036d5f7c",
         "GUID:68bd7fdb68ef2684e982e8a9825b18a5",

@@ -1,7 +1,7 @@
 {
     "name": "com.eviltwo.input-glyphs",
     "displayName": "Input Glyphs",
-    "version": "1.2.4",
+    "version": "1.2.5",
     "unity": "2022.3",
     "description": "Displays glyphs (icons) of keyboard & mouse or controller buttons recognized by Unity's InputSystem.",
     "author": {

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.5] - 2025-05-14
+### Added
+- Added sample scene for rebinding.
+### Fixed
+- Fixed an issue where the UI would not update when rebinding buttons on a cloned PlayerInput.actions.
+- Made the UpdateGlyphs() function of the UI component public.
+
 ## [1.2.4] - 2025-02-08
 ### Fixed
 - Fixed the error related to FindAnyObjectByType in older Unity versions.

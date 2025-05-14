@@ -161,6 +161,11 @@ namespace InputGlyphs.Display
             }
         }
 
+        public void UpdateGlyphs()
+        {
+            UpdateGlyphs(PlayerInput);
+        }
+
         private void UpdateGlyphs(PlayerInput playerInput)
         {
             Profiler.BeginSample("UpdateGlyphs");
@@ -181,7 +186,14 @@ namespace InputGlyphs.Display
             for (var i = 0; i < InputActionReferences.Length; i++)
             {
                 var actionReference = InputActionReferences[i];
-                if (InputLayoutPathUtility.TryGetActionBindingPath(actionReference?.action, PlayerInput.currentControlScheme, _pathBuffer))
+                if (actionReference == null || actionReference.action == null)
+                {
+                    Debug.LogWarning("InputActionReference is not set.", this);
+                    return;
+                }
+
+                var playerInputAction = playerInput.actions.FindAction(actionReference.action.id);
+                if (InputLayoutPathUtility.TryGetActionBindingPath(playerInputAction, PlayerInput.currentControlScheme, _pathBuffer))
                 {
                     Texture2D texture;
                     if (i < _actionTextureBuffer.Count)
@@ -195,7 +207,7 @@ namespace InputGlyphs.Display
                     }
                     if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(texture, devices, _pathBuffer, GlyphsLayoutData))
                     {
-                        _actionTextureIndexes.Add(Tuple.Create(actionReference.action.name, i));
+                        _actionTextureIndexes.Add(Tuple.Create(playerInputAction.name, i));
                     }
                 }
             }
