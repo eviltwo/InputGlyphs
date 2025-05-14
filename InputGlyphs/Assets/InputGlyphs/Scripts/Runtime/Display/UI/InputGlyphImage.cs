@@ -147,6 +147,11 @@ namespace InputGlyphs.Display
             }
         }
 
+        public void UpdateGlyphs()
+        {
+            UpdateGlyphs(PlayerInput);
+        }
+
         private void UpdateGlyphs(PlayerInput playerInput)
         {
             if (!playerInput.isActiveAndEnabled)
@@ -161,7 +166,14 @@ namespace InputGlyphs.Display
                 return;
             }
 
-            if (InputLayoutPathUtility.TryGetActionBindingPath(InputActionReference?.action, PlayerInput.currentControlScheme, _pathBuffer))
+            if (InputActionReference == null || InputActionReference.action == null)
+            {
+                Debug.LogWarning("InputActionReference is not set.", this);
+                return;
+            }
+
+            var playerInputAction = playerInput.actions.FindAction(InputActionReference.action.id);
+            if (InputLayoutPathUtility.TryGetActionBindingPath(playerInputAction, PlayerInput.currentControlScheme, _pathBuffer))
             {
                 if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(_texture, devices, _pathBuffer, GlyphsLayoutData))
                 {
