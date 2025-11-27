@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.6]
+### Fixed
+- Fixed an error that occurred when a Sprite asset was assigned to Image.sprite.
+
 ## [1.2.5] - 2025-05-14
 ### Added
 - Added sample scene for rebinding.
