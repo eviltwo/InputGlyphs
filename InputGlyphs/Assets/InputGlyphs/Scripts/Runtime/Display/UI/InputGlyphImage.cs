@@ -27,6 +27,7 @@ namespace InputGlyphs.Display
         private PlayerInput _lastPlayerInput;
         private List<string> _pathBuffer = new List<string>();
         private Texture2D _texture;
+        private Sprite _createdSprite;
 
 #if UNITY_EDITOR
         protected override void Reset()
@@ -80,9 +81,10 @@ namespace InputGlyphs.Display
             base.OnDestroy();
             Destroy(_texture);
             _texture = null;
+            Destroy(_createdSprite);
+            _createdSprite = null;
             if (Image != null)
             {
-                Destroy(Image.sprite);
                 Image.sprite = null;
             }
         }
@@ -177,8 +179,9 @@ namespace InputGlyphs.Display
             {
                 if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(_texture, devices, _pathBuffer, GlyphsLayoutData))
                 {
-                    Destroy(Image.sprite);
-                    Image.sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
+                    Destroy(_createdSprite);
+                    _createdSprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
+                    Image.sprite = _createdSprite;
                 }
             }
         }
