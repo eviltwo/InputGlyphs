@@ -12,6 +12,8 @@ namespace InputGlyphs.Display
     public static class DisplayGlyphTextureGenerator
     {
         private static List<Texture2D> _textureBuffer = new List<Texture2D>();
+        
+        private static List<string> _usedPathBuffer = new List<string>();
 
         /// <summary>
         /// Generates glyph texture for the specified inputLayoutPaths and writes it to the texture. The glyph textures are arranged according to the layout.
@@ -46,7 +48,7 @@ namespace InputGlyphs.Display
                 return false;
             }
 
-            if (InputGlyphManager.LoadGlyph(texture, activeDevices, inputLayoutPaths[index]))
+            if (InputGlyphManager.LoadGlyph(texture, activeDevices, inputLayoutPaths[index], out _))
             {
                 return true;
             }
@@ -62,13 +64,15 @@ namespace InputGlyphs.Display
             }
 
             _textureBuffer.Clear();
+            _usedPathBuffer.Clear();
             var loadedCount = 0;
             for (int i = 0; i < inputLayoutPaths.Count; i++)
             {
                 var texTemp = new Texture2D(2, 2);
-                if (InputGlyphManager.LoadGlyph(texTemp, activeDevices, inputLayoutPaths[i]))
+                if (InputGlyphManager.LoadGlyph(texTemp, activeDevices, inputLayoutPaths[i], out var usedPath) && !_usedPathBuffer.Contains(usedPath))
                 {
                     _textureBuffer.Add(texTemp);
+                    _usedPathBuffer.Add(usedPath);
                     loadedCount++;
                     if (loadedCount >= maxCount)
                     {

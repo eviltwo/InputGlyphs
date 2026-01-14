@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.7]
+### Fixed
+- Fixed an issue where the same glyph could be displayed for a single input.
+
 ## [1.2.6]
 ### Fixed
 - Fixed an error that occurred when a Sprite asset was assigned to Image.sprite.
