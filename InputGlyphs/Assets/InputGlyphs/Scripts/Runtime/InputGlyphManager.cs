@@ -37,12 +37,13 @@ namespace InputGlyphs
         /// <param name="activeDevices">Active devices</param>
         /// <param name="inputLayoutPath">example: &lt;gamepad&gt;/dpad/left</param>
         /// <returns>Return true if the load was success.</returns>
-        public static bool LoadGlyph(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath)
+        public static bool LoadGlyph(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath, out string usedPath)
         {
             for (var i = 0; i < _loaders.Count; i++)
             {
                 if (_loaders[i].LoadGlyph(texture, activeDevices, inputLayoutPath))
                 {
+                    usedPath = inputLayoutPath;
                     return true;
                 }
             }
@@ -50,11 +51,12 @@ namespace InputGlyphs
             var parentPath = InputLayoutPathUtility.GetParent(inputLayoutPath);
             if (string.IsNullOrEmpty(parentPath))
             {
+                usedPath = string.Empty;
                 return false;
             }
             else
             {
-                return LoadGlyph(texture, activeDevices, parentPath);
+                return LoadGlyph(texture, activeDevices, parentPath, out usedPath);
             }
         }
     }
