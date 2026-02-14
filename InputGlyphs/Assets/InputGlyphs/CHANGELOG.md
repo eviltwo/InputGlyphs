@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.8]
+### Fixed
+- Fixed an error that occurred when too many actions were assigned to Input Action References in Input Glyph Text.
+
 ## [1.2.7]
 ### Fixed
 - Fixed an issue where the same glyph could be displayed for a single input.

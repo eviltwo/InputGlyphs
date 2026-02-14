@@ -183,6 +183,7 @@ namespace InputGlyphs.Display
             }
 
             _actionTextureIndexes.Clear();
+            var assignedTextureCount = 0;
             for (var i = 0; i < InputActionReferences.Length; i++)
             {
                 var actionReference = InputActionReferences[i];
@@ -196,19 +197,23 @@ namespace InputGlyphs.Display
                 if (InputLayoutPathUtility.TryGetActionBindingPath(playerInputAction, PlayerInput.currentControlScheme, _pathBuffer))
                 {
                     Texture2D texture;
-                    if (i < _actionTextureBuffer.Count)
+                    var textureIndex = assignedTextureCount;
+                    if (textureIndex < _actionTextureBuffer.Count)
                     {
-                        texture = _actionTextureBuffer[i];
+                        texture = _actionTextureBuffer[textureIndex];
                     }
                     else
                     {
                         texture = new Texture2D(2, 2);
                         _actionTextureBuffer.Add(texture);
                     }
+                    
                     if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(texture, devices, _pathBuffer, GlyphsLayoutData))
                     {
-                        _actionTextureIndexes.Add(Tuple.Create(playerInputAction.name, i));
+                        _actionTextureIndexes.Add(Tuple.Create(playerInputAction.name, textureIndex));
                     }
+                    
+                    assignedTextureCount++;
                 }
             }
             SetGlyphsToSpriteAsset(_actionTextureBuffer, _actionTextureIndexes);
