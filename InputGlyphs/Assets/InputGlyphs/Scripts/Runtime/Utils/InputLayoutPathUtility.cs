@@ -10,6 +10,16 @@ namespace InputGlyphs.Utils
         private static StringBuilder _stringBuilder = new StringBuilder();
         private static List<int> _bindingIndexBuffer = new List<int>();
 
+        public static string GetRoot(string inputControlPath)
+        {
+            if (string.IsNullOrEmpty(inputControlPath)) return string.Empty;
+            var startIndex = inputControlPath[0] == InputControlPath.Separator ? 1 : 0;
+            var separationIndex = inputControlPath.IndexOf(InputControlPath.Separator, startIndex);
+            if (separationIndex == -1) return string.Empty;
+            if (separationIndex == inputControlPath.Length) return string.Empty;
+            return inputControlPath.Substring(startIndex, separationIndex - startIndex);
+        }
+
         /// <summary>
         /// Remove the root (probably the device name) from the path.
         /// </summary>
@@ -18,22 +28,11 @@ namespace InputGlyphs.Utils
         /// </remarks>
         public static string RemoveRoot(string inputControlPath)
         {
-            if (string.IsNullOrEmpty(inputControlPath))
-            {
-                return string.Empty;
-            }
+            if (string.IsNullOrEmpty(inputControlPath)) return string.Empty;
             var startIndex = inputControlPath[0] == InputControlPath.Separator ? 1 : 0;
             var separationIndex = inputControlPath.IndexOf(InputControlPath.Separator, startIndex);
-            if (separationIndex == -1)
-            {
-                return inputControlPath;
-            }
-
-            if (separationIndex == inputControlPath.Length)
-            {
-                return string.Empty;
-            }
-
+            if (separationIndex == -1) return inputControlPath;
+            if (separationIndex == inputControlPath.Length) return string.Empty;
             return inputControlPath.Substring(separationIndex + 1);
         }
 

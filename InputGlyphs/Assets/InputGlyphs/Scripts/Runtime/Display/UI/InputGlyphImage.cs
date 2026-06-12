@@ -1,6 +1,7 @@
 #if INPUT_SYSTEM && ENABLE_INPUT_SYSTEM
 using System.Collections.Generic;
 using System.Linq;
+using InputGlyphs.Attributes;
 using InputGlyphs.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -22,9 +23,12 @@ namespace InputGlyphs.Display
 
         [SerializeField]
         public GlyphsLayoutData GlyphsLayoutData = GlyphsLayoutData.Default;
+        
+        [SerializeField, ControlSchemeName]
+        public string ControlScheme;
 
+        private readonly PlayerInputChangeDetector _playerInputChangeDetector = new ();
         private Vector2 _defaultSizeDelta;
-        private PlayerInput _lastPlayerInput;
         private List<string> _pathBuffer = new List<string>();
         private Texture2D _texture;
         private Sprite _createdSprite;
@@ -56,24 +60,20 @@ namespace InputGlyphs.Display
         protected override void Start()
         {
             base.Start();
-            if (PlayerInput == null && InputGlyphDisplaySettings.AutoCollectPlayerInput)
-            {
-                PlayerInput = PlayerInput.all.FirstOrDefault();
-            }
-            if (PlayerInput == null)
-            {
-                Debug.LogWarning("PlayerInput is not set.", this);
-            }
+            UpdateGlyphs(PlayerInput);
+        }
+        
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _playerInputChangeDetector.ControlsChanged += UpdateGlyphs;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            if (_lastPlayerInput != null)
-            {
-                UnregisterPlayerInputEvents(_lastPlayerInput);
-                _lastPlayerInput = null;
-            }
+            _playerInputChangeDetector.OnDisable();
+            _playerInputChangeDetector.ControlsChanged -= UpdateGlyphs;
         }
 
         protected override void OnDestroy()
@@ -95,58 +95,8 @@ namespace InputGlyphs.Display
             {
                 PlayerInput = PlayerInput.all.FirstOrDefault();
             }
-
-            if (PlayerInput != _lastPlayerInput)
-            {
-                if (_lastPlayerInput != null)
-                {
-                    UnregisterPlayerInputEvents(_lastPlayerInput);
-                }
-                if (PlayerInput == null)
-                {
-                    Debug.LogError("PlayerInput is not set.", this);
-                }
-                else
-                {
-                    RegisterPlayerInputEvents(PlayerInput);
-                    UpdateGlyphs(PlayerInput);
-                }
-                _lastPlayerInput = PlayerInput;
-            }
-        }
-
-        private void RegisterPlayerInputEvents(PlayerInput playerInput)
-        {
-            switch (playerInput.notificationBehavior)
-            {
-                case PlayerNotifications.InvokeUnityEvents:
-                    playerInput.controlsChangedEvent.AddListener(OnControlsChanged);
-                    break;
-                case PlayerNotifications.InvokeCSharpEvents:
-                    playerInput.onControlsChanged += OnControlsChanged;
-                    break;
-            }
-        }
-
-        private void UnregisterPlayerInputEvents(PlayerInput playerInput)
-        {
-            switch (playerInput.notificationBehavior)
-            {
-                case PlayerNotifications.InvokeUnityEvents:
-                    playerInput.controlsChangedEvent.RemoveListener(OnControlsChanged);
-                    break;
-                case PlayerNotifications.InvokeCSharpEvents:
-                    playerInput.onControlsChanged -= OnControlsChanged;
-                    break;
-            }
-        }
-
-        private void OnControlsChanged(PlayerInput playerInput)
-        {
-            if (playerInput == PlayerInput)
-            {
-                UpdateGlyphs(playerInput);
-            }
+            
+            _playerInputChangeDetector.Update(PlayerInput);
         }
 
         public void UpdateGlyphs()
@@ -154,36 +104,57 @@ namespace InputGlyphs.Display
             UpdateGlyphs(PlayerInput);
         }
 
+        private readonly List<InputDevice> _deviceBuffer = new();
+
         private void UpdateGlyphs(PlayerInput playerInput)
         {
-            if (!playerInput.isActiveAndEnabled)
-            {
-                return;
-            }
-
-            var devices = playerInput.devices;
-            if (devices.Count == 0)
-            {
-                Debug.LogWarning("No devices are connected.", this);
-                return;
-            }
-
             if (InputActionReference == null || InputActionReference.action == null)
             {
                 Debug.LogWarning("InputActionReference is not set.", this);
                 return;
             }
-
-            var playerInputAction = playerInput.actions.FindAction(InputActionReference.action.id);
-            if (InputLayoutPathUtility.TryGetActionBindingPath(playerInputAction, PlayerInput.currentControlScheme, _pathBuffer))
+            
+            _deviceBuffer.Clear();
+            string controlScheme;
+            if (string.IsNullOrEmpty(ControlScheme))
             {
-                if (DisplayGlyphTextureGenerator.GenerateGlyphTexture(_texture, devices, _pathBuffer, GlyphsLayoutData))
+                if (playerInput == null)
                 {
-                    Destroy(_createdSprite);
-                    _createdSprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
-                    Image.sprite = _createdSprite;
+                    _deviceBuffer.Clear();
+                    controlScheme = string.Empty;
+                }
+                else
+                {
+                    _deviceBuffer.AddRange(playerInput.devices);
+                    controlScheme = playerInput.currentControlScheme;
                 }
             }
+            else
+            {
+                DisplayUtils.CollectDevicesForControlScheme(InputActionReference.action.actionMap.controlSchemes.FirstOrDefault(v => v.name == ControlScheme), _deviceBuffer, playerInput);
+                controlScheme = ControlScheme;
+            }
+
+            var playerInputAction = playerInput?.actions.FindAction(InputActionReference.action.id) ?? InputActionReference.action;
+            if (InputLayoutPathUtility.TryGetActionBindingPath(playerInputAction, controlScheme, _pathBuffer)
+                && DisplayGlyphTextureGenerator.GenerateGlyphTexture(_texture, _deviceBuffer, _pathBuffer, GlyphsLayoutData))
+            {
+                Destroy(_createdSprite);
+                _createdSprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
+                Image.sprite = _createdSprite;
+            }
+            else
+            {
+                HandleGlyphTextureGenerationFailed();
+            }
+        }
+
+        protected virtual void HandleGlyphTextureGenerationFailed()
+        {
+            _texture.Reinitialize(8, 8);
+            Destroy(_createdSprite);
+            _createdSprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), Mathf.Min(_texture.width, _texture.height));
+            Image.sprite = _createdSprite;
         }
 
         //
