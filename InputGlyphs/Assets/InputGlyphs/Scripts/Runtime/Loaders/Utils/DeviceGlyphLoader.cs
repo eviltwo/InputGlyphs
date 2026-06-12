@@ -19,13 +19,13 @@ namespace InputGlyphs.Loaders.Utils
         public bool LoadGlyph(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath)
         {
             var supportedDevice = activeDevices.OfType<T>().FirstOrDefault();
-            if (supportedDevice == null)
+            if (supportedDevice == null && InputLayoutPathUtility.GetRoot(inputLayoutPath) != $"<{nameof(T)}>")
             {
                 return false;
             }
 
             var localPath = InputLayoutPathUtility.RemoveRoot(inputLayoutPath);
-            if (InputLayoutPathUtility.HasPathComponent(inputLayoutPath))
+            if (supportedDevice != null && InputLayoutPathUtility.HasPathComponent(inputLayoutPath))
             {
                 var control = supportedDevice.TryGetChildControl(inputLayoutPath);
                 if (control != null)

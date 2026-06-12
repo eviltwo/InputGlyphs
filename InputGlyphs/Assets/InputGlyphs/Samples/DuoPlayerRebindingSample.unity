@@ -459,6 +459,7 @@ MonoBehaviour:
     Layout: 2
     Index: 0
     MaxCount: 4
+  ControlScheme: 
 --- !u!1 &316181113
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,6 +616,7 @@ MonoBehaviour:
     Layout: 2
     Index: 0
     MaxCount: 4
+  ControlScheme: 
 --- !u!1 &404029258
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,6 +1147,7 @@ MonoBehaviour:
     Layout: 2
     Index: 0
     MaxCount: 4
+  ControlScheme: 
 --- !u!212 &1166048492
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1575,6 +1578,7 @@ MonoBehaviour:
     Layout: 2
     Index: 0
     MaxCount: 4
+  ControlScheme: 
   EnableLayoutElement: 1
   LayoutElementPriority: 1
   LayoutElementSize: 40
@@ -1673,6 +1677,7 @@ MonoBehaviour:
     Layout: 2
     Index: 0
     MaxCount: 4
+  ControlScheme: 
   EnableLayoutElement: 1
   LayoutElementPriority: 1
   LayoutElementSize: 40
@@ -1918,6 +1923,7 @@ MonoBehaviour:
     Layout: 2
     Index: 0
     MaxCount: 4
+  ControlScheme: 
 --- !u!212 &2087946673
 SpriteRenderer:
   m_ObjectHideFlags: 0

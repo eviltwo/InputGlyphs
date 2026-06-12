@@ -4,7 +4,7 @@ using UnityEditor;
 
 namespace InputGlyphs.Display.Editor
 {
-    [CustomEditor(typeof(InputGlyphImage)), CanEditMultipleObjects]
+    [CustomEditor(typeof(InputGlyphImage), editorForChildClasses: true), CanEditMultipleObjects]
     public class InputGlyphImageEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
@@ -22,6 +22,9 @@ namespace InputGlyphs.Display.Editor
 
             var glyphsLayoutDataProperty = serializedObject.FindProperty(nameof(InputGlyphImage.GlyphsLayoutData));
             EditorGUILayout.PropertyField(glyphsLayoutDataProperty);
+            
+            var glyphsControlSchemeProperty = serializedObject.FindProperty(nameof(InputGlyphImage.ControlScheme));
+            EditorGUILayout.PropertyField(glyphsControlSchemeProperty);
 
             var enableLayoutElementProperty = serializedObject.FindProperty(nameof(InputGlyphImage.EnableLayoutElement));
             EditorGUILayout.PropertyField(enableLayoutElementProperty);

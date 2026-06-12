@@ -35,7 +35,7 @@ namespace InputGlyphs.Loaders
         public bool LoadGlyph(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath)
         {
             var supportedDevice = activeDevices.OfType<Gamepad>().FirstOrDefault();
-            if (supportedDevice == null)
+            if (supportedDevice == null && InputLayoutPathUtility.GetRoot(inputLayoutPath) != "<Gamepad>")
             {
                 return false;
             }
@@ -48,7 +48,7 @@ namespace InputGlyphs.Loaders
             }
 
             var localPath = InputLayoutPathUtility.RemoveRoot(inputLayoutPath);
-            if (InputLayoutPathUtility.HasPathComponent(inputLayoutPath))
+            if (supportedDevice != null && InputLayoutPathUtility.HasPathComponent(inputLayoutPath))
             {
                 var control = supportedDevice.TryGetChildControl(inputLayoutPath);
                 if (control != null)

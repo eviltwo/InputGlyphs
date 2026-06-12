@@ -26,7 +26,7 @@ namespace InputGlyphs.Display
                 return false;
             }
 
-            if (activeDevices == null || activeDevices.Count == 0 || inputLayoutPaths == null || inputLayoutPaths.Count == 0)
+            if (activeDevices == null || inputLayoutPaths == null || inputLayoutPaths.Count == 0)
             {
                 return false;
             }

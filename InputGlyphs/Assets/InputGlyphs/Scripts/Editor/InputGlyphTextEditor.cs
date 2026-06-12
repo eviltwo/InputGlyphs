@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace InputGlyphs.Display.Editor
 {
-    [CustomEditor(typeof(InputGlyphText)), CanEditMultipleObjects]
+    [CustomEditor(typeof(InputGlyphText), editorForChildClasses: true), CanEditMultipleObjects]
     public class InputGlyphTextEditor : UnityEditor.Editor
     {
         private StringBuilder _stringBuilder = new StringBuilder();
@@ -45,8 +45,8 @@ namespace InputGlyphs.Display.Editor
             var playerInputError = false;
             foreach (var t in targets)
             {
-                var glyphImage = (InputGlyphText)t;
-                if (glyphImage.PlayerInput != null && !InputGlyphEditorUtility.ValidatePlayerInputNotificationBehavior(glyphImage.PlayerInput))
+                var glyphTextTarget = (InputGlyphText)t;
+                if (glyphTextTarget.PlayerInput != null && !InputGlyphEditorUtility.ValidatePlayerInputNotificationBehavior(glyphText.PlayerInput))
                 {
                     playerInputError = true;
                     break;

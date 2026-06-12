@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.0]
+### Changed
+- When loading a glyph fails, a solid-color or transparent image is now displayed instead.
+### Added
+- Added the ability to lock the Control Scheme displayed by InputGlyphImage, InputGlyphSprite, and InputGlyphText.
+
 ## [1.2.8]
 ### Fixed
 - Fixed an error that occurred when too many actions were assigned to Input Action References in Input Glyph Text.
