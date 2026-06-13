@@ -1,5 +1,6 @@
 #if INPUT_SYSTEM && ENABLE_INPUT_SYSTEM
 using System.Collections.Generic;
+using System.Linq;
 using InputGlyphs.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,7 +13,14 @@ namespace InputGlyphs
     /// </summary>
     public static class InputGlyphManager
     {
-        private static List<IInputGlyphLoader> _loaders = new List<IInputGlyphLoader>();
+        private static readonly List<IInputGlyphLoader> _loaders = new ();
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void RuntimeInitializeOnLoad()
+        {
+            // Required when Domain Reload is disabled.
+            _loaders.Clear();
+        }
 
         public static void RegisterLoader(IInputGlyphLoader loader)
         {
@@ -28,6 +36,11 @@ namespace InputGlyphs
             {
                 _loaders.Remove(loader);
             }
+        }
+
+        public static bool HasLoader<T>() where T : IInputGlyphLoader
+        {
+            return _loaders.Any(loader => loader.GetType() == typeof(T));
         }
 
         /// <summary>

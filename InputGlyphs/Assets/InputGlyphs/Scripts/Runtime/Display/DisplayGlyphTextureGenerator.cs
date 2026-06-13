@@ -11,9 +11,16 @@ namespace InputGlyphs.Display
     /// </summary>
     public static class DisplayGlyphTextureGenerator
     {
-        private static List<Texture2D> _textureBuffer = new List<Texture2D>();
+        private static readonly List<Texture2D> _textureBuffer = new ();
+        private static readonly List<string> _usedPathBuffer = new ();
         
-        private static List<string> _usedPathBuffer = new List<string>();
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void RuntimeInitializeOnLoad()
+        {
+            // Required when Domain Reload is disabled.
+            _textureBuffer.Clear();
+            _usedPathBuffer.Clear();
+        }
 
         /// <summary>
         /// Generates glyph texture for the specified inputLayoutPaths and writes it to the texture. The glyph textures are arranged according to the layout.

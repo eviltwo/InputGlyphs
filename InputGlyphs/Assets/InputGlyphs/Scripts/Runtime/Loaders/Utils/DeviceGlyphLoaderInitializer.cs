@@ -14,11 +14,9 @@ namespace InputGlyphs.Loaders.Utils
         [SerializeField]
         public InputGlyphTextureMap[] TextureMaps = null;
 
-        private static bool _initialized;
-
         private void Awake()
         {
-            if (_initialized)
+            if (InputGlyphManager.HasLoader<DeviceGlyphLoader<T>>())
             {
                 return;
             }

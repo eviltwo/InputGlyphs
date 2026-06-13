@@ -14,7 +14,7 @@ namespace InputGlyphs.Loaders.Utils
     public class DeviceGlyphLoader<T> : IInputGlyphLoader
         where T : InputDevice
     {
-        public readonly List<InputGlyphTextureMap> TextureMaps = new List<InputGlyphTextureMap>();
+        public readonly List<InputGlyphTextureMap> TextureMaps = new ();
 
         public bool LoadGlyph(Texture2D texture, IReadOnlyList<InputDevice> activeDevices, string inputLayoutPath)
         {
