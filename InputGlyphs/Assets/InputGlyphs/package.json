@@ -12,6 +12,14 @@
     "keywords": [
     ],
 
+    "samples": [
+        {
+            "displayName": "Input Glyphs Samples",
+            "description": "Sample scenes and scripts for Input Glyphs.",
+            "path": "Samples~/Input Glyphs Samples"
+        }
+    ],
+
     "dependencies": {
     }
 }
