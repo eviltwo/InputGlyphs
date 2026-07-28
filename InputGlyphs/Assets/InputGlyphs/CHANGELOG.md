@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0]
+### Changed
+- Replaced glyph images with Kenney's Input Prompts.
+### Added
+- Added a Generic Gamepad glyph map.
+- Added icons for components and map assets.
+
 ## [1.3.0]
 ### Changed
 - When loading a glyph fails, a solid-color or transparent image is now displayed instead.
