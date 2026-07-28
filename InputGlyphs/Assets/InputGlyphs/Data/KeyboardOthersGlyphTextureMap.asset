@@ -14,68 +14,86 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TextureDetails:
   - InputLayoutLocalPath: alt
-    GlyphTexture: {fileID: 2800000, guid: 168306f26381271489db642de9904fed, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: fe2d321ebc94f5d47870dfab9fc39ee6, type: 3}
+  - InputLayoutLocalPath: anyKey
+    GlyphTexture: {fileID: 2800000, guid: 6f606105ff0dfc1488276b3f66c643cf, type: 3}
   - InputLayoutLocalPath: upArrow
-    GlyphTexture: {fileID: 2800000, guid: 44ad03130c8529d4eb1e7ce6d473091b, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 5e31c2fc6514d37489afa6e8aab86bde, type: 3}
   - InputLayoutLocalPath: downArrow
-    GlyphTexture: {fileID: 2800000, guid: 8a171e2b1f2a5714eb36f3e88f2215fe, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: f4d7b474471965d4ea4159a1931939ee, type: 3}
   - InputLayoutLocalPath: rightArrow
-    GlyphTexture: {fileID: 2800000, guid: accd80c7c1a45aa44a7979530fcde059, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 0188a238815ad77478e56352bc5f8c24, type: 3}
   - InputLayoutLocalPath: leftArrow
-    GlyphTexture: {fileID: 2800000, guid: 7431e7891a9a8d44c88f5f7fa00185b7, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: ad53007feeb44e346ad7fdda9a69999e, type: 3}
+  - InputLayoutLocalPath: backslash
+    GlyphTexture: {fileID: 2800000, guid: b9f6910014816ff4aab7ec769995be85, type: 3}
   - InputLayoutLocalPath: backspace
-    GlyphTexture: {fileID: 2800000, guid: 02b374b67fa98ad40a713c379d38ee8f, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: d703041feffa0bf4890dffd133a8bcbc, type: 3}
   - InputLayoutLocalPath: capsLock
-    GlyphTexture: {fileID: 2800000, guid: 0841ca680ed80d74fb06cdc9c895bc0a, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: ddf5c24b034b22b4a8f764723802b8b7, type: 3}
+  - InputLayoutLocalPath: comma
+    GlyphTexture: {fileID: 2800000, guid: a8fbf71a27063a4479db9447de3a7f0c, type: 3}
   - InputLayoutLocalPath: command
-    GlyphTexture: {fileID: 2800000, guid: e2af918d0ddf39a45ba6be6332d29f55, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 643c9868f099bc64e83cb4c8c678cbcf, type: 3}
   - InputLayoutLocalPath: ctrl
-    GlyphTexture: {fileID: 2800000, guid: edbe2d9362636654195158686db24607, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: b0b677cc92cd22d4db39cdcf1731cc81, type: 3}
   - InputLayoutLocalPath: delete
-    GlyphTexture: {fileID: 2800000, guid: 0b949ddbb63a7c24b90307b6cb6fba0c, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 11010870f08084a41ac7cdfc460a456d, type: 3}
   - InputLayoutLocalPath: end
-    GlyphTexture: {fileID: 2800000, guid: e0c5a3f7f8654fb4fa0f905aac641fbd, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 3c7fd540c4838714a8dd58998cc796e5, type: 3}
   - InputLayoutLocalPath: enter
-    GlyphTexture: {fileID: 2800000, guid: 938d864f86015bd4998c29653ac90cf7, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 0b0581efb0b97f44691e5d200cab965d, type: 3}
   - InputLayoutLocalPath: escape
-    GlyphTexture: {fileID: 2800000, guid: 498c4a92c203f4a48a330f9bb47b51a3, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 28731ecfd79a7d14fa1fee5b036a463b, type: 3}
   - InputLayoutLocalPath: home
-    GlyphTexture: {fileID: 2800000, guid: d17095152db8e9b40ac7b50326749f12, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: b74c829fc3a6e32449e9c8302ed57a2a, type: 3}
   - InputLayoutLocalPath: insert
-    GlyphTexture: {fileID: 2800000, guid: 95d88f168dc9c8e408af721ff02c1bb2, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: d1a16606b7bd8cd4b9005127c47da5f7, type: 3}
+  - InputLayoutLocalPath: leftBracket
+    GlyphTexture: {fileID: 2800000, guid: 49f8504cb8e320b49b6ec0a9e842856a, type: 3}
   - InputLayoutLocalPath: leftCtrl
-    GlyphTexture: {fileID: 2800000, guid: edbe2d9362636654195158686db24607, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: b0b677cc92cd22d4db39cdcf1731cc81, type: 3}
   - InputLayoutLocalPath: leftMeta
-    GlyphTexture: {fileID: 2800000, guid: e3b6f9def33b99042aed603f34efd4b5, type: 3}
-  - InputLayoutLocalPath: leftMeta
-    GlyphTexture: {fileID: 2800000, guid: e3b6f9def33b99042aed603f34efd4b5, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: f1e257c21b80eb841889b290640133de, type: 3}
   - InputLayoutLocalPath: leftShift
-    GlyphTexture: {fileID: 2800000, guid: c972be4189e9f7e458b44c68bf95e33d, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 445397f6498d7274f8b0b9f6de232b57, type: 3}
   - InputLayoutLocalPath: minus
-    GlyphTexture: {fileID: 2800000, guid: cce34d1311ed93343b0ea8027e49732d, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 50dd60fe962325840aa51d6bfae46254, type: 3}
   - InputLayoutLocalPath: numLock
-    GlyphTexture: {fileID: 2800000, guid: 20ab44c29f34b234880c4eb21bbfaaf1, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 794b831f26350bc469c35355fc7c52b3, type: 3}
+  - InputLayoutLocalPath: numpadEnter
+    GlyphTexture: {fileID: 2800000, guid: e632568a72d8459469dd068e48a59a14, type: 3}
+  - InputLayoutLocalPath: numpadPlus
+    GlyphTexture: {fileID: 2800000, guid: 3767e60a4bd0d13428e17014fab37a1c, type: 3}
   - InputLayoutLocalPath: pageDown
-    GlyphTexture: {fileID: 2800000, guid: 2676111023b0ff743ae3d7accfac2fe2, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: bb48337f132062b42b97faf14ff42212, type: 3}
   - InputLayoutLocalPath: pageUp
-    GlyphTexture: {fileID: 2800000, guid: 7f600f7267847f04aa4c2d040ab8abbd, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: f3f417d70282cfc46814f37d46bb0203, type: 3}
+  - InputLayoutLocalPath: pause
+    GlyphTexture: {fileID: 2800000, guid: 9d1fcd91e392efc4f8e4b2bc748d9d00, type: 3}
   - InputLayoutLocalPath: printScreen
-    GlyphTexture: {fileID: 2800000, guid: 39e79578966ce6648bcb39a0d4bb0bed, type: 3}
-  - InputLayoutLocalPath: prus
-    GlyphTexture: {fileID: 2800000, guid: f347a0adfe49fe143ac1881ed5ca0180, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 3db86401ccd38e644b158b5f8552d66f, type: 3}
+  - InputLayoutLocalPath: plus
+    GlyphTexture: {fileID: 2800000, guid: 949bb544d8c4d0a41be7073a40e736c9, type: 3}
   - InputLayoutLocalPath: quote
-    GlyphTexture: {fileID: 2800000, guid: 8de0f0b7b973e3a4b80c815005374448, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 927c457d121f9414db7bd01bcde73165, type: 3}
+  - InputLayoutLocalPath: rightBracket
+    GlyphTexture: {fileID: 2800000, guid: 767007896f008ea4ba9501c6216e1417, type: 3}
   - InputLayoutLocalPath: rightCtrl
-    GlyphTexture: {fileID: 2800000, guid: edbe2d9362636654195158686db24607, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: b0b677cc92cd22d4db39cdcf1731cc81, type: 3}
+  - InputLayoutLocalPath: rightMeta
+    GlyphTexture: {fileID: 2800000, guid: f1e257c21b80eb841889b290640133de, type: 3}
   - InputLayoutLocalPath: rightShift
-    GlyphTexture: {fileID: 2800000, guid: c972be4189e9f7e458b44c68bf95e33d, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 445397f6498d7274f8b0b9f6de232b57, type: 3}
+  - InputLayoutLocalPath: scrollLock
+    GlyphTexture: {fileID: 2800000, guid: 7c8f78e089eb3cc47bdc8333fff44601, type: 3}
   - InputLayoutLocalPath: semicolon
-    GlyphTexture: {fileID: 2800000, guid: aa79328ac6294b548a4da66fc047ad50, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 93ff98197bcfcf84b8a8aa3361f7541f, type: 3}
   - InputLayoutLocalPath: shift
-    GlyphTexture: {fileID: 2800000, guid: c972be4189e9f7e458b44c68bf95e33d, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 445397f6498d7274f8b0b9f6de232b57, type: 3}
   - InputLayoutLocalPath: slash
-    GlyphTexture: {fileID: 2800000, guid: 359a411eb81be4746a2cb37c86898c64, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 9bf001bf65f6ca14ba9a4ac6fff3bb2a, type: 3}
   - InputLayoutLocalPath: space
-    GlyphTexture: {fileID: 2800000, guid: 2bb986ec2ce51164abba3089b386868f, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 223e070bc72aeb24cbf9122638d45583, type: 3}
   - InputLayoutLocalPath: tab
-    GlyphTexture: {fileID: 2800000, guid: 93823c045dd14d8429ee9a2f2e613de6, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: 4c11d85b012d7ed48971e66884c5dbaf, type: 3}

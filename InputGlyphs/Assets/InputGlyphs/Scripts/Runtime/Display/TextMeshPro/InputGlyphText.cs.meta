@@ -8,7 +8,7 @@ MonoImporter:
   - Material: {fileID: 2100000, guid: ea49b1babf7e91f4293973bff501c8ae, type: 2}
   - PlayerInput: {instanceID: 0}
   executionOrder: 0
-  icon: {instanceID: 0}
+  icon: {fileID: 2800000, guid: c7e28274dd9be85478dd4360182a58c6, type: 3}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

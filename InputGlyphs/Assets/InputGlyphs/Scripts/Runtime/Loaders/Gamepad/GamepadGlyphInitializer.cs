@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace InputGlyphs.Loaders
 {
+    [AddComponentMenu("InputGlyphs/Initializer/GamepadGlyphInitializer")]
     public class GamepadGlyphInitializer : MonoBehaviour
     {
         [SerializeField]
