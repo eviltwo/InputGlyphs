@@ -2,18 +2,17 @@ using UnityEngine;
 
 namespace InputGlyphs.Loaders
 {
+    [AddComponentMenu("InputGlyphs/Initializer/SteamGamepadGlyphInitializer")]
     public class SteamGamepadGlyphInitializer : MonoBehaviour
     {
 #if STEAMWORKS_NET && !DISABLESTEAMWORKS && SUPPORT_ADAPTER
-        private static bool _initialized;
-
         private void Awake()
         {
-            if (_initialized)
+            if (InputGlyphManager.HasLoader<SteamGamepadGlyphLoader>())
             {
                 return;
             }
-            _initialized = true;
+            
             var loader = new SteamGamepadGlyphLoader();
             InputGlyphManager.RegisterLoader(loader);
         }

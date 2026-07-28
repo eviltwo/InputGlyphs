@@ -13,6 +13,7 @@ using UnityEngine.TextCore;
 
 namespace InputGlyphs.Display
 {
+    [AddComponentMenu("InputGlyphs/Display/InputGlyphText")]
     public class InputGlyphText : MonoBehaviour
     {
         [SerializeField]

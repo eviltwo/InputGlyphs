@@ -1,14 +1,20 @@
 #if INPUT_SYSTEM && ENABLE_INPUT_SYSTEM
 using System.Collections.Generic;
-using System.Text;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace InputGlyphs.Utils
 {
     public static class InputLayoutPathUtility
     {
-        private static StringBuilder _stringBuilder = new StringBuilder();
-        private static List<int> _bindingIndexBuffer = new List<int>();
+        private static readonly List<int> _bindingIndexBuffer = new ();
+        
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void RuntimeInitializeOnLoad()
+        {
+            // Required when Domain Reload is disabled.
+            _bindingIndexBuffer.Clear();
+        }
 
         public static string GetRoot(string inputControlPath)
         {

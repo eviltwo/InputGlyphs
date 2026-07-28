@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 namespace InputGlyphs.Display
 {
+    [AddComponentMenu("InputGlyphs/Display/InputGlyphImage")]
     public class InputGlyphImage : UIBehaviour, ILayoutElement
     {
         [SerializeField]

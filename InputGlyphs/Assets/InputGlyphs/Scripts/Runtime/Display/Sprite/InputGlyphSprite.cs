@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 
 namespace InputGlyphs.Display
 {
+    [AddComponentMenu("InputGlyphs/Display/InputGlyphsSprite")]
     public class InputGlyphSprite : MonoBehaviour
     {
         [SerializeField]

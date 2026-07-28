@@ -13,15 +13,19 @@ MonoBehaviour:
   m_Name: MouseGlyphTextureMap
   m_EditorClassIdentifier: 
   TextureDetails:
-  - InputLayoutLocalPath: rightButton
-    GlyphTexture: {fileID: 2800000, guid: fef54849bfe4063459efe2269f7dfb73, type: 3}
-  - InputLayoutLocalPath: leftButton
-    GlyphTexture: {fileID: 2800000, guid: 8cd227e6a9cc1f04e973f8302c652682, type: 3}
-  - InputLayoutLocalPath: middleButton
-    GlyphTexture: {fileID: 2800000, guid: 67be01825da42074d8bba970aa8227e3, type: 3}
-  - InputLayoutLocalPath: scroll
-    GlyphTexture: {fileID: 2800000, guid: 67be01825da42074d8bba970aa8227e3, type: 3}
-  - InputLayoutLocalPath: position
-    GlyphTexture: {fileID: 2800000, guid: ee846bf776f983644ab742d4bafce18b, type: 3}
+  - InputLayoutLocalPath: backButton
+    GlyphTexture: {fileID: 2800000, guid: 6005fd528a3d309498c6ebfd6e14bd2d, type: 3}
   - InputLayoutLocalPath: delta
-    GlyphTexture: {fileID: 2800000, guid: ee846bf776f983644ab742d4bafce18b, type: 3}
+    GlyphTexture: {fileID: 2800000, guid: f7773abdbf6efd7428523463a4cf2ba2, type: 3}
+  - InputLayoutLocalPath: forwardButton
+    GlyphTexture: {fileID: 2800000, guid: d74d344c989d942448d694bb771c7a4f, type: 3}
+  - InputLayoutLocalPath: leftButton
+    GlyphTexture: {fileID: 2800000, guid: 5ceafc04ea70d084594bf1f2151e2858, type: 3}
+  - InputLayoutLocalPath: middleButton
+    GlyphTexture: {fileID: 2800000, guid: 6f6a175f8b6d5614c8923b991df2c66d, type: 3}
+  - InputLayoutLocalPath: rightButton
+    GlyphTexture: {fileID: 2800000, guid: 65c58921de8483447a6a43d976183509, type: 3}
+  - InputLayoutLocalPath: position
+    GlyphTexture: {fileID: 2800000, guid: f7773abdbf6efd7428523463a4cf2ba2, type: 3}
+  - InputLayoutLocalPath: scroll
+    GlyphTexture: {fileID: 2800000, guid: a87d28567bea68440bf55b4b082d03a6, type: 3}
