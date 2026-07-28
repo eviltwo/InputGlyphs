@@ -14,6 +14,14 @@
       "dependencies": {},
       "hash": "a3fe8091f7237eef3f38becc3faa29b2dc6f9ce9"
     },
+    "com.unity.asset-store-tools": {
+      "version": "file:com.unity.asset-store-tools",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1"
+      }
+    },
     "com.unity.burst": {
       "version": "1.8.21",
       "depth": 1,
