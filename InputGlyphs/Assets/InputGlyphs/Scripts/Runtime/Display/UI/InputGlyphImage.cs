@@ -181,6 +181,13 @@ namespace InputGlyphs.Display
 
         public virtual float minHeight => -1;
 
+#if UNITY_6000_6_OR_NEWER
+        // Unity 6.6 adds maximum dimensions to ILayoutElement.
+        // -1 preserves the previous unconstrained layout behavior.
+        public virtual float maxWidth => -1;
+        public virtual float maxHeight => -1;
+#endif
+
         public virtual float preferredWidth
         {
             get
