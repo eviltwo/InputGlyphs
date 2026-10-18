@@ -1,4 +1,7 @@
 # Changelog
+## [1.4.1]
+### Fixed
+- Support ILayoutElement max size in Unity 6.6.
 
 ## [1.4.0]
 ### Changed
